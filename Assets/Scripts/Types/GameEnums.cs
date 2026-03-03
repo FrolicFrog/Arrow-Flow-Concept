@@ -27,6 +27,11 @@ namespace ArrowFlowGame.Types
         YES,
         NO
     }
+    public enum GIANT
+    {
+        YES,
+        NO
+    }
 
     public enum CrowdElementType
     {
@@ -34,13 +39,4 @@ namespace ArrowFlowGame.Types
         KEY
     }
 
-    public enum Directions
-    {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT,
-        FORWARD,
-        BACKWARD
-    }
 }

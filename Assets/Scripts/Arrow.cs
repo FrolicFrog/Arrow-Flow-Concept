@@ -12,6 +12,7 @@ public class Arrow : Spawnable
     private Transform Target;
     private ItemType ArrowType;
     private Action OnReachTarget;
+    public override void OnSpawn() {}
 
     public override void Init(ItemType type, Transform target, Action OnReachTarget = null)
     {
@@ -21,10 +22,6 @@ public class Arrow : Spawnable
         ArrowType = type;
         Target = target;
         this.OnReachTarget = OnReachTarget;
-    }
-
-    public override void OnSpawn()
-    {
     }
 
     private void Update()

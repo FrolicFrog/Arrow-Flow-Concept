@@ -29,6 +29,8 @@ public class LevelEditor : EditorWindow
     private ToolbarOption<ItemType> ItemTypeToolbar = new ToolbarOption<ItemType>(ItemType.RED, "Arrow Type:", false);
     private ToolbarOption<Hits> HitsToolbar = new ToolbarOption<Hits>(Hits.ONE, "Hits:", true);
     private ToolbarOption<KEYED> KeyedToolbar = new ToolbarOption<KEYED>(KEYED.YES, "Is Keyed:", true);
+    private ToolbarOption<GIANT> GiantToolbar = new ToolbarOption<GIANT>(GIANT.YES, "Is Giant:", true);
+
 
 
     [MenuItem("Arrow Flow/Level Editor")]
@@ -136,6 +138,7 @@ public class LevelEditor : EditorWindow
         ItemTypeToolbar.DrawToolbar();
         HitsToolbar.DrawToolbar();
         KeyedToolbar.DrawToolbar();
+        GiantToolbar.DrawToolbar();
         GUILayout.Space(10);
 
         GUIStyle idStyle = new GUIStyle(GUI.skin.label)
@@ -169,6 +172,7 @@ public class LevelEditor : EditorWindow
                     element.Type = ItemTypeToolbar.Value;
                     element.RequiredHits = (int)HitsToolbar.Value;
                     element.IsKeyed = KeyedToolbar.Value == KEYED.YES;
+                    element.IsGiant = GiantToolbar.Value == GIANT.YES;
                 }
 
                 GUI.color = oldColor;

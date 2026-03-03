@@ -62,5 +62,6 @@ namespace ArrowFlowGame.Types
         public Vector2Int GridPosition;
         public int RequiredHits = 1;
         public bool IsKeyed = false;
+        public bool IsGiant = false;
     }
 }
