@@ -1,0 +1,1154 @@
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Arrow.cs =====
+using System;
+using ArrowFlowGame.Types;
+using DG.Tweening;
+using UnityEngine;
+
+public class Arrow : Spawnable
+{
+    [Header("References")]
+    public Renderer[] Renderers;
+    public float ArrowSpeed = 50f;
+
+    private Transform Target;
+    private ItemType ArrowType;
+    private Action OnReachTarget;
+
+    public override void Init(ItemType type, Transform target, Action OnReachTarget = null)
+    {
+        foreach(Renderer r in Renderers)
+            r.material = ReferenceManager.Instance.ItemMats.GetMaterial(type);
+
+        ArrowType = type;
+        Target = target;
+        this.OnReachTarget = OnReachTarget;
+    }
+
+    public override void OnSpawn()
+    {
+    }
+
+    private void Update()
+    {
+        if(Target == null) return;
+        transform.position = Vector3.MoveTowards(transform.position, Target.transform.position, Time.deltaTime * ArrowSpeed);
+        transform.LookAt(Target);
+
+        if(Vector3.Distance(transform.position, Target.transform.position) < 0.1f)
+        {
+            OnReachTarget?.Invoke();
+        }
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\ArrowSocket.cs =====
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using ArrowFlowGame.Types;
+using UnityEngine;
+using UnityEngine.Splines;
+
+public class ArrowSocket : MonoBehaviour
+{
+    [Header("References")]
+    public Spawnable ArrowPrefab;
+    public SplineAnimate SplineAnimator;
+    public MeshRenderer ArrowRenderer;
+
+    public bool IsOccupied;
+    public bool IsReady;
+    public ItemType CurType { get; private set; }
+
+    public static ArrowSocket CreateArrowSocket(ArrowSocket Prefab, SplineContainer Container, float Offset)
+    {
+        ArrowSocket socket = Instantiate(Prefab);
+        socket.SplineAnimator.Container = Container;
+        socket.SplineAnimator.StartOffset = Offset;
+        socket.SplineAnimator.Play();
+
+        return socket;
+    }
+
+    public void Occupied()
+    {
+        IsOccupied = true;
+    }
+
+    private void Update()
+    {
+        if(IsReady && IsFacingCrowd())
+        {
+            List<CrowdElement> FrontRow = CrowdManager.Instance.CurFront;
+            foreach(CrowdElement elem in FrontRow)
+            {
+                if (elem == null) continue;
+                if (elem is Person person)
+                {
+                    if(person.Type == CurType && !person.AlreadyTarget)
+                    {
+                        person.AlreadyTarget = true;
+
+                        Spawnable Arrow = Instantiate(ArrowPrefab, transform.position, Quaternion.identity);
+                        Arrow.Init(CurType, person.transform, () => 
+                        {
+                            Destroy(person.gameObject);
+                            Destroy(Arrow.gameObject);
+                            CrowdManager.Instance.RemoveCrowdElement(elem);
+                        });
+
+                        BeltManager.Instance.SetSocketEmpty(this);
+                        break;
+                    }    
+                }
+            }
+        }
+    }
+
+    private bool IsFacingCrowd()
+    {
+        Vector3 directionToTarget = (GridManager.Instance.Origin.position - transform.position).normalized;
+        Vector3 forward = -transform.up;
+        float dot = Vector3.Dot(forward, directionToTarget);
+
+        return dot > 0f;
+    }
+
+    public void Ready(ItemType Type)
+    {
+        Material ArrowMat = ReferenceManager.Instance.ItemMats.GetMaterial(Type);
+        Material ArrowBodyMat = ReferenceManager.Instance.ArrowBodyMats.GetMaterial(Type);
+        Material[] MatArr = new Material[3];
+        MatArr[0] = ArrowMat;
+        MatArr[1] = ArrowBodyMat;
+        MatArr[2] = ArrowMat;
+
+        CurType = Type;
+        ArrowRenderer.materials = MatArr;
+        ArrowRenderer.enabled = true;
+        IsReady = true;
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\ClickDetector.cs =====
+using UnityEngine;
+
+public class ClickDetector : MonoBehaviour
+{
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if(Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if(hit.collider.TryGetComponent(out IClickable clickable))
+                {
+                    clickable.OnClick();
+                }
+            }
+        }
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Item.cs =====
+using UnityEngine;
+using ArrowFlowGame.Types;
+using DG.Tweening;
+using System;
+using TMPro;
+
+public class Item: MonoBehaviour, IClickable
+{
+    [Header("REFERENCES")]
+    public MeshRenderer Renderer;
+    public Spawnable ItemToSpawn;
+    public TextMeshPro CountLabel;
+
+    [Header("ANIMATIONS")]
+    public float SpawnDelay = 0.1f;
+    public float RotationSpeed = 20f;
+    public float ScaleMultiplier = 1f;
+    public float ScaleAnimationDuration = 2f;
+
+    private ItemType Type;
+    private VisualRows Row;
+    private string Id;
+    private int SpawnCount;
+    private int _LeftToSpawn;
+    private int LeftToSpawn
+    {
+        get { return _LeftToSpawn; }
+        set 
+        { 
+            _LeftToSpawn = Mathf.Max(0,value);
+            CountLabel.text = _LeftToSpawn.ToString();
+        }
+    }
+
+    private bool IsClicked = false;
+
+    public void Init(ItemData data, VisualRows Row)
+    {
+        Type = data.Type;
+        Id = data.Id;
+        SpawnCount = data.SpawnCount;
+        LeftToSpawn = SpawnCount;
+
+        Renderer.material = ReferenceManager.Instance.ItemMats.GetMaterial(data.Type);
+        this.Row = Row;
+    }
+
+    public void OnClick()
+    {
+        if(Row.FrontItem != this || IsClicked) 
+            return;
+
+        IsClicked = true;
+
+        transform
+        .DOScale(transform.localScale * ScaleMultiplier, ScaleAnimationDuration)
+        .SetLoops(2, LoopType.Yoyo);
+
+        Sequence seq = DOTween.Sequence();
+        
+        for(int i = 0; i < SpawnCount; i++)
+        {
+            seq.AppendCallback(SpawnItem);
+            if(i < SpawnCount - 1)
+                seq.AppendInterval(SpawnDelay);
+        }
+
+        seq.OnComplete(() =>
+        {
+            Row.Dequeue();
+            Row.MoveToNext();
+            Destroy(gameObject);
+        });
+    }
+
+    private void SpawnItem()
+    {
+        if(BeltManager.TryGetSocket(transform.position, out ArrowSocket Socket))
+        {
+            Socket.Occupied();
+            Quaternion LookRot = Quaternion.LookRotation(Socket.transform.position - transform.position);
+            Quaternion TargetRot = Quaternion.Euler(transform.rotation.x, LookRot.eulerAngles.y, transform.rotation.z);
+            transform.rotation = Quaternion.Slerp(transform.rotation, TargetRot, Time.deltaTime * RotationSpeed);
+            Spawnable spawnable = Instantiate(ItemToSpawn, transform.position, Quaternion.identity);
+            spawnable.Init(Type, Socket.transform, () =>
+            {
+                BeltManager.Instance.SetSocketReady(Socket, Type);
+                Destroy(spawnable.gameObject);
+            });
+            
+            LeftToSpawn--;
+        }
+        else
+        {
+            Debug.LogError("No Socket Found for Arrow! Probably Game Over");
+        }
+    }
+
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Person.cs =====
+using System;
+using UnityEngine;
+
+public class Person : CrowdElement
+{
+    public Animator Anim;
+    public bool IsWalking
+    {
+        set
+        {
+            Anim.SetBool("IsWalking", value);
+        }
+    }
+
+    public bool AlreadyTarget {get; set;}
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Abstracts\CrowdElement.cs =====
+using System;
+using ArrowFlowGame.Types;
+using UnityEngine;
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
+[Serializable]
+public class CrowdElement : MonoBehaviour
+{
+    [Header("REFERENCES")]
+    public Renderer[] Renderers;
+    public ItemType Type {get; private set;}
+    public Vector2Int GridPos;
+
+    public void Init(CrowdElementData crowdElement)
+    {
+        Material Mat = ReferenceManager.Instance.ItemMats.GetMaterial(crowdElement.Type);
+        Array.ForEach(Renderers, r => r.material = Mat);
+        Type = crowdElement.Type;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+#if UNITY_EDITOR
+        Handles.Label(transform.position + Vector3.up * 1.5f, GridPos.x + " , " + GridPos.y);
+#endif
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Abstracts\Singleton.cs =====
+using UnityEngine;
+
+public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
+{
+    public static T Instance { get; private set; } 
+
+    protected virtual void Awake()
+    {
+        if (Instance == null) 
+        Instance = this as T;
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Abstracts\Spawnable.cs =====
+using System;
+using ArrowFlowGame.Types;
+using UnityEngine;
+
+public abstract class Spawnable : MonoBehaviour
+{
+    public abstract void Init(ItemType type, Transform target, Action OnReachTarget = null);
+    public abstract void OnSpawn();
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Managers\BeltManager.cs =====
+using System;
+using System.Collections.Generic;
+using ArrowFlowGame.Types;
+using TMPro;
+using UnityEngine;
+using UnityEngine.Splines;
+
+public class BeltManager : Singleton<BeltManager>
+{
+    [Header("References")]
+    public TextMeshPro CurCapacityText;
+    public ArrowSocket ArrowSocketPrefab;
+    public SplineContainer SplineContain;
+
+    [Header("Settings")]
+    [Range(1,90)]
+    public int TotalSockets;
+    public int CurOccupied;
+
+
+    private readonly List<ArrowSocket> Sockets = new();
+
+    private void Start()
+    {
+        float Offset = (float)1 / TotalSockets;
+        for(int i = 0; i < TotalSockets; i++)
+        {
+            ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i);
+            Sockets.Add(Socket);
+        }
+    }
+
+    public static bool TryGetSocket(Vector3 Pos, out ArrowSocket Socket)
+    {
+        Socket = null;
+        float Distance = float.MaxValue;
+
+        foreach(ArrowSocket s in Instance.Sockets)
+        {
+            if(s == null) continue;
+            if(s.IsOccupied) continue;
+
+            float d = Vector3.Distance(Pos, s.transform.position);
+            if(d < Distance)            
+            {
+                Distance = d;
+                Socket = s;
+            }
+        }
+        
+        return Socket != null;
+    }
+
+    public void SetSocketReady(ArrowSocket target, ItemType arrowType)
+    {
+        target.Ready(arrowType);
+        CurOccupied++;
+        CurCapacityText.text = CurOccupied.ToString() + "/" + TotalSockets.ToString();
+    }
+
+    public void SetSocketEmpty(ArrowSocket arrowSocket)
+    {
+        arrowSocket.IsReady = false;
+        arrowSocket.IsOccupied = false;
+        arrowSocket.ArrowRenderer.enabled = false;
+        
+        CurOccupied--;
+        CurCapacityText.text = CurOccupied.ToString() + "/" + TotalSockets.ToString();
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Managers\CrowdManager.cs =====
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using DG.Tweening;
+using UnityEngine;
+
+public class CrowdManager : Singleton<CrowdManager>
+{
+    [TextArea(3, 5)]
+    public string DebugText;
+    private readonly Dictionary<Vector2Int, CrowdElement> CrowdElements = new();
+    private List<List<CrowdElement>> CrowdGrid = new();
+
+    public List<CrowdElement> CurFront => GetFrontRow();
+    public CrowdElement GetElementByGridIdx(Vector2Int GridIdx) => CrowdElements.TryGetValue(GridIdx, out CrowdElement element) ? element : null;
+    public void RegisterElement(Vector2Int GridIdx, CrowdElement Element) => CrowdElements.Add(GridIdx, Element);
+
+    public void RegisterGrid(List<List<CrowdElement>> crowdGrid)
+    {
+        CrowdGrid = new();
+
+        foreach (List<CrowdElement> row in crowdGrid)
+            CrowdGrid.Add(row.Reverse<CrowdElement>().ToList());
+    }
+
+    private List<CrowdElement> GetFrontRow()
+    {
+        List<CrowdElement> frontRow = new();
+        foreach (List<CrowdElement> row in CrowdGrid)
+        {
+            foreach (var ele in row)
+            {
+                if (ele == null) continue;
+                frontRow.Add(ele);
+                break;
+            }
+        }
+
+        return frontRow;
+    }
+
+    public void RemoveCrowdElement(CrowdElement Element)
+    {
+        foreach (List<CrowdElement> row in CrowdGrid)
+        {
+            for (int i = 0; i < row.Count; i++)
+            {
+                if (row[i] == Element)
+                {
+                    row[i] = null;
+                    AdjustCrowd(Element);
+                    return;
+                }
+            }
+        }
+    }
+
+    private void AdjustCrowd(CrowdElement element)
+    {
+        Vector2Int[] directions = { new(0, -1), new(1, -1) };
+
+        foreach (var dir in directions)
+        {
+            Vector2Int checkPos = element.GridPos + dir;
+
+            if (CrowdElements.TryGetValue(checkPos, out CrowdElement crowdElement))
+            {
+                CrowdElements.Remove(checkPos);
+                AdjustCrowd(crowdElement);
+
+                crowdElement.GridPos = element.GridPos;
+                CrowdElements[element.GridPos] = crowdElement; 
+
+                if(crowdElement is Person person)
+                {
+                    person.transform.DOLocalMove(element.transform.localPosition, 0.5f)
+                    .OnStart(() => person.IsWalking = true)
+                    .OnComplete(() => person.IsWalking = false);
+                }
+
+                break;
+            }
+        }
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Managers\GridManager.cs =====
+using UnityEngine;
+
+public class GridManager: Singleton<GridManager>
+{
+    [Header("References")]
+    public Grid GridSystem;
+    public Transform Origin;
+
+    public Vector3 GetPosition(Vector3Int Index)
+    {
+        return Origin.position + GridSystem.GetCellCenterWorld(Index);
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Managers\LevelManager.cs =====
+using System;
+using UnityEngine;
+using ArrowFlowGame.Types;
+using System.Collections.Generic;
+
+public class LevelManager : Singleton<LevelManager>
+{
+    [HideInInspector] public int TestLevelToLoad = 1;
+
+    [Header("REFERENCES")]
+    [SerializeField] private Item ItemPrefab;
+    [SerializeField] private CrowdElement CrowdElementPrefab;
+
+    [Header("SETTINGS")]
+    [Space(10)]
+
+    [Header("Grid Settings")]
+    public Vector2 GridSpacing;
+    public Transform GridPos;
+
+    private LevelData _LevelData;
+    private int _CurrentLevelNumber;
+    private VisualRows[] RowsTransform;
+
+    private void Start()
+    {
+#if !UNITY_EDITOR
+        Manager.Instance.TestMode = false;   
+#endif
+
+        int CurrentLevel = Manager.Instance.TestMode ? TestLevelToLoad : PlayerPrefs.GetInt("LastLevel", 1);
+        _LevelData = Resources.Load<LevelData>($"Levels/{CurrentLevel}");
+        _CurrentLevelNumber = CurrentLevel;
+
+        if ((_LevelData == null || _CurrentLevelNumber > Constants.LAST_LEVEL) && !Manager.Instance.TestMode)
+        {
+            int LevelNumber = Utilities.GetRandomFakeLvl();
+            _LevelData = Resources.Load<LevelData>($"Levels/{LevelNumber}");
+        }
+
+        SpawnItems();
+        SpawnCrowdElements();
+    }
+
+    private void SpawnCrowdElements()
+    {
+        CrowdSpawnData CrowData = _LevelData.CrowdData;
+        Vector2Int HalfSize = new(CrowData.Width / 2, CrowData.Height / 2);
+        List<List<CrowdElement>> CrowdGrid = new();
+        
+        for (int i = 0; i < CrowData.Width; i++)
+        {
+            CrowdGrid.Add(new List<CrowdElement>());
+            for (int j = 0; j < CrowData.Height; j++)
+            {
+                int flippedJ = CrowData.Height - 1 - j;
+
+                Vector3Int GridIdx = new(i - HalfSize.x, flippedJ - HalfSize.y, 0);
+                Vector3 Pos = GridManager.Instance.GetPosition(GridIdx);
+
+                CrowdElement CrowdEle = Instantiate(CrowdElementPrefab, Pos, Quaternion.identity);
+                CrowdEle.name = CrowData.CrowdGrid[i, j].Type.ToString();
+                CrowdEle.Init(CrowData.CrowdGrid[i, j]);
+                CrowdEle.GridPos = new Vector2Int(i, j);
+                CrowdManager.Instance.RegisterElement(new Vector2Int(i, j), CrowdEle);
+                CrowdGrid[i].Add(CrowdEle);
+            }
+        }
+
+        CrowdManager.Instance.RegisterGrid(CrowdGrid);
+    }
+    
+    private void SpawnItems()
+    {
+        ItemSpawnData SpawnData = _LevelData.ItemsData;
+        int RowCount = SpawnData.RowsCount;
+
+        RowsTransform = new VisualRows[RowCount];
+
+        float TotalWidth = (RowCount - 1) * GridSpacing.x;
+        float StartOffset = -TotalWidth / 2f;
+
+        for (int i = 0; i < RowCount; i++)
+        {
+            Transform RowParent = new GameObject($"Row {i}").transform;
+            ItemsRow Items = SpawnData.Rows[i];
+
+            int MaxMovementTimes = Items.Count - 1;
+
+            RowsTransform[i] = new VisualRows(RowParent, GridSpacing, MaxMovementTimes);
+
+            for (int j = 0; j < Items.Count; j++)
+            {
+                Vector3 offset = new(StartOffset + GridSpacing.x * i, 0, -GridSpacing.y * j);
+                Item ItemClone = Instantiate(ItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
+                ItemClone.Init(Items[j], RowsTransform[i]);
+
+                RowsTransform[i].Add(ItemClone);
+            }
+        }
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Managers\Manager.cs =====
+using UnityEngine;
+
+public class Manager: Singleton<Manager>
+{
+    [Header("Game Settings")]
+    public bool TestMode = false;
+
+    [Range(-1,120)]
+    public int TargetFPS = 60;
+
+    [Header("Fake Infinite Levels")]
+    public int MaxLvl = 40;
+    public int MinLvl = 4;
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Managers\ReferenceManager.cs =====
+using UnityEngine;
+using ArrowFlowGame.Types;
+
+public class ReferenceManager : Singleton<ReferenceManager>
+{
+    public ItemMaterials ItemMats;
+    public ItemMaterials ArrowBodyMats;
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\ScriptableObjects\LevelData.cs =====
+using ArrowFlowGame.Types;
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "New Level", menuName = "Level Data")]
+public class LevelData: ScriptableObject
+{
+    public ItemSpawnData ItemsData;
+    public CrowdSpawnData CrowdData;
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\Array2D.cs =====
+using System;
+
+namespace ArrowFlow.Types
+{   
+    [Serializable]
+    public class Array2D<T>
+    {
+        public Row<T>[] Rows;
+        public int Width => _Width;
+        public int Height => _Height;
+
+        private int _Width;
+        private int _Height;
+
+        public Array2D(int width, int height)
+        {
+            _Width = width;
+            _Height = height;
+            Rows = new Row<T>[height];
+
+            for (int i = 0; i < height; i++)
+            {
+                Rows[i] = new Row<T>(width);
+            }
+        }
+
+        public T this[int x, int y]
+        {
+            get { return Rows[y].Values[x]; }
+            set { Rows[y].Values[x] = value; }
+        }
+    }
+
+    [Serializable]
+    public class Row<T>
+    {
+        public T[] Values;
+
+        public Row(int width)
+        {
+            Values = new T[width];
+        }
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\Constants.cs =====
+namespace ArrowFlowGame.Types
+{
+    public class Constants
+    {
+        public static int LAST_LEVEL = 100;
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\CrowdSpawnData.cs =====
+using System;
+using ArrowFlow.Types; // Assuming Array2D is here
+using UnityEngine;     // For Mathf
+
+namespace ArrowFlowGame.Types
+{
+    [Serializable]
+    public class CrowdSpawnData
+    {
+        public Array2D<CrowdElementData> CrowdGrid;
+        public int Width => CrowdGrid.Width;
+        public int Height => CrowdGrid.Height;
+
+        public CrowdSpawnData(int width, int height)
+        {
+            InitializeGrid(width, height);
+        }
+
+        private void InitializeGrid(int width, int height)
+        {
+            CrowdGrid = new Array2D<CrowdElementData>(width, height);
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    CrowdGrid[x, y] = new CrowdElementData();
+                }
+            }
+        }
+
+        public void Resize(int newWidth, int newHeight)
+        {
+            Array2D<CrowdElementData> oldGrid = CrowdGrid;
+            InitializeGrid(newWidth, newHeight);
+
+            int minWidth = Mathf.Min(oldGrid.Width, newWidth);
+            int minHeight = Mathf.Min(oldGrid.Height, newHeight);
+
+            for (int y = 0; y < minHeight; y++)
+            {
+                for (int x = 0; x < minWidth; x++)
+                {
+                    CrowdGrid[x, y] = oldGrid[x, y];
+                }
+            }
+        }
+
+        public CrowdElementData this[int row, int column]
+        {
+            get => CrowdGrid[column, row];
+            set
+            {
+                CrowdGrid[column, row] = value;
+            }
+        }
+    }
+
+    [Serializable]
+    public class CrowdElementData
+    {
+        public ItemType Type = ItemType.RED;
+        public Vector2Int GridPosition;
+        public int RequiredHits = 1;
+        public bool IsKeyed = false;
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\Extensions.cs =====
+using System.Collections.Generic;
+
+public static class ListExtensions
+{
+    public static List<List<T>> Transpose<T>(this List<List<T>> matrix)
+    {
+        if (matrix.Count == 0) return new List<List<T>>();
+        
+        int rows = matrix.Count;
+        int cols = matrix[0].Count;
+        var result = new List<List<T>>();
+        
+        for (int col = 0; col < cols; col++)
+        {
+            var newRow = new List<T>();
+            for (int row = 0; row < rows; row++)
+            {
+                newRow.Add(matrix[row][col]);
+            }
+            result.Add(newRow);
+        }
+        
+        return result;
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\GameEnums.cs =====
+namespace ArrowFlowGame.Types
+{
+    public enum ItemType
+    {
+        RED,
+        GREEN,
+        DARKGREEN,
+        BLUE,
+        WHITE,
+        ORANGE,
+        CYAN,
+        PINK
+    }
+
+    public enum Hits
+    {
+        ONE = 1,
+        TEN = 10,
+        FIFTEEN = 15,
+        TWENTY = 20,
+        TWENTYFIVE = 25,
+        THIRTY = 30,
+    }
+
+    public enum KEYED
+    {
+        YES,
+        NO
+    }
+
+    public enum CrowdElementType
+    {
+        PERSON,
+        KEY
+    }
+
+    public enum Directions
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        FORWARD,
+        BACKWARD
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\IClickable.cs =====
+public interface IClickable 
+{
+    void OnClick();
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\ItemData.cs =====
+using System;
+
+namespace ArrowFlowGame.Types
+{
+    [Serializable]
+    public class ItemData
+    {
+        public string Id;
+        public ItemType Type;
+        public int SpawnCount;
+        public bool IsLocked;
+        public string ConnectedTo;
+        
+        public ItemData(string Id)
+        {
+            this.Id = Id;
+        }
+
+        public override string ToString()
+        {
+            return $"{Type}-{Id} | {SpawnCount}";
+        }
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\ItemMaterials.cs =====
+using UnityEngine;
+using System;
+
+namespace ArrowFlowGame.Types
+{
+    [Serializable]
+    public class ItemMaterials
+    {
+        public Material Red;
+        public Material Green;
+        public Material DarkGreen;
+        public Material Blue;
+        public Material White;
+        public Material Orange;
+        public Material Cyan;
+        public Material Pink;
+
+        public Material GetMaterial(ItemType type)
+        {
+            switch (type)
+            {
+                case ItemType.RED:
+                    return Red;
+                case ItemType.GREEN:
+                    return Green;
+                case ItemType.DARKGREEN:
+                    return DarkGreen;
+                case ItemType.BLUE:
+                    return Blue;
+                case ItemType.WHITE:
+                    return White;
+                case ItemType.ORANGE:
+                    return Orange;
+                case ItemType.CYAN:
+                    return Cyan;
+                case ItemType.PINK:
+                    return Pink;
+                default:
+                    return White;
+            }
+        }
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\ItemSpawnData.cs =====
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+namespace ArrowFlowGame.Types
+{
+    [Serializable]
+    public class ItemSpawnData : IEnumerable<ItemsRow>
+    {
+        public List<ItemsRow> Rows;
+        public int RowsCount => Rows.Count;
+        public void AddRow(ItemsRow row = null) => Rows.Add(row ?? new ItemsRow());
+
+        public ItemSpawnData()
+        {
+            Rows = new List<ItemsRow>();
+        }
+
+        public ItemsRow this[int item]
+        {
+            get => Rows[item];
+            set => Rows[item] = value;
+        }
+
+        public IEnumerator<ItemsRow> GetEnumerator()
+        {
+            return Rows.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public void RemoveAt(int rowIdx)
+        {
+            Rows.RemoveAt(rowIdx);
+        }
+
+        public void Clear() => Rows.Clear();
+    }
+
+    [Serializable]
+    public class ItemsRow : IEnumerable<ItemData>
+    {
+        public List<ItemData> items;
+
+        public ItemData this[int i] => items[i];
+
+        public ItemsRow()
+        {
+            items = new List<ItemData>();
+        }
+
+        public int Count => items.Count;
+
+        public void Add(ItemData item)
+        {
+            items.Add(item);
+        }
+        public void Remove(ItemData item)
+        {
+            items.Remove(item);
+        }
+        public IEnumerator<ItemData> GetEnumerator()
+        {
+            return items.GetEnumerator();
+        }
+
+        public ItemData Pop()
+        {
+            var item = items[0];
+            items.RemoveAt(0);
+            return item;
+        }
+
+        public bool TryPop(out ItemData item)
+        {
+            if (items.Count == 0)
+            {
+                item = default;
+                return false;
+            }
+
+            item = Pop();
+            return true;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Types\VisualRows.cs =====
+using System;
+using System.Collections.Generic;
+using DG.Tweening;
+using UnityEngine;
+
+namespace ArrowFlowGame.Types
+{
+    public class VisualRows
+    {
+        public Transform rowsTransform;
+        public Item FrontItem => _itemsInRows.Count > 0 ? _itemsInRows[0] : null;
+
+        private Vector2 _gridSpacing;
+        private int _completedMovements = 0;
+        private List<Item> _itemsInRows = new List<Item>();
+
+        private readonly int MAX_MOVEMENTS;
+
+        public VisualRows(Transform RowsTransform, Vector2 GridSpacing, int MaxMovement)
+        {
+            rowsTransform = RowsTransform;    
+            _gridSpacing = GridSpacing;
+            MAX_MOVEMENTS = MaxMovement;
+        }
+
+        public void MoveToNext()
+        {
+            if(_completedMovements >= MAX_MOVEMENTS) return;
+
+            if(rowsTransform == null)
+            {
+                Debug.LogWarning("No Rows Transform Available to Animate");
+                return; 
+            }
+
+
+            _completedMovements++;
+            rowsTransform.DOMoveZ(rowsTransform.transform.position.z + _gridSpacing.y, 0.5f);
+        }
+
+        public void Dequeue()
+        {
+            Item FrontItem = _itemsInRows[0];
+            _itemsInRows.RemoveAt(0);
+
+            FrontItem.transform.SetParent(null);
+        }
+
+        public void Add(Item item)
+        {
+            _itemsInRows.Add(item);
+        }
+    }
+}
+
+===== D:\Unity 2022\Unity Projects\ArrowFlowGame\Assets\Scripts\Utils\Utilities.cs =====
+using System;
+using ArrowFlowGame.Types;
+using UnityEngine;
+
+public class Utilities
+{
+    public static string GetOrdinalSuffix(int number)
+    {
+        int lastTwo = number % 100;
+
+        if (lastTwo >= 11 && lastTwo <= 13)
+        {
+            return "th";
+        }
+
+        switch (number % 10)
+        {
+            case 1:
+                return "st";
+            case 2:
+                return "nd";
+            case 3:
+                return "rd";
+            default:
+                return "th";
+        }
+    }
+
+    public static Color GetColorByItemType(ItemType Type)
+    {
+        switch (Type)
+        {
+            case ItemType.RED:
+                return Color.red;
+
+            case ItemType.BLUE:
+                return Color.blue;
+
+            case ItemType.GREEN:
+                return Color.green;
+
+            case ItemType.CYAN:
+                return Color.cyan;
+
+            case ItemType.DARKGREEN:
+                return new Color(0f, 0.5f, 0f);
+
+            case ItemType.ORANGE:
+                return new Color(1f, 0.5f, 0f);
+
+            case ItemType.PINK:
+                return new Color(1f, 0.4f, 0.7f);
+
+            case ItemType.WHITE:
+                return Color.white;
+
+            default:
+                return Color.white;
+        }
+    }
+
+    public static int GetRandomFakeLvl()
+    {
+        return UnityEngine.Random.Range(Manager.Instance.MinLvl, Manager.Instance.MaxLvl);
+    }
+
+    public static bool TryGetColor<T>(T value, out Color color)
+    {
+        color = Color.white;
+        if (value is ItemType itemType)
+        {
+            color = GetColorByItemType(itemType);
+            return true;
+        }
+
+        return false;
+    }
+}

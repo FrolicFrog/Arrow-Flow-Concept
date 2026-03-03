@@ -1,0 +1,46 @@
+namespace ArrowFlowGame.Types
+{
+    public enum ItemType
+    {
+        RED,
+        GREEN,
+        DARKGREEN,
+        BLUE,
+        WHITE,
+        ORANGE,
+        CYAN,
+        PINK
+    }
+
+    public enum Hits
+    {
+        ONE = 1,
+        TEN = 10,
+        FIFTEEN = 15,
+        TWENTY = 20,
+        TWENTYFIVE = 25,
+        THIRTY = 30,
+    }
+
+    public enum KEYED
+    {
+        YES,
+        NO
+    }
+
+    public enum CrowdElementType
+    {
+        PERSON,
+        KEY
+    }
+
+    public enum Directions
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT,
+        FORWARD,
+        BACKWARD
+    }
+}
