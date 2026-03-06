@@ -28,35 +28,18 @@ public class Utilities
 
     public static Color GetColorByItemType(ItemType Type)
     {
-        switch (Type)
+        return Type switch
         {
-            case ItemType.RED:
-                return Color.red;
-
-            case ItemType.BLUE:
-                return Color.blue;
-
-            case ItemType.GREEN:
-                return Color.green;
-
-            case ItemType.CYAN:
-                return Color.cyan;
-
-            case ItemType.DARKGREEN:
-                return new Color(0f, 0.5f, 0f);
-
-            case ItemType.ORANGE:
-                return new Color(1f, 0.5f, 0f);
-
-            case ItemType.PINK:
-                return new Color(1f, 0.4f, 0.7f);
-
-            case ItemType.WHITE:
-                return Color.white;
-
-            default:
-                return Color.white;
-        }
+            ItemType.RED => Color.red,
+            ItemType.BLUE => Color.blue,
+            ItemType.GREEN => Color.green,
+            ItemType.CYAN => Color.cyan,
+            ItemType.DARKGREEN => new Color(0f, 0.5f, 0f),
+            ItemType.ORANGE => new Color(1f, 0.5f, 0f),
+            ItemType.PINK => new Color(1f, 0.4f, 0.7f),
+            ItemType.WHITE => Color.white,
+            _ => Color.white,
+        };
     }
 
     public static int GetRandomFakeLvl()

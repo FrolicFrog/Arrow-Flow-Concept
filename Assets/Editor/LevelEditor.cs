@@ -182,6 +182,12 @@ public class LevelEditor : EditorWindow
                     Rect dotRect = new Rect(rect.xMax - 8, rect.y + 2, 6, 6);
                     EditorGUI.DrawRect(dotRect, Color.yellow);
                 }
+
+                if (element.IsGiant)
+                {
+                    Rect dotRect = new Rect(rect.xMin, rect.y + 2, 6, 6);
+                    EditorGUI.DrawRect(dotRect, Color.black);
+                }
             }
 
             GUILayout.FlexibleSpace();
@@ -323,23 +329,14 @@ public class LevelEditor : EditorWindow
                 EditorGUIUtility.systemCopyBuffer = item.Id;
             }
             GUI.color = CurColor;
+
             EditorGUILayout.Space(5);
             item.Type = (ItemType)EditorGUILayout.EnumPopup(item.Type);
 
-            GUILayout.Space(10);
-            GUILayout.BeginHorizontal();
-            GUILayout.Label("Is Locked:", labelStyle);
-            item.IsLocked = EditorGUILayout.Toggle(item.IsLocked);
-            GUILayout.EndHorizontal();
-
-            GUILayout.Space(10);
             item.SpawnCount = EditorGUILayout.IntSlider("Spawn Count: ", item.SpawnCount, 0, 250);
 
-            GUILayout.Space(10);
-
             GUILayout.BeginHorizontal();
-            GUILayout.Label("Connected to:", labelStyle, GUILayout.ExpandWidth(false));
-            item.ConnectedTo = EditorGUILayout.TextField(item.ConnectedTo);
+            item.ConnectedTo = EditorGUILayout.Vector2IntField("Connected To:", item.ConnectedTo);
             GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();
@@ -361,7 +358,7 @@ public class LevelEditor : EditorWindow
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("+", GUILayout.Height(35)))
         {
-            string id = $"{RowIdx}_{Row.Count}";
+            string id = $"{RowIdx}-{Row.Count}";
             ItemData item = new(id);
             Row.Add(item);
         }

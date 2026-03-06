@@ -33,6 +33,7 @@ public class Item: MonoBehaviour, IClickable
     }
 
     private bool IsClicked = false;
+    private bool IsLocked = true;
 
     public void Init(ItemData data, VisualRows Row)
     {
@@ -45,9 +46,14 @@ public class Item: MonoBehaviour, IClickable
         this.Row = Row;
     }
 
+    public void Unlock()
+    {
+        IsLocked = false;
+    }
+
     public void OnClick()
     {
-        if(Row.FrontItem != this || IsClicked) 
+        if(Row.FrontItem != this || IsClicked || IsLocked) 
             return;
 
         IsClicked = true;

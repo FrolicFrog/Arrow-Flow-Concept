@@ -10,6 +10,7 @@ public class LevelManager : Singleton<LevelManager>
     [Header("REFERENCES")]
     [SerializeField] private Item ItemPrefab;
     [SerializeField] private CrowdElement CrowdElementPrefab;
+    [SerializeField] private CrowdElement GiantPersonPrefab;
 
     [Header("SETTINGS")]
     [Space(10)]
@@ -44,23 +45,25 @@ public class LevelManager : Singleton<LevelManager>
 
     private void SpawnCrowdElements()
     {
-        CrowdSpawnData CrowData = _LevelData.CrowdData;
-        Vector2Int HalfSize = new(CrowData.Width / 2, CrowData.Height / 2);
+        CrowdSpawnData CrowdData = _LevelData.CrowdData;
+        Vector2Int HalfSize = new(CrowdData.Width / 2, CrowdData.Height / 2);
         List<List<CrowdElement>> CrowdGrid = new();
         
-        for (int i = 0; i < CrowData.Width; i++)
+        for (int i = 0; i < CrowdData.Width; i++)
         {
             CrowdGrid.Add(new List<CrowdElement>());
-            for (int j = 0; j < CrowData.Height; j++)
+            for (int j = 0; j < CrowdData.Height; j++)
             {
-                int flippedJ = CrowData.Height - 1 - j;
+                int flippedJ = CrowdData.Height - 1 - j;
 
                 Vector3Int GridIdx = new(i - HalfSize.x, flippedJ - HalfSize.y, 0);
                 Vector3 Pos = GridManager.Instance.GetPosition(GridIdx);
+                bool IsGiant = CrowdData.CrowdGrid[i, j].IsGiant;
+                CrowdElement PersonPrefab = IsGiant ? GiantPersonPrefab : CrowdElementPrefab;
 
-                CrowdElement CrowdEle = Instantiate(CrowdElementPrefab, Pos, Quaternion.identity);
-                CrowdEle.name = CrowData.CrowdGrid[i, j].Type.ToString();
-                CrowdEle.Init(CrowData.CrowdGrid[i, j]);
+                CrowdElement CrowdEle = Instantiate(PersonPrefab, Pos, Quaternion.identity);
+                CrowdEle.name = CrowdData.CrowdGrid[i, j].Type.ToString();
+                CrowdEle.Init(CrowdData.CrowdGrid[i, j]);
                 CrowdEle.GridPos = new Vector2Int(i, j);
                 CrowdManager.Instance.RegisterElement(new Vector2Int(i, j), CrowdEle);
                 CrowdGrid[i].Add(CrowdEle);

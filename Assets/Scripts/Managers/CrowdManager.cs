@@ -41,6 +41,11 @@ public class CrowdManager : Singleton<CrowdManager>
 
     public void RemoveCrowdElement(CrowdElement Element)
     {
+        if(Element.IsKeyed)
+        {
+            UnlockItemByKeyId(Element.GridIdxId);    
+        }
+
         foreach (List<CrowdElement> row in CrowdGrid)
         {
             for (int i = 0; i < row.Count; i++)
@@ -53,6 +58,16 @@ public class CrowdManager : Singleton<CrowdManager>
                 }
             }
         }
+    }
+
+    private void UnlockItemByKeyId(Vector2Int gridPos)
+    {
+        if(!ReferenceManager.Instance.KeyIdToLockedItem.TryGetValue(gridPos, out Item LockedItem)) 
+        {
+            Debug.LogError("No locked item found at position " + gridPos);
+            return;
+        }
+        LockedItem.Unlock();
     }
 
     private void AdjustCrowd(CrowdElement element)

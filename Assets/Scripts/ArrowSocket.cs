@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using ArrowFlowGame.Types;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -48,7 +46,7 @@ public class ArrowSocket : MonoBehaviour
                         Spawnable Arrow = Instantiate(ArrowPrefab, transform.position, Quaternion.identity);
                         Arrow.Init(CurType, person.transform, () => 
                         {
-                            Destroy(person.gameObject);
+                            person.Dead();
                             Destroy(Arrow.gameObject);
                             CrowdManager.Instance.RemoveCrowdElement(elem);
                         });

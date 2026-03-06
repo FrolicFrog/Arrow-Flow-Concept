@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using ArrowFlowGame.Types;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -11,6 +12,7 @@ public class BeltManager : Singleton<BeltManager>
     public TextMeshPro CurCapacityText;
     public ArrowSocket ArrowSocketPrefab;
     public SplineContainer SplineContain;
+    public Image ProgressBarFill;
 
     [Header("Settings")]
     [Range(1,90)]
@@ -56,6 +58,7 @@ public class BeltManager : Singleton<BeltManager>
         target.Ready(arrowType);
         CurOccupied++;
         CurCapacityText.text = CurOccupied.ToString() + "/" + TotalSockets.ToString();
+        ProgressBarFill.fillAmount = CurOccupied / (float)TotalSockets;
     }
 
     public void SetSocketEmpty(ArrowSocket arrowSocket)
@@ -66,5 +69,6 @@ public class BeltManager : Singleton<BeltManager>
         
         CurOccupied--;
         CurCapacityText.text = CurOccupied.ToString() + "/" + TotalSockets.ToString();
+        ProgressBarFill.fillAmount = CurOccupied / (float)TotalSockets;
     }
 }

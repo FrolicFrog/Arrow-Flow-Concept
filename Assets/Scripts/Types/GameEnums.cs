@@ -1,7 +1,11 @@
+using System;
+
 namespace ArrowFlowGame.Types
 {
+    [Serializable]
     public enum ItemType
     {
+        NONE,
         RED,
         GREEN,
         DARKGREEN,

@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace ArrowFlowGame.Types
 {
@@ -8,8 +9,7 @@ namespace ArrowFlowGame.Types
         public string Id;
         public ItemType Type;
         public int SpawnCount;
-        public bool IsLocked;
-        public string ConnectedTo;
+        public Vector2Int ConnectedTo;
         
         public ItemData(string Id)
         {
