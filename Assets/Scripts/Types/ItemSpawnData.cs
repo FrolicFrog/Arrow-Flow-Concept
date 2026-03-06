@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace ArrowFlowGame.Types
 {
@@ -43,6 +44,7 @@ namespace ArrowFlowGame.Types
     [Serializable]
     public class ItemsRow : IEnumerable<ItemData>
     {
+        [SerializeReference]
         public List<ItemData> items;
 
         public ItemData this[int i] => items[i];

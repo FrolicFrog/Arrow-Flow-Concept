@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1364890228483710338}
-  - component: {fileID: 4926573996552418117}
+  - component: {fileID: 2632661987628473247}
   - component: {fileID: 635128123950392673}
   m_Layer: 0
-  m_Name: Item
+  m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   - {fileID: 5412514091084393572}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4926573996552418117
+--- !u!114 &2632661987628473247
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,15 +44,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 290889873144950913}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39a8707e071a08c4298be7ebd31c5a1e, type: 3}
+  m_Script: {fileID: 11500000, guid: 29dd979143e02744eb7b619ec071b7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Renderer: {fileID: 4525786472624154785}
   ItemToSpawn: {fileID: 5158241363279224397, guid: b8c1f277dbc52c44eb8eff9a55a08202, type: 3}
   CountLabel: {fileID: 3106849557578687677}
   SpawnDelay: 0.1
-  ScaleMultiplier: 0.5
-  ScaleAnimationDuration: 0.1
+  RotationSpeed: 20
+  ScaleMultiplier: 1
+  ScaleAnimationDuration: 2
 --- !u!65 &635128123950392673
 BoxCollider:
   m_ObjectHideFlags: 0

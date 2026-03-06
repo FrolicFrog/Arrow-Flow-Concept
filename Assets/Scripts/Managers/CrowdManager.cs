@@ -62,12 +62,13 @@ public class CrowdManager : Singleton<CrowdManager>
 
     private void UnlockItemByKeyId(Vector2Int gridPos)
     {
-        if(!ReferenceManager.Instance.KeyIdToLockedItem.TryGetValue(gridPos, out Item LockedItem)) 
+        if(!ReferenceManager.Instance.KeyIdToLockedItem.TryGetValue(gridPos, out Lock LockObject)) 
         {
             Debug.LogError("No locked item found at position " + gridPos);
             return;
         }
-        LockedItem.Unlock();
+
+        LockObject.Unlock();
     }
 
     private void AdjustCrowd(CrowdElement element)

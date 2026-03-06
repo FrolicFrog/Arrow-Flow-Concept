@@ -7,18 +7,33 @@ namespace ArrowFlowGame.Types
     public class ItemData
     {
         public string Id;
-        public ItemType Type;
-        public int SpawnCount;
-        public Vector2Int ConnectedTo;
-        
         public ItemData(string Id)
         {
             this.Id = Id;
         }
+    }
 
-        public override string ToString()
+    [Serializable]
+    public class SpawnItemData : ItemData
+    {
+        public ItemType Type;
+        public int SpawnCount;
+        public Vector2Int ConnectedTo;
+        
+        public SpawnItemData(string Id) : base(Id)
         {
-            return $"{Type}-{Id} | {SpawnCount}";
+            
+        }
+    }
+
+    [Serializable]
+    public class LockItemData : ItemData
+    {
+        public Vector2Int KeyId;
+        
+        public LockItemData(string Id) : base(Id)
+        {
+
         }
     }
 }

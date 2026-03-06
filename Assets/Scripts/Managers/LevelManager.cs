@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using ArrowFlowGame.Types;
 using System.Collections.Generic;
@@ -8,7 +7,8 @@ public class LevelManager : Singleton<LevelManager>
     [HideInInspector] public int TestLevelToLoad = 1;
 
     [Header("REFERENCES")]
-    [SerializeField] private Item ItemPrefab;
+    [SerializeField] private Spawner SpawnItemPrefab;
+    [SerializeField] private Lock LockItemPrefab;
     [SerializeField] private CrowdElement CrowdElementPrefab;
     [SerializeField] private CrowdElement GiantPersonPrefab;
 
@@ -95,10 +95,24 @@ public class LevelManager : Singleton<LevelManager>
             for (int j = 0; j < Items.Count; j++)
             {
                 Vector3 offset = new(StartOffset + GridSpacing.x * i, 0, -GridSpacing.y * j);
-                Item ItemClone = Instantiate(ItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
-                ItemClone.Init(Items[j], RowsTransform[i]);
-
-                RowsTransform[i].Add(ItemClone);
+                ItemData data = Items[j];
+                if(data is SpawnItemData SpawnerData)
+                {
+                    Spawner SpawnerClone = Instantiate(SpawnItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
+                    SpawnerClone.Init(Items[j], RowsTransform[i]);
+                    RowsTransform[i].Add(SpawnerClone);
+                }
+                else if(data is LockItemData LockData)
+                {
+                    Lock LockClone = Instantiate(LockItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
+                    LockClone.Init(Items[j], RowsTransform[i]);
+                    RowsTransform[i].Add(LockClone);
+                    ReferenceManager.Instance.RegisterLock(LockClone, LockData);
+                }
+                else
+                {
+                    Debug.Log("Item type not supported: " + data.GetType().Name.ToString());
+                }
             }
         }
     }

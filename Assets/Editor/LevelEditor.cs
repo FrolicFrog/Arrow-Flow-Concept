@@ -321,28 +321,50 @@ public class LevelEditor : EditorWindow
         GUILayout.BeginVertical();
         foreach (ItemData item in Row)
         {
-            GUILayout.BeginVertical(boxStyle);
-            Color CurColor = GUI.color;
-            GUI.color = Utilities.GetColorByItemType(item.Type);
-            if (GUILayout.Button(new GUIContent(item.Id.ToString(), "Click to copy id"), GUILayout.ExpandWidth(true), GUILayout.Height(45)))
+            if(item is SpawnItemData spawnItemData)
             {
-                EditorGUIUtility.systemCopyBuffer = item.Id;
+                SpawnItemDataVisualization(spawnItemData);
             }
-            GUI.color = CurColor;
-
-            EditorGUILayout.Space(5);
-            item.Type = (ItemType)EditorGUILayout.EnumPopup(item.Type);
-
-            item.SpawnCount = EditorGUILayout.IntSlider("Spawn Count: ", item.SpawnCount, 0, 250);
-
-            GUILayout.BeginHorizontal();
-            item.ConnectedTo = EditorGUILayout.Vector2IntField("Connected To:", item.ConnectedTo);
-            GUILayout.EndHorizontal();
-
-            GUILayout.EndVertical();
+            else if(item is LockItemData lockItemData)
+            {
+                LockItemDataVisualization(lockItemData);
+            }
         }
         GUILayout.EndVertical();
         GUILayout.EndHorizontal();
+        GUILayout.EndVertical();
+    }
+
+    private void LockItemDataVisualization(LockItemData lockItemData)
+    {
+        GUILayout.BeginVertical(boxStyle);
+        EditorGUILayout.LabelField("LOCK");
+
+        EditorGUILayout.Space(5);
+        lockItemData.KeyId = EditorGUILayout.Vector2IntField("Unlock Key :", lockItemData.KeyId);
+        GUILayout.EndVertical();
+    }
+
+    private void SpawnItemDataVisualization(SpawnItemData item)
+    {
+        GUILayout.BeginVertical(boxStyle);
+        Color CurColor = GUI.color;
+        GUI.color = Utilities.GetColorByItemType(item.Type);
+        if (GUILayout.Button(new GUIContent(item.Id.ToString(), "Click to copy id"), GUILayout.ExpandWidth(true), GUILayout.Height(45)))
+        {
+            EditorGUIUtility.systemCopyBuffer = item.Id;
+        }
+        GUI.color = CurColor;
+
+        EditorGUILayout.Space(5);
+        item.Type = (ItemType)EditorGUILayout.EnumPopup(item.Type);
+
+        item.SpawnCount = EditorGUILayout.IntSlider("Spawn Count: ", item.SpawnCount, 0, 250);
+
+        GUILayout.BeginHorizontal();
+        item.ConnectedTo = EditorGUILayout.Vector2IntField("Connected To:", item.ConnectedTo);
+        GUILayout.EndHorizontal();
+
         GUILayout.EndVertical();
     }
 
@@ -356,10 +378,16 @@ public class LevelEditor : EditorWindow
         GUILayout.Space(10);
         GUILayout.BeginVertical();
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("+", GUILayout.Height(35)))
+        if (GUILayout.Button("Add Spawner", GUILayout.Height(35)))
         {
             string id = $"{RowIdx}-{Row.Count}";
-            ItemData item = new(id);
+            SpawnItemData item = new SpawnItemData(id);
+            Row.Add(item);
+        }
+        if (GUILayout.Button("Add Lock", GUILayout.Height(35)))
+        {
+            string id = $"{RowIdx}-{Row.Count}";
+            LockItemData item = new(id);
             Row.Add(item);
         }
         if (GUILayout.Button("Delete Row", GUILayout.Height(35)))

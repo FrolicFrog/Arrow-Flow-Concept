@@ -167,7 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TestLevelToLoad: 1
-  ItemPrefab: {fileID: 4926573996552418117, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
+  SpawnItemPrefab: {fileID: 2632661987628473247, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
+  LockItemPrefab: {fileID: 5290314347958245746, guid: cdb3dda65d7507a4693f6ee923f5ac40, type: 3}
   CrowdElementPrefab: {fileID: 6206104431016008360, guid: 18874d00b0ccff34fbce27473fa1c37c, type: 3}
   GiantPersonPrefab: {fileID: 6206104431016008360, guid: 0a197083604263044b0defeae08fdacf, type: 3}
   GridSpacing: {x: 6.5, y: 4.5}
