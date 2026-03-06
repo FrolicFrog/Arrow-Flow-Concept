@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace ArrowFlow.Types
 {   
@@ -9,7 +10,9 @@ namespace ArrowFlow.Types
         public int Width => _Width;
         public int Height => _Height;
 
+        [SerializeField]
         private int _Width;
+        [SerializeField]
         private int _Height;
 
         public Array2D(int width, int height)

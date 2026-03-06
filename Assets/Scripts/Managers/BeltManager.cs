@@ -9,7 +9,7 @@ using UnityEngine.Splines;
 public class BeltManager : Singleton<BeltManager>
 {
     [Header("References")]
-    public TextMeshPro CurCapacityText;
+    public TextMeshProUGUI CurCapacityText;
     public ArrowSocket ArrowSocketPrefab;
     public SplineContainer SplineContain;
     public Image ProgressBarFill;
@@ -57,7 +57,7 @@ public class BeltManager : Singleton<BeltManager>
     {
         target.Ready(arrowType);
         CurOccupied++;
-        CurCapacityText.text = CurOccupied.ToString() + "/" + TotalSockets.ToString();
+        CurCapacityText.text = (CurOccupied/(float) TotalSockets * 100f).ToString();
         ProgressBarFill.fillAmount = CurOccupied / (float)TotalSockets;
     }
 
@@ -68,7 +68,7 @@ public class BeltManager : Singleton<BeltManager>
         arrowSocket.ArrowRenderer.enabled = false;
         
         CurOccupied--;
-        CurCapacityText.text = CurOccupied.ToString() + "/" + TotalSockets.ToString();
+        CurCapacityText.text = (CurOccupied/(float) TotalSockets * 100f).ToString();
         ProgressBarFill.fillAmount = CurOccupied / (float)TotalSockets;
     }
 }

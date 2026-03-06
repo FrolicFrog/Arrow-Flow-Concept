@@ -300,6 +300,7 @@ public class LevelEditor : EditorWindow
         ItemRowsVisualization();
         GUILayout.EndVertical();
     }
+    
     private void ItemRowsVisualization()
     {
         GUILayout.BeginHorizontal();
@@ -310,6 +311,7 @@ public class LevelEditor : EditorWindow
         }
         GUILayout.EndHorizontal();
     }
+
     private void RowVisualization(ItemsRow Row, int RowIdx)
     {
         void DeleteRow() => _ItemSpawnData.RemoveAt(RowIdx);
