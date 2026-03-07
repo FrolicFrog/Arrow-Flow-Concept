@@ -19,7 +19,13 @@ public class Person : CrowdElement
     public void Dead()
     {
         Anim.Play("Death");
+        SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial);
         transform.DOMoveY(transform.position.y + YAnimOffset, 0.7f);
-        Destroy(gameObject, 1f);
+        transform.DOScaleY(0, 0.3f).SetDelay(0.4f).OnComplete(() => Destroy(gameObject));
+    }
+
+    private void SwitchMaterial(Material TargetMaterial)
+    {
+        Array.ForEach(Renderers, R => R.material = TargetMaterial);
     }
 }

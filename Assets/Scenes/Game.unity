@@ -1665,6 +1665,7 @@ MonoBehaviour:
     Orange: {fileID: 2100000, guid: b9f97b6ed3d41e7489aae2820aba024a, type: 2}
     Cyan: {fileID: 2100000, guid: 4fa74bef890d4ab41862381e8b84faf5, type: 2}
     Pink: {fileID: 2100000, guid: 6aa59e01d3c6ecd4fb7b881011f185f0, type: 2}
+  DeadPersonMaterial: {fileID: 2100000, guid: 36b6cc285a970e54f839097daeff8b5a, type: 2}
 --- !u!4 &543450651728174985
 Transform:
   m_ObjectHideFlags: 0

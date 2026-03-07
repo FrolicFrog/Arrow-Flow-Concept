@@ -144,6 +144,7 @@ MonoBehaviour:
   - {fileID: 8102890605011211096}
   GridPos: {x: 0, y: 0}
   Anim: {fileID: 7662962690990169798}
+  YAnimOffset: 2
 --- !u!1 &1077903415490845960
 GameObject:
   m_ObjectHideFlags: 0
