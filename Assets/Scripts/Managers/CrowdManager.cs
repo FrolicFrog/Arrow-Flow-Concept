@@ -9,7 +9,6 @@ public class CrowdManager : Singleton<CrowdManager>
     [TextArea(3, 5)]
     public string DebugText;
     private readonly Dictionary<Vector2Int, CrowdElement> CrowdElements = new();
-    private List<List<CrowdElement>> CrowdGrid = new();
 
     public List<CrowdElement> CurFront => GetFrontRow();
     public CrowdElement GetElementByGridIdx(Vector2Int GridIdx) => CrowdElements.TryGetValue(GridIdx, out CrowdElement element) ? element : null;
@@ -17,26 +16,31 @@ public class CrowdManager : Singleton<CrowdManager>
 
     public void RegisterGrid(List<List<CrowdElement>> crowdGrid)
     {
-        CrowdGrid = new();
-
-        foreach (List<CrowdElement> row in crowdGrid)
-            CrowdGrid.Add(row.Reverse<CrowdElement>().ToList());
+        // CrowdGrid is no longer used to track state; state is purely tracked via CrowdElements
+        // This method remains for compatibility with LevelManager.
     }
+    
     private List<CrowdElement> GetFrontRow()
     {
         List<CrowdElement> frontRow = new();
-        foreach (List<CrowdElement> row in CrowdGrid)
+        
+        var columns = CrowdElements.Values.GroupBy(e => e.GridPos.x).OrderBy(g => g.Key);
+        
+        foreach (var column in columns)
         {
-            foreach (var ele in row)
+            var frontEle = column.Where(e => !(e is Person p && p.AlreadyTarget))
+                                 .OrderByDescending(e => e.GridPos.y)
+                                 .FirstOrDefault();
+            
+            if (frontEle != null)
             {
-                if (ele == null) continue;
-                frontRow.Add(ele);
-                break;
+                frontRow.Add(frontEle);
             }
         }
 
         return frontRow;
     }
+    
     public void RemoveCrowdElement(CrowdElement Element)
     {
         if(Element.IsKeyed)
@@ -44,19 +48,14 @@ public class CrowdManager : Singleton<CrowdManager>
             UnlockItemByKeyId(Element.GridIdxId);    
         }
 
-        foreach (List<CrowdElement> row in CrowdGrid)
+        var keyPair = CrowdElements.FirstOrDefault(x => x.Value == Element);
+        if (keyPair.Value != null)
         {
-            for (int i = 0; i < row.Count; i++)
-            {
-                if (row[i] == Element)
-                {
-                    row[i] = null;
-                    AdjustCrowd(Element);
-                    return;
-                }
-            }
+            CrowdElements.Remove(keyPair.Key);
+            AdjustCrowd(Element);
         }
     }
+    
     private void UnlockItemByKeyId(Vector2Int gridPos)
     {
         if(!ReferenceManager.Instance.KeyIdToLockedItem.TryGetValue(gridPos, out Lock LockObject)) 
@@ -67,31 +66,41 @@ public class CrowdManager : Singleton<CrowdManager>
 
         LockObject.Unlock();
     }
+    
     private void AdjustCrowd(CrowdElement element)
     {
-        Vector2Int[] directions = { new(0, -1), new(1, -1) };
+        int[] xOffsets = { 0, 1, -1 };
 
-        foreach (var dir in directions)
+        for (int yCheck = element.GridPos.y - 1; yCheck >= 0; yCheck--)
         {
-            Vector2Int checkPos = element.GridPos + dir;
-
-            if (CrowdElements.TryGetValue(checkPos, out CrowdElement crowdElement))
+            bool found = false;
+            foreach (int xOff in xOffsets)
             {
-                CrowdElements.Remove(checkPos);
-                AdjustCrowd(crowdElement);
+                Vector2Int checkPos = new Vector2Int(element.GridPos.x + xOff, yCheck);
 
-                crowdElement.GridPos = element.GridPos;
-                CrowdElements[element.GridPos] = crowdElement; 
-
-                if(crowdElement is Person person)
+                if (CrowdElements.TryGetValue(checkPos, out CrowdElement crowdElement))
                 {
-                    person.transform.DOLocalMove(element.transform.localPosition, 0.5f)
-                    .OnStart(() => person.IsWalking = true)
-                    .OnComplete(() => person.IsWalking = false);
-                }
+                    CrowdElements.Remove(checkPos);
+                    AdjustCrowd(crowdElement);
 
-                break;
+                    crowdElement.GridPos = element.GridPos;
+                    CrowdElements[element.GridPos] = crowdElement; 
+
+                    Vector3 targetPos = element.TargetLocalPosition;
+                    crowdElement.TargetLocalPosition = targetPos;
+
+                    if(crowdElement is Person person)
+                    {
+                        person.transform.DOLocalMove(targetPos, 0.5f)
+                        .OnStart(() => person.IsWalking = true)
+                        .OnComplete(() => person.IsWalking = false);
+                    }
+
+                    found = true;
+                    break;
+                }
             }
+            if (found) break;
         }
     }
 }

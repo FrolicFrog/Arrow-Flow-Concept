@@ -67,6 +67,7 @@ public class LevelManager : Singleton<LevelManager>
                 CrowdEle.name = CrowdData.CrowdGrid[i, j].Type.ToString();
                 CrowdEle.Init(CrowdData.CrowdGrid[i, j]);
                 CrowdEle.GridPos = new Vector2Int(i, j);
+                CrowdEle.GridIdxId = new Vector2Int(j, i);
                 CrowdManager.Instance.RegisterElement(new Vector2Int(i, j), CrowdEle);
                 CrowdGrid[i].Add(CrowdEle);
             }

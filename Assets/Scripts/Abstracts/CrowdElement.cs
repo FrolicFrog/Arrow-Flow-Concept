@@ -14,7 +14,14 @@ public class CrowdElement : MonoBehaviour
     public ItemType Type {get; private set;}
     public bool IsKeyed {get; private set;}
     public Vector2Int GridPos;
-    public Vector2Int GridIdxId => new Vector2Int(GridPos.y, GridPos.x);
+    public Vector2Int GridIdxId { get; set; }
+
+    public Vector3 TargetLocalPosition { get; set; }
+
+    private void Awake()
+    {
+        TargetLocalPosition = transform.localPosition;
+    }
 
     public void Init(CrowdElementData crowdElement)
     {
