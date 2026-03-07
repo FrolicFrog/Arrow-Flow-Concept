@@ -8,12 +8,16 @@ namespace ArrowFlowGame.Types
         NONE,
         RED,
         GREEN,
-        DARKGREEN,
+        YELLOW,
         BLUE,
-        WHITE,
-        ORANGE,
+        PINK,
         CYAN,
-        PINK
+        BROWN,
+        BLACK,
+        OFFWHITE,
+        WHITE,
+        DARKGREEN,
+        ORANGE
     }
 
     public enum Hits

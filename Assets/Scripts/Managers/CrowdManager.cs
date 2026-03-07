@@ -22,7 +22,6 @@ public class CrowdManager : Singleton<CrowdManager>
         foreach (List<CrowdElement> row in crowdGrid)
             CrowdGrid.Add(row.Reverse<CrowdElement>().ToList());
     }
-
     private List<CrowdElement> GetFrontRow()
     {
         List<CrowdElement> frontRow = new();
@@ -38,7 +37,6 @@ public class CrowdManager : Singleton<CrowdManager>
 
         return frontRow;
     }
-
     public void RemoveCrowdElement(CrowdElement Element)
     {
         if(Element.IsKeyed)
@@ -59,7 +57,6 @@ public class CrowdManager : Singleton<CrowdManager>
             }
         }
     }
-
     private void UnlockItemByKeyId(Vector2Int gridPos)
     {
         if(!ReferenceManager.Instance.KeyIdToLockedItem.TryGetValue(gridPos, out Lock LockObject)) 
@@ -70,7 +67,6 @@ public class CrowdManager : Singleton<CrowdManager>
 
         LockObject.Unlock();
     }
-
     private void AdjustCrowd(CrowdElement element)
     {
         Vector2Int[] directions = { new(0, -1), new(1, -1) };

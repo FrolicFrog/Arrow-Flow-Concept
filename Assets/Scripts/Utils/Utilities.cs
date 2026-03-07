@@ -30,14 +30,19 @@ public class Utilities
     {
         return Type switch
         {
+            ItemType.NONE => new Color(0.5f, 0.5f, 0.5f),
             ItemType.RED => Color.red,
-            ItemType.BLUE => Color.blue,
             ItemType.GREEN => Color.green,
+            ItemType.YELLOW => Color.yellow,
+            ItemType.BLUE => Color.blue,
+            ItemType.PINK => new Color(1f, 0.4f, 0.7f),
             ItemType.CYAN => Color.cyan,
+            ItemType.BROWN => new Color(0.6f, 0.3f, 0.1f),
+            ItemType.BLACK => Color.black,
+            ItemType.OFFWHITE => new Color(0.9f, 0.9f, 0.9f),
+            ItemType.WHITE => Color.white,
             ItemType.DARKGREEN => new Color(0f, 0.5f, 0f),
             ItemType.ORANGE => new Color(1f, 0.5f, 0f),
-            ItemType.PINK => new Color(1f, 0.4f, 0.7f),
-            ItemType.WHITE => Color.white,
             _ => Color.white,
         };
     }

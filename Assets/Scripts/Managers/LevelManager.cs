@@ -54,6 +54,8 @@ public class LevelManager : Singleton<LevelManager>
             CrowdGrid.Add(new List<CrowdElement>());
             for (int j = 0; j < CrowdData.Height; j++)
             {
+                if(CrowdData.CrowdGrid[i, j].Type == ItemType.NONE) continue;
+                
                 int flippedJ = CrowdData.Height - 1 - j;
 
                 Vector3Int GridIdx = new(i - HalfSize.x, flippedJ - HalfSize.y, 0);
