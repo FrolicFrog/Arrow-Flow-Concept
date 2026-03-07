@@ -1,6 +1,7 @@
 using System;
 using DG.Tweening;
 using UnityEngine;
+using ArrowFlowGame.Types;
 
 public class Person : CrowdElement
 {
@@ -15,8 +16,22 @@ public class Person : CrowdElement
     }
 
     public bool AlreadyTarget {get; set;}
+    public int RequiredHits = 1;
 
-    public void Dead()
+    public override void Init(CrowdElementData crowdElement)
+    {
+        base.Init(crowdElement);
+        RequiredHits = crowdElement.RequiredHits;
+    }
+
+    public virtual void Damage()
+    {
+        RequiredHits = Mathf.Max(RequiredHits - 1, 0);
+        if(RequiredHits <= 0)
+        Dead();
+    }
+
+    protected virtual void Dead()
     {
         Anim.Play("Death");
         SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial);

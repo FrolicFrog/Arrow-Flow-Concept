@@ -46,7 +46,7 @@ public class ArrowSocket : MonoBehaviour
                         Spawnable Arrow = Instantiate(ArrowPrefab, transform.position, Quaternion.identity);
                         Arrow.Init(CurType, person.transform, () => 
                         {
-                            person.Dead();
+                            person.Damage();
                             Destroy(Arrow.gameObject);
                             CrowdManager.Instance.RemoveCrowdElement(elem);
                         });

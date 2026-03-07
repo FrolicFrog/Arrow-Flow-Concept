@@ -30,6 +30,8 @@ public class BeltManager : Singleton<BeltManager>
             ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i);
             Sockets.Add(Socket);
         }
+
+        UpdateProgressbar();
     }
 
     public static bool TryGetSocket(Vector3 Pos, out ArrowSocket Socket)

@@ -23,7 +23,7 @@ public class CrowdElement : MonoBehaviour
         TargetLocalPosition = transform.localPosition;
     }
 
-    public void Init(CrowdElementData crowdElement)
+    public virtual void Init(CrowdElementData crowdElement)
     {
         Material Mat = ReferenceManager.Instance.ItemMats.GetMaterial(crowdElement.Type);
         Array.ForEach(Renderers, r => r.material = Mat);
