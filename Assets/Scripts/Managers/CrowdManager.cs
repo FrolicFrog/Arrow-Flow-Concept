@@ -9,6 +9,7 @@ public class CrowdManager : Singleton<CrowdManager>
     [TextArea(3, 5)]
     public string DebugText;
     private readonly Dictionary<Vector2Int, CrowdElement> CrowdElements = new();
+    public Dictionary<Vector2Int, CrowdElement> CrowdElementsDict => CrowdElements;
 
     public List<CrowdElement> CurFront => GetFrontRow();
     public CrowdElement GetElementByGridIdx(Vector2Int GridIdx) => CrowdElements.TryGetValue(GridIdx, out CrowdElement element) ? element : null;

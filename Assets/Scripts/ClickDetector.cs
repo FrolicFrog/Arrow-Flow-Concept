@@ -4,7 +4,7 @@ public class ClickDetector : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && GameManager.Instance.GlobalInputEnabled)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 

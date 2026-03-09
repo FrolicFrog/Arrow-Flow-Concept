@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ArrowFlowGame.Types;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.Splines;
 public class ArrowSocket : MonoBehaviour
 {
     [Header("References")]
+
     public Spawnable ArrowPrefab;
     public SplineAnimate SplineAnimator;
     public MeshRenderer ArrowRenderer;
@@ -13,6 +15,21 @@ public class ArrowSocket : MonoBehaviour
     public bool IsOccupied;
     public bool IsReady;
     public ItemType CurType { get; private set; }
+    public bool UseIncreasedSpeed 
+    { 
+        set
+        {
+            Debug.Log("Setting speed to " + value);
+            if(value)
+                SplineAnimator.Duration = IncreasedSpeedDuration;
+            else
+                SplineAnimator.Duration = OriginalDuration;
+        }
+    }
+
+    [Header("Settings")]
+    public float OriginalDuration;
+    public float IncreasedSpeedDuration;
 
     public static ArrowSocket CreateArrowSocket(ArrowSocket Prefab, SplineContainer Container, float Offset)
     {

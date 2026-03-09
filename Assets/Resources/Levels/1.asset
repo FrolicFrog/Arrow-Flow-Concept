@@ -15,10 +15,10 @@ MonoBehaviour:
   ItemsData:
     Rows:
     - items:
-      - rid: 1986424055535763464
-      - rid: 1986424055535763466
+      - rid: 1986424100755079186
+      - rid: 1986424100755079187
     - items:
-      - rid: 1986424055535763465
+      - rid: 1986424100755079188
   CrowdData:
     CrowdGrid:
       Rows:
@@ -279,24 +279,24 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 1986424055535763464
+    - rid: 1986424100755079186
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: 0-0
         Type: 2
-        SpawnCount: 7
+        SpawnCount: 11
         ConnectedTo: {x: 0, y: 0}
-    - rid: 1986424055535763465
-      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
-      data:
-        Id: 1-0
-        Type: 1
-        SpawnCount: 25
-        ConnectedTo: {x: 0, y: 0}
-    - rid: 1986424055535763466
+    - rid: 1986424100755079187
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: 0-1
         Type: 1
-        SpawnCount: 12
+        SpawnCount: 22
+        ConnectedTo: {x: 0, y: 0}
+    - rid: 1986424100755079188
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: 1-0
+        Type: 1
+        SpawnCount: 22
         ConnectedTo: {x: 0, y: 0}

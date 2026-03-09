@@ -47,4 +47,12 @@ namespace ArrowFlowGame.Types
         KEY
     }
 
+    public enum GameState
+    {
+        NOT_STARTED,
+        STARTED,
+        FAILED,
+        COMPLETED
+    }
+
 }

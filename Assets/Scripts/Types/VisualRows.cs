@@ -9,6 +9,7 @@ namespace ArrowFlowGame.Types
     {
         public Transform rowsTransform;
         public Item FrontItem => _itemsInRows.Count > 0 ? _itemsInRows[0] : null;
+        public int Count => _itemsInRows.Count;
 
         private Vector2 _gridSpacing;
         private int _completedMovements = 0;

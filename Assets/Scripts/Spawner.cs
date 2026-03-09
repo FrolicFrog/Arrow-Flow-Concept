@@ -32,9 +32,9 @@ public class Spawner: Item, IClickable
 
     private bool IsClicked = false;
 
-    public override void Init(ItemData data, VisualRows Row)
+    public override void Init(ItemData data, VisualRows Row, Action<Item> OnItemUsed)
     {
-        base.Init(data, Row);
+        base.Init(data, Row, OnItemUsed);
 
         if(data is not SpawnItemData spawnerData) return;
 
@@ -80,6 +80,7 @@ public class Spawner: Item, IClickable
             spawnable.Init(Type, Socket.transform, () =>
             {
                 BeltManager.Instance.SetSocketReady(Socket, Type);
+                BeltManager.Instance.SocketOccupied(Socket);
                 Destroy(spawnable.gameObject);
             });
             
@@ -87,7 +88,7 @@ public class Spawner: Item, IClickable
         }
         else
         {
-            Debug.LogError("No Socket Found for Arrow! Probably Game Over");
+            EventManager.GameOver();
         }
     }
 

@@ -1,6 +1,9 @@
 using UnityEngine;
 using ArrowFlowGame.Types;
 using System.Collections.Generic;
+using ArrowFlow.Types;
+using System;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -19,9 +22,12 @@ public class LevelManager : Singleton<LevelManager>
     public Vector2 GridSpacing;
     public Transform GridPos;
 
+    // Internal Private Variables....
     private LevelData _LevelData;
     private int _CurrentLevelNumber;
     private VisualRows[] RowsTransform;
+    public VisualRows[] Rows => RowsTransform;
+    public event Action<Item> OnItemUsed;
 
     private void Start()
     {
@@ -41,6 +47,7 @@ public class LevelManager : Singleton<LevelManager>
 
         SpawnItems();
         SpawnCrowdElements();
+        GameManager.Instance.CurGameState = GameState.STARTED;
     }
 
     private void SpawnCrowdElements()
@@ -100,13 +107,13 @@ public class LevelManager : Singleton<LevelManager>
                 if(data is SpawnItemData SpawnerData)
                 {
                     Spawner SpawnerClone = Instantiate(SpawnItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
-                    SpawnerClone.Init(Items[j], RowsTransform[i]);
+                    SpawnerClone.Init(Items[j], RowsTransform[i], OnItemUsed);
                     RowsTransform[i].Add(SpawnerClone);
                 }
                 else if(data is LockItemData LockData)
                 {
                     Lock LockClone = Instantiate(LockItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
-                    LockClone.Init(Items[j], RowsTransform[i]);
+                    LockClone.Init(Items[j], RowsTransform[i], OnItemUsed);
                     RowsTransform[i].Add(LockClone);
                     ReferenceManager.Instance.RegisterLock(LockClone, LockData);
                 }
@@ -116,5 +123,16 @@ public class LevelManager : Singleton<LevelManager>
                 }
             }
         }
+    }
+
+    public void NextLevel()
+    {
+        PlayerPrefs.SetInt("LastLevel", _CurrentLevelNumber + 1);
+        ReloadLevel();
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

@@ -19,7 +19,7 @@ public class BeltManager : Singleton<BeltManager>
     public int TotalSockets;
     public int CurOccupied;
 
-
+    public event Action<ArrowSocket> OnSocketOccupied;
     private readonly List<ArrowSocket> Sockets = new();
 
     private void Start()
@@ -76,5 +76,16 @@ public class BeltManager : Singleton<BeltManager>
     {
         CurCapacityText.text = (CurOccupied/(float) TotalSockets * 100f).ToString("F0") + "%";
         ProgressBarFill.fillAmount = CurOccupied / (float)TotalSockets;
+    }
+
+    public void SocketOccupied(ArrowSocket socket)
+    {
+        OnSocketOccupied?.Invoke(socket);
+    }
+
+    public void UpdateSpeed(bool useIncreasedSpeed)
+    {
+        foreach(ArrowSocket s in Sockets)
+        s.UseIncreasedSpeed = useIncreasedSpeed;
     }
 }
