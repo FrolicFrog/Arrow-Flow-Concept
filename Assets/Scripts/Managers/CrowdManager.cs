@@ -14,12 +14,8 @@ public class CrowdManager : Singleton<CrowdManager>
     public CrowdElement GetElementByGridIdx(Vector2Int GridIdx) => CrowdElements.TryGetValue(GridIdx, out CrowdElement element) ? element : null;
     public void RegisterElement(Vector2Int GridIdx, CrowdElement Element) => CrowdElements.Add(GridIdx, Element);
 
-    public void RegisterGrid(List<List<CrowdElement>> crowdGrid)
-    {
-        // CrowdGrid is no longer used to track state; state is purely tracked via CrowdElements
-        // This method remains for compatibility with LevelManager.
-    }
-    
+    public event Action<CrowdElement> OnCrowdPersonKilled;
+
     private List<CrowdElement> GetFrontRow()
     {
         List<CrowdElement> frontRow = new();
@@ -29,8 +25,8 @@ public class CrowdManager : Singleton<CrowdManager>
         foreach (var column in columns)
         {
             var frontEle = column.Where(e => !(e is Person p && p.AlreadyTarget))
-                                 .OrderByDescending(e => e.GridPos.y)
-                                 .FirstOrDefault();
+                .OrderByDescending(e => e.GridPos.y)
+                .FirstOrDefault();
             
             if (frontEle != null)
             {
@@ -44,16 +40,14 @@ public class CrowdManager : Singleton<CrowdManager>
     public void RemoveCrowdElement(CrowdElement Element)
     {
         if(Element.IsKeyed)
-        {
-            UnlockItemByKeyId(Element.GridIdxId);    
-        }
+        UnlockItemByKeyId(Element.GridIdxId);
 
         var keyPair = CrowdElements.FirstOrDefault(x => x.Value == Element);
-        if (keyPair.Value != null)
-        {
-            CrowdElements.Remove(keyPair.Key);
-            AdjustCrowd(Element);
-        }
+        if(keyPair.Value == null) return;
+
+        CrowdElements.Remove(keyPair.Key);
+        OnCrowdPersonKilled?.Invoke(Element);
+        AdjustCrowd(Element);
     }
     
     private void UnlockItemByKeyId(Vector2Int gridPos)

@@ -72,7 +72,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ArrowPrefab: {fileID: 5158241363279224397, guid: b8c1f277dbc52c44eb8eff9a55a08202, type: 3}
   SplineAnimator: {fileID: 5916513404427842393}
-  ArrowBodyMat: {fileID: 2100000, guid: 084d4661453d70b4cbbeb1ac6c85d0c7, type: 2}
   ArrowRenderer: {fileID: 4003724122334115231}
   IsOccupied: 0
   IsReady: 0
@@ -186,8 +185,8 @@ Transform:
   m_GameObject: {fileID: 3211323340556637258}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071057, y: -0.0011698322, z: 0.0013338428, w: 0.7071057}
-  m_LocalPosition: {x: 0.0010000305, y: -0.17600006, z: -0.012999956}
-  m_LocalScale: {x: 0.8090799, y: 0.8090798, z: 0.8090798}
+  m_LocalPosition: {x: 0.0010291, y: -0.176, z: -0.013}
+  m_LocalScale: {x: 0.77671665, y: 0.8090798, z: 1.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 754918225583074760}

@@ -72,8 +72,6 @@ public class LevelManager : Singleton<LevelManager>
                 CrowdGrid[i].Add(CrowdEle);
             }
         }
-
-        CrowdManager.Instance.RegisterGrid(CrowdGrid);
     }
     
     private void SpawnItems()
