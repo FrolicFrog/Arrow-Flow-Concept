@@ -47,13 +47,14 @@ public class LevelManager : Singleton<LevelManager>
 
         SpawnItems();
         SpawnCrowdElements();
+        UIManager.Instance.UpdateLevelLabel(_CurrentLevelNumber);
         GameManager.Instance.CurGameState = GameState.STARTED;
     }
 
     private void SpawnCrowdElements()
     {
         CrowdSpawnData CrowdData = _LevelData.CrowdData;
-        Vector2Int HalfSize = new(CrowdData.Width / 2, CrowdData.Height / 2);
+        Vector2Int HalfSize = new(CrowdData.Width / 2, 0);
         List<List<CrowdElement>> CrowdGrid = new();
         
         for (int i = 0; i < CrowdData.Width; i++)

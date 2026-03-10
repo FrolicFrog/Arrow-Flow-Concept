@@ -7,6 +7,7 @@ public class Arrow : Spawnable
 {
     [Header("References")]
     public Renderer[] Renderers;
+    public TrailRenderer Trail;
     public float ArrowSpeed = 50f;
 
     private Transform Target;
@@ -16,8 +17,18 @@ public class Arrow : Spawnable
 
     public override void Init(ItemType type, Transform target, Action OnReachTarget = null)
     {
+        Material ArrowMat = ReferenceManager.Instance.ItemMats.GetMaterial(type);
+        Material ArrowBodyMat = ReferenceManager.Instance.ArrowBodyMats.GetMaterial(type);
+        Material[] MatArr = new Material[3];
+        MatArr[0] = ArrowMat;
+        MatArr[1] = ArrowBodyMat;
+        MatArr[2] = ArrowMat;
+
         foreach(Renderer r in Renderers)
-            r.material = ReferenceManager.Instance.ItemMats.GetMaterial(type);
+            r.materials = MatArr;
+
+        Trail.Clear();
+        Trail.material = ReferenceManager.Instance.ArrowTrailMats.GetMaterial(type);
 
         ArrowType = type;
         Target = target;

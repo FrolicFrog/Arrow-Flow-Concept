@@ -19,7 +19,6 @@ public class ArrowSocket : MonoBehaviour
     { 
         set
         {
-            Debug.Log("Setting speed to " + value);
             if(value)
                 SplineAnimator.Duration = IncreasedSpeedDuration;
             else
@@ -56,7 +55,7 @@ public class ArrowSocket : MonoBehaviour
                 if (elem == null) continue;
                 if (elem is Person person)
                 {
-                    if(person.Type == CurType && !person.AlreadyTarget)
+                    if(person.Type == CurType && !person.AlreadyTarget && !person.IsWalking)
                     {
                         person.AlreadyTarget = true;
 
@@ -65,7 +64,15 @@ public class ArrowSocket : MonoBehaviour
                         {
                             person.Damage();
                             Destroy(Arrow.gameObject);
-                            CrowdManager.Instance.RemoveCrowdElement(elem);
+                            
+                            if (person.RequiredHits <= 0)
+                            {
+                                CrowdManager.Instance.RemoveCrowdElement(elem);
+                            }
+                            else
+                            {
+                                person.AlreadyTarget = false;
+                            }
                         });
 
                         BeltManager.Instance.SetSocketEmpty(this);

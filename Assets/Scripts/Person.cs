@@ -5,10 +5,17 @@ using ArrowFlowGame.Types;
 
 public class Person : CrowdElement
 {
+    public ParticleSystem DamageEffect;
     public Animator Anim;
-    [Range(0.1f, 10f)]public float YAnimOffset;
+    public float MinAnimSpeed = 0.8f;
+    public float MaxAnimSpeed = 1.5f;
+    [Range(0.1f, 10f)] public float YAnimOffset;
     public bool IsWalking
     {
+        get
+        {
+            return Anim.GetBool("IsWalking");
+        }
         set
         {
             Anim.SetBool("IsWalking", value);
@@ -17,6 +24,12 @@ public class Person : CrowdElement
 
     public bool AlreadyTarget {get; set;}
     public int RequiredHits = 1;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Anim.speed = UnityEngine.Random.Range(MinAnimSpeed, MaxAnimSpeed);
+    }
 
     public override void Init(CrowdElementData crowdElement)
     {
@@ -34,12 +47,15 @@ public class Person : CrowdElement
     protected virtual void Dead()
     {
         Anim.Play("Death");
-        SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial);
-        transform.DOMoveY(transform.position.y + YAnimOffset, 0.7f);
-        transform.DOScaleY(0, 0.3f).SetDelay(0.4f).OnComplete(() => Destroy(gameObject));
+        Sequence DeathSequence = DOTween.Sequence();
+        DeathSequence.AppendCallback(() => SwitchMaterial(ReferenceManager.Instance.DamageFlashedPerson));
+        DeathSequence.AppendCallback(() => DamageEffect.Play());
+        DeathSequence.Join(transform.DOMoveY(transform.position.y + YAnimOffset, 0.7f));
+        DeathSequence.InsertCallback(0.25f, () => SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial));
+        DeathSequence.Join(transform.DOScaleY(0, 0.3f).SetDelay(0.4f)).OnComplete(() => Destroy(gameObject));
+        // transform.DOScaleY(0, 0.3f).SetDelay(0.4f).OnComplete(() => Destroy(gameObject));
     }
-
-    private void SwitchMaterial(Material TargetMaterial)
+    protected virtual void SwitchMaterial(Material TargetMaterial)
     {
         Array.ForEach(Renderers, R => R.material = TargetMaterial);
     }

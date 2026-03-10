@@ -18,7 +18,7 @@ public class CrowdElement : MonoBehaviour
 
     public Vector3 TargetLocalPosition { get; set; }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         TargetLocalPosition = transform.localPosition;
     }

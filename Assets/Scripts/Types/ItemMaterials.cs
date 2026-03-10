@@ -8,12 +8,16 @@ namespace ArrowFlowGame.Types
     {
         public Material Red;
         public Material Green;
-        public Material DarkGreen;
+        public Material Yellow;
         public Material Blue;
-        public Material White;
-        public Material Orange;
-        public Material Cyan;
         public Material Pink;
+        public Material Cyan;
+        public Material Brown;
+        public Material Black;
+        public Material OffWhite;
+        public Material White;
+        public Material DarkGreen;
+        public Material Orange;
 
         public Material GetMaterial(ItemType type)
         {
@@ -23,20 +27,28 @@ namespace ArrowFlowGame.Types
                     return Red;
                 case ItemType.GREEN:
                     return Green;
-                case ItemType.DARKGREEN:
-                    return DarkGreen;
+                case ItemType.YELLOW:
+                    return Yellow;
                 case ItemType.BLUE:
                     return Blue;
-                case ItemType.WHITE:
-                    return White;
-                case ItemType.ORANGE:
-                    return Orange;
-                case ItemType.CYAN:
-                    return Cyan;
                 case ItemType.PINK:
                     return Pink;
-                default:
+                case ItemType.CYAN:
+                    return Cyan;
+                case ItemType.BROWN:
+                    return Brown;
+                case ItemType.BLACK:
+                    return Black;
+                case ItemType.OFFWHITE:
+                    return OffWhite;
+                case ItemType.WHITE:
                     return White;
+                case ItemType.DARKGREEN:
+                    return DarkGreen;
+                case ItemType.ORANGE:
+                    return Orange;
+                default:
+                    return null;
             }
         }
     }

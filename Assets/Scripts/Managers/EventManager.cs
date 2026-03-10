@@ -15,7 +15,6 @@ public class EventManager : Singleton<EventManager>
     private void UpdateBeltSpeed()
     {
         bool UseIncreasedSpeed = BeltManager.Instance.CurOccupied == BeltManager.Instance.TotalSockets;
-        Debug.Log("Updating belt speed. UseIncreasedSpeed = " + UseIncreasedSpeed);
         BeltManager.Instance.UpdateSpeed(UseIncreasedSpeed);
     }
 

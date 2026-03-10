@@ -7,7 +7,9 @@ public class ReferenceManager : Singleton<ReferenceManager>
 {
     public ItemMaterials ItemMats;
     public ItemMaterials ArrowBodyMats;
+    public ItemMaterials ArrowTrailMats;
     public Material DeadPersonMaterial;
+    public Material DamageFlashedPerson;
     public Dictionary<Vector2Int, Lock> KeyIdToLockedItem = new();
 
     public void RegisterLock(Lock lockClone, LockItemData data)
