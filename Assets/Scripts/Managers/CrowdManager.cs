@@ -25,7 +25,7 @@ public class CrowdManager : Singleton<CrowdManager>
         
         foreach (var column in columns)
         {
-            var frontEle = column.Where(e => !(e is Person p && p.AlreadyTarget))
+            var frontEle = column.Where(e => !(e is Person p && p.AlreadyTarget && p is not Giant))
                 .OrderByDescending(e => e.GridPos.y)
                 .FirstOrDefault();
             

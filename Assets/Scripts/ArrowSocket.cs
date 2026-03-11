@@ -55,7 +55,7 @@ public class ArrowSocket : MonoBehaviour
                 if (elem == null) continue;
                 if (elem is Person person)
                 {
-                    if(person.Type == CurType && !person.AlreadyTarget && !person.IsWalking)
+                    if(person.Type == CurType && (!person.AlreadyTarget || person is Giant) && !person.IsWalking)
                     {
                         person.AlreadyTarget = true;
 
@@ -73,7 +73,7 @@ public class ArrowSocket : MonoBehaviour
                             {
                                 person.AlreadyTarget = false;
                             }
-                        });
+                        }, UnityEngine.Random.Range(0,10) <= 6);
 
                         BeltManager.Instance.SetSocketEmpty(this);
                         break;

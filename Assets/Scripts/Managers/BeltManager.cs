@@ -76,6 +76,7 @@ public class BeltManager : Singleton<BeltManager>
     {
         CurCapacityText.text = (CurOccupied/(float) TotalSockets * 100f).ToString("F0") + "%";
         ProgressBarFill.fillAmount = CurOccupied / (float)TotalSockets;
+        UIManager.Instance.UpdateDangerVignetteAlpha(ProgressBarFill.fillAmount);
     }
 
     public void SocketOccupied(ArrowSocket socket)

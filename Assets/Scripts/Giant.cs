@@ -21,6 +21,7 @@ public class Giant: Person
         {
             Sequence DeathSequence = DOTween.Sequence();
 
+            if(!Anim.GetCurrentAnimatorStateInfo(0).IsName("Hit 1") || !Anim.GetCurrentAnimatorStateInfo(0).IsName("Hit 2"))
             Anim.Play("Hit " + UnityEngine.Random.Range(1,3));
             DeathSequence.AppendCallback(() => SwitchMaterial(ReferenceManager.Instance.DamageFlashedPerson));
             DeathSequence.AppendCallback(() => DamageEffect.Play());
@@ -34,8 +35,9 @@ public class Giant: Person
     
     protected override void Dead()
     {
+        HitsRequiredLabel.gameObject.SetActive(false);
         Anim.Play("ZombieDeath");
         SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial);
-        Destroy(gameObject, 0.7f);
+        Destroy(gameObject, 2.3f);
     }
 }

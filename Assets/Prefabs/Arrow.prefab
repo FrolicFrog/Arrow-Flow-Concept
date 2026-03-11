@@ -71,6 +71,7 @@ MonoBehaviour:
   - {fileID: 7412382096600043416}
   Trail: {fileID: 1663189187501061219}
   ArrowSpeed: 50
+  CurveMultiplier: 1
 --- !u!1 &9069948721464094285
 GameObject:
   m_ObjectHideFlags: 0

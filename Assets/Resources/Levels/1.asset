@@ -1068,7 +1068,7 @@ MonoBehaviour:
       data:
         Id: 0-0
         Type: 2
-        SpawnCount: 11
+        SpawnCount: 15
         ConnectedTo: {x: 0, y: 0}
     - rid: 1986424123686649884
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}

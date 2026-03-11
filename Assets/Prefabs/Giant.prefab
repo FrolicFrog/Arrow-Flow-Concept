@@ -127,7 +127,6 @@ Transform:
   m_Children:
   - {fileID: 6736987146246946386}
   - {fileID: 4300556504893594228}
-  - {fileID: 624455989973505251}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6206104431016008360
@@ -212,7 +211,8 @@ Transform:
   m_LocalPosition: {x: -0, y: 0.99625915, z: -0.038121033}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 624455989973505251}
   m_Father: {fileID: 7908945107651954935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1619489500438232991
@@ -370,7 +370,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 3.22, z: -1.67}
-  m_LocalScale: {x: 3.5784142, y: 3.5784137, z: 3.5784137}
+  m_LocalScale: {x: 1.9843023, y: 1.984302, z: 1.984302}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6571431770908663603}
@@ -5542,16 +5542,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5554786286355303281}
-  m_LocalRotation: {x: 0.5, y: -0, z: -0, w: 0.86602545}
-  m_LocalPosition: {x: 0, y: 0, z: -1.602818}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0.5011333, y: 0.0019777976, z: -0.008918125, w: -0.86532193}
+  m_LocalPosition: {x: 0, y: 0, z: -0.55}
+  m_LocalScale: {x: 0.49999994, y: 0.49999994, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6604664060022446038}
+  m_Father: {fileID: 4943677553282092057}
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 7.221235}
+  m_AnchoredPosition: {x: 0.14, y: 0.4}
   m_SizeDelta: {x: 3.9354, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &7878702124775058382
@@ -5616,7 +5616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 11
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
   m_sharedMaterial: {fileID: -2583947881128249416, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
@@ -5643,12 +5643,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
+  m_fontSize: 15
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 2
-  m_fontSizeMax: 25
+  m_fontSizeMax: 15
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
