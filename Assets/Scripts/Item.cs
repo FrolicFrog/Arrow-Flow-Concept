@@ -40,4 +40,6 @@ public class Item : MonoBehaviour
         sequence.InsertCallback(ElevationAnimDur, () => Destroy(gameObject));
         sequence.Play();
     }
+
+    public virtual void OnMoveForward() { }
 }

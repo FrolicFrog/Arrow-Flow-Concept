@@ -20,6 +20,7 @@ public class Spawner: Item, IClickable
     private ItemType Type;
     private int SpawnCount;
     private int _LeftToSpawn;
+    private bool IsMysterious = false;
     private int LeftToSpawn
     {
         get { return _LeftToSpawn; }
@@ -31,24 +32,27 @@ public class Spawner: Item, IClickable
     }
 
     private bool IsClicked = false;
+    private Material OriginalMat;
 
     public override void Init(ItemData data, VisualRows Row, Action<Item> OnItemUsed)
     {
         base.Init(data, Row, OnItemUsed);
 
         if(data is not SpawnItemData spawnerData) return;
-
+        IsMysterious = spawnerData.IsMysterious;
         Type = spawnerData.Type;
-        Renderer.material = ReferenceManager.Instance.ItemMats.GetMaterial(spawnerData.Type);
-
         SpawnCount = spawnerData.SpawnCount;
         LeftToSpawn = SpawnCount;
+
+        OriginalMat = ReferenceManager.Instance.ItemMats.GetMaterial(spawnerData.Type);
+        Renderer.material = IsMysterious ? ReferenceManager.Instance.MysteriousSpawnerMat : OriginalMat;
+        CountLabel.enabled = !IsMysterious;
     }
 
     public void OnClick()
     {
         if(Row.FrontItem != this || IsClicked)
-            return;
+        return;
 
         IsClicked = true;
 
@@ -70,26 +74,30 @@ public class Spawner: Item, IClickable
 
     private void SpawnItem()
     {
-        if(BeltManager.TryGetSocket(transform.position, out ArrowSocket Socket))
-        {
-            Socket.Occupied();
-            Quaternion LookRot = Quaternion.LookRotation(Socket.transform.position - transform.position);
-            Quaternion TargetRot = Quaternion.Euler(transform.rotation.x, LookRot.eulerAngles.y, transform.rotation.z);
-            transform.rotation = Quaternion.Slerp(transform.rotation, TargetRot, Time.deltaTime * RotationSpeed);
-            Spawnable spawnable = Instantiate(ItemToSpawn, transform.position, Quaternion.identity);
-            spawnable.Init(Type, Socket.transform, () =>
-            {
-                BeltManager.Instance.SetSocketReady(Socket, Type);
-                BeltManager.Instance.SocketOccupied(Socket);
-                Destroy(spawnable.gameObject);
-            });
-            
-            LeftToSpawn--;
-        }
-        else
+        if(!BeltManager.TryGetSocket(transform.position, out ArrowSocket Socket))
         {
             EventManager.GameOver();
+            return;
         }
+        
+        Socket.Occupied();
+        Quaternion LookRot = Quaternion.LookRotation(Socket.transform.position - transform.position);
+        Quaternion TargetRot = Quaternion.Euler(transform.rotation.x, LookRot.eulerAngles.y, transform.rotation.z);
+        transform.rotation = Quaternion.Slerp(transform.rotation, TargetRot, Time.deltaTime * RotationSpeed);
+        Spawnable spawnable = Instantiate(ItemToSpawn, transform.position, Quaternion.identity);
+        spawnable.Init(Type, Socket.transform, () =>
+        {
+            BeltManager.Instance.SetSocketReady(Socket, Type);
+            BeltManager.Instance.SocketOccupied(Socket);
+            Destroy(spawnable.gameObject);
+        });
+        
+        LeftToSpawn--;
     }
 
+    public override void OnMoveForward()
+    {
+        Renderer.material = OriginalMat;
+        CountLabel.enabled = true;
+    }
 }

@@ -362,7 +362,7 @@ public class LevelEditor : EditorWindow
         item.Type = (ItemType)EditorGUILayout.EnumPopup(item.Type);
 
         item.SpawnCount = EditorGUILayout.IntSlider("Spawn Count: ", item.SpawnCount, 0, 250);
-
+        item.IsMysterious = EditorGUILayout.Toggle("Is Mysterious :", item.IsMysterious);
         GUILayout.BeginHorizontal();
         item.ConnectedTo = EditorGUILayout.Vector2IntField("Connected To:", item.ConnectedTo);
         GUILayout.EndHorizontal();

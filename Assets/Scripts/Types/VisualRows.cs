@@ -37,6 +37,7 @@ namespace ArrowFlowGame.Types
 
             _completedMovements++;
             rowsTransform.DOMoveZ(rowsTransform.transform.position.z + _gridSpacing.y, 0.5f);
+            _itemsInRows[0].OnMoveForward();
         }
 
         public void Dequeue()

@@ -18,6 +18,7 @@ namespace ArrowFlowGame.Types
     {
         public ItemType Type;
         public int SpawnCount;
+        public bool IsMysterious = false;
         public Vector2Int ConnectedTo;
         
         public SpawnItemData(string Id) : base(Id)
