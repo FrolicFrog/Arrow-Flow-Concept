@@ -110,6 +110,7 @@ public class LevelManager : Singleton<LevelManager>
                     Spawner SpawnerClone = Instantiate(SpawnItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
                     SpawnerClone.Init(Items[j], RowsTransform[i], OnItemUsed);
                     RowsTransform[i].Add(SpawnerClone);
+                    ReferenceManager.Instance.RegisterSpawner(SpawnerClone, SpawnerData);
                 }
                 else if(data is LockItemData LockData)
                 {

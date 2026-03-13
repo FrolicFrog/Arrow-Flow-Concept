@@ -18,10 +18,19 @@ public class ReferenceManager : Singleton<ReferenceManager>
     private Vector2 currentOffset = Vector2.zero;
 
     public Dictionary<Vector2Int, Lock> KeyIdToLockedItem = new();
+    public Dictionary<Vector2Int, Spawner> IdToSpawner = new();
 
     public void RegisterLock(Lock lockClone, LockItemData data)
     {
-        KeyIdToLockedItem.Add(data.KeyId, lockClone);
+        if (data.HasKey)
+        {
+            KeyIdToLockedItem.Add(data.KeyId, lockClone);
+        }
+    }
+    
+    public void RegisterSpawner(Spawner spawnerClone, SpawnItemData spawnerData)
+    {
+        IdToSpawner.Add(spawnerData.Id, spawnerClone);
     }
 
     private void Update()

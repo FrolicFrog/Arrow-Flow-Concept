@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ArrowFlowGame.Types
@@ -6,8 +7,8 @@ namespace ArrowFlowGame.Types
     [Serializable]
     public class ItemData
     {
-        public string Id;
-        public ItemData(string Id)
+        public Vector2Int Id;
+        public ItemData(Vector2Int Id)
         {
             this.Id = Id;
         }
@@ -19,9 +20,10 @@ namespace ArrowFlowGame.Types
         public ItemType Type;
         public int SpawnCount;
         public bool IsMysterious = false;
-        public Vector2Int ConnectedTo;
+        public bool HasConnection;
+        public List<Vector2Int> ConnectedTo = new List<Vector2Int>();
         
-        public SpawnItemData(string Id) : base(Id)
+        public SpawnItemData(Vector2Int Id) : base(Id)
         {
             
         }
@@ -30,9 +32,10 @@ namespace ArrowFlowGame.Types
     [Serializable]
     public class LockItemData : ItemData
     {
+        public bool HasKey;
         public Vector2Int KeyId;
         
-        public LockItemData(string Id) : base(Id)
+        public LockItemData(Vector2Int Id) : base(Id)
         {
 
         }

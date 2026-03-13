@@ -40,6 +40,11 @@ namespace ArrowFlowGame.Types
             _itemsInRows[0].OnMoveForward();
         }
 
+        public int IndexOf(Item item)
+        {
+            return _itemsInRows.IndexOf(item);
+        }
+
         public void Dequeue()
         {
             Item FrontItem = _itemsInRows[0];

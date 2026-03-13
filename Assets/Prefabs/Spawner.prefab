@@ -51,11 +51,17 @@ MonoBehaviour:
   Elevation: 4
   ElevationAnimDur: 0.5
   BreathScaleUp: 1.1
-  MinBreathingAnimDur: 0.5
-  MaxBreathingAnimDur: 1.5
+  MinBreathingAnimDur: 1
+  MaxBreathingAnimDur: 2
+  VisualRowIndex: -1
+  IsAtFrontBool: 0
   Renderer: {fileID: 4525786472624154785}
   ItemToSpawn: {fileID: 5158241363279224397, guid: b8c1f277dbc52c44eb8eff9a55a08202, type: 3}
   CountLabel: {fileID: 3106849557578687677}
+  LeftConnection: {fileID: 0}
+  LeftInstantiations: {fileID: 0}
+  RightConnection: {fileID: 0}
+  RightInstantiations: {fileID: 0}
   SpawnDelay: 0.1
   RotationSpeed: 20
   ScaleMultiplier: 0.6

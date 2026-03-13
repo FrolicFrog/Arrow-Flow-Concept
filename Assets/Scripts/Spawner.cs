@@ -1,8 +1,10 @@
 using UnityEngine;
+using System.Collections.Generic;
 using ArrowFlowGame.Types;
 using DG.Tweening;
 using System;
 using TMPro;
+using UnityEngine.Splines;
 
 public class Spawner: Item, IClickable
 {
@@ -33,6 +35,11 @@ public class Spawner: Item, IClickable
 
     private bool IsClicked = false;
     private Material OriginalMat;
+    private bool HasConnection;
+    private bool HasShotAll = false;
+    private bool HasCompleted = false;
+    private List<Vector2Int> ConnectedSpawnerIds = new();
+    
 
     public override void Init(ItemData data, VisualRows Row, Action<Item> OnItemUsed)
     {
@@ -47,12 +54,29 @@ public class Spawner: Item, IClickable
         OriginalMat = ReferenceManager.Instance.ItemMats.GetMaterial(spawnerData.Type);
         Renderer.material = IsMysterious ? ReferenceManager.Instance.MysteriousSpawnerMat : OriginalMat;
         CountLabel.enabled = !IsMysterious;
+        HasConnection = spawnerData.HasConnection;
+
+        if (spawnerData.ConnectedTo != null)
+        {
+            ConnectedSpawnerIds = new List<Vector2Int>(spawnerData.ConnectedTo);
+        }
+
     }
 
     public void OnClick()
     {
-        if(Row.FrontItem != this || IsClicked)
-        return;
+        if(Row.FrontItem != this || IsClicked) return;
+        Quaternion OrgRotation = transform.rotation;
+        List<Spawner> ConnectedSpawners = new List<Spawner>();
+        
+        if (HasConnection)
+        {
+            foreach (Vector2Int id in ConnectedSpawnerIds)
+            {
+                if (ReferenceManager.Instance.IdToSpawner.TryGetValue(id, out Spawner connectedSpawner))
+                    ConnectedSpawners.Add(connectedSpawner);
+            }
+        }
 
         IsClicked = true;
 
@@ -65,11 +89,34 @@ public class Spawner: Item, IClickable
         for(int i = 0; i < SpawnCount; i++)
         {
             seq.AppendCallback(SpawnItem);
+
             if(i < SpawnCount - 1)
                 seq.AppendInterval(SpawnDelay);
         }
 
-        seq.OnComplete(OnComplete);
+        seq.onComplete += () => 
+        {
+            transform.rotation = OrgRotation;
+            HasShotAll = true;
+
+            if(!HasConnection || ConnectedSpawners.Count == 0)
+            {
+                OnComplete();
+            }
+            else if(ConnectedSpawners.TrueForAll(S => S.IsAtFront() && S.HasShotAll))
+            {
+                ConnectedSpawners.ForEach(S => S.OnComplete());
+                OnComplete();
+            }
+        };
+    }
+
+
+    protected override void OnComplete()
+    {
+        if(!IsClicked || HasCompleted) return;
+        HasCompleted = true;
+        base.OnComplete();
     }
 
     private void SpawnItem()

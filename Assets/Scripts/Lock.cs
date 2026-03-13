@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class Lock : Item
 {
+    private bool HasKey;
     private Vector2Int KeyId;
 
     public override void Init(ItemData data, VisualRows Row, Action<Item> OnItemUsed)
     {
         base.Init(data, Row, OnItemUsed);
         if(data is not LockItemData lockData) return;
+        HasKey = lockData.HasKey;
         KeyId = lockData.KeyId;
     }
     public void Unlock()

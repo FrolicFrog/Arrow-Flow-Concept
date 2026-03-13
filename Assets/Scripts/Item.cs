@@ -12,9 +12,10 @@ public class Item : MonoBehaviour
     public float MinBreathingAnimDur = 0.5f;
     public float MaxBreathingAnimDur = 2f;
 
-
+    public int VisualRowIndex = -1;
+    public bool IsAtFrontBool = false;
     protected VisualRows Row;
-    protected string Id;
+    protected Vector2Int Id;
     protected Action<Item> OnItemUsed = null;
     
     private Tween BreathingTween = null;
@@ -25,6 +26,17 @@ public class Item : MonoBehaviour
         this.Row = Row;
         this.OnItemUsed = OnItemUsed;
         BreathingTween = transform.DOScale(transform.localScale * BreathScaleUp, UnityEngine.Random.Range(MinBreathingAnimDur, MaxBreathingAnimDur + 1)).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+    }   
+
+    private void Update()
+    {
+        VisualRowIndex = Row.IndexOf(this);
+        IsAtFrontBool = IsAtFront();
+    }
+
+    protected bool IsAtFront()
+    {
+        return Row.FrontItem == this;
     }
 
     protected virtual void OnComplete()

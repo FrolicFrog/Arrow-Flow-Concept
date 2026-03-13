@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using ArrowFlowGame.Types;
@@ -239,11 +240,11 @@ public class LevelEditor : EditorWindow
         // Ensure data is initialized before saving
         _ItemSpawnData ??= new ItemSpawnData();
         _CrowdSpawnData ??= new CrowdSpawnData(2, 2);
-        
+
         CurLvlData.ItemsData = _ItemSpawnData;
         CurLvlData.CrowdData = _CrowdSpawnData;
-        EditorUtility.SetDirty(CurLvlData); 
-        AssetDatabase.SaveAssets();        
+        EditorUtility.SetDirty(CurLvlData);
+        AssetDatabase.SaveAssets();
         Debug.Log("Level Updated");
     }
 
@@ -300,7 +301,7 @@ public class LevelEditor : EditorWindow
         ItemRowsVisualization();
         GUILayout.EndVertical();
     }
-    
+
     private void ItemRowsVisualization()
     {
         GUILayout.BeginHorizontal();
@@ -321,17 +322,26 @@ public class LevelEditor : EditorWindow
         GUILayout.Space(10);
         GUILayout.BeginHorizontal();
         GUILayout.BeginVertical();
-        foreach (ItemData item in Row)
+
+        for (int i = 0; i < Row.Count; i++)
         {
-            if(item is SpawnItemData spawnItemData)
+            ItemData item = Row[i];
+
+            void DeleteItem()
             {
-                SpawnItemDataVisualization(spawnItemData);
+                Row.RemoveAt(i);
             }
-            else if(item is LockItemData lockItemData)
+
+            if (item is SpawnItemData spawnItemData)
+            {
+                SpawnItemDataVisualization(spawnItemData, DeleteItem);
+            }
+            else if (item is LockItemData lockItemData)
             {
                 LockItemDataVisualization(lockItemData);
             }
         }
+
         GUILayout.EndVertical();
         GUILayout.EndHorizontal();
         GUILayout.EndVertical();
@@ -343,29 +353,74 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.LabelField("LOCK");
 
         EditorGUILayout.Space(5);
-        lockItemData.KeyId = EditorGUILayout.Vector2IntField("Unlock Key :", lockItemData.KeyId);
+        GUILayout.BeginHorizontal();
+        lockItemData.HasKey = EditorGUILayout.Toggle(lockItemData.HasKey, GUILayout.Width(20));
+        if (lockItemData.HasKey)
+        {
+            lockItemData.KeyId = EditorGUILayout.Vector2IntField("Unlock Key :", lockItemData.KeyId);
+        }
+        else
+        {
+            EditorGUILayout.LabelField("Unlock Key : None");
+        }
+        GUILayout.EndHorizontal();
+
         GUILayout.EndVertical();
     }
 
-    private void SpawnItemDataVisualization(SpawnItemData item)
+    private void SpawnItemDataVisualization(SpawnItemData item, Action Delete)
     {
         GUILayout.BeginVertical(boxStyle);
+        GUILayout.BeginHorizontal();
+
         Color CurColor = GUI.color;
         GUI.color = Utilities.GetColorByItemType(item.Type);
-        if (GUILayout.Button(new GUIContent(item.Id.ToString(), "Click to copy id"), GUILayout.ExpandWidth(true), GUILayout.Height(45)))
+
+        if (GUILayout.Button(item.Id.ToString(), GUILayout.ExpandWidth(true), GUILayout.Height(45)))
         {
-            EditorGUIUtility.systemCopyBuffer = item.Id;
+            EditorGUIUtility.systemCopyBuffer = item.Id.ToString();
         }
+
+        if (GUILayout.Button("Delete", GUILayout.Width(65), GUILayout.Height(45)))
+        {
+            Delete?.Invoke();
+        }
+
         GUI.color = CurColor;
+        GUILayout.EndHorizontal();
 
         EditorGUILayout.Space(5);
-        item.Type = (ItemType)EditorGUILayout.EnumPopup(item.Type);
 
+        item.Type = (ItemType)EditorGUILayout.EnumPopup(item.Type);
         item.SpawnCount = EditorGUILayout.IntSlider("Spawn Count: ", item.SpawnCount, 0, 250);
         item.IsMysterious = EditorGUILayout.Toggle("Is Mysterious :", item.IsMysterious);
+
         GUILayout.BeginHorizontal();
-        item.ConnectedTo = EditorGUILayout.Vector2IntField("Connected To:", item.ConnectedTo);
+        item.HasConnection = EditorGUILayout.Toggle(item.HasConnection, GUILayout.Width(20));
+        EditorGUILayout.LabelField("Has Connection(s)");
         GUILayout.EndHorizontal();
+
+        if (item.HasConnection)
+        {
+            if (item.ConnectedTo == null) item.ConnectedTo = new List<Vector2Int>();
+            
+            GUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField($"Connections: {item.ConnectedTo.Count}");
+            if (GUILayout.Button("+", GUILayout.Width(25)))
+            {
+                item.ConnectedTo.Add(Vector2Int.zero);
+            }
+            if (GUILayout.Button("-", GUILayout.Width(25)) && item.ConnectedTo.Count > 0)
+            {
+                item.ConnectedTo.RemoveAt(item.ConnectedTo.Count - 1);
+            }
+            GUILayout.EndHorizontal();
+
+            for (int j = 0; j < item.ConnectedTo.Count; j++)
+            {
+                item.ConnectedTo[j] = EditorGUILayout.Vector2IntField($"Connection {j + 1}:", item.ConnectedTo[j]);
+            }
+        }
 
         GUILayout.EndVertical();
     }
@@ -382,13 +437,13 @@ public class LevelEditor : EditorWindow
         GUILayout.BeginHorizontal();
         if (GUILayout.Button("Add Spawner", GUILayout.Height(35)))
         {
-            string id = $"{RowIdx}-{Row.Count}";
+            Vector2Int id = new Vector2Int(RowIdx, Row.Count);
             SpawnItemData item = new SpawnItemData(id);
             Row.Add(item);
         }
         if (GUILayout.Button("Add Lock", GUILayout.Height(35)))
         {
-            string id = $"{RowIdx}-{Row.Count}";
+            Vector2Int id = new Vector2Int(RowIdx, Row.Count);
             LockItemData item = new(id);
             Row.Add(item);
         }

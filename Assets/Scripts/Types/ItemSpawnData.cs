@@ -92,5 +92,10 @@ namespace ArrowFlowGame.Types
         {
             return GetEnumerator();
         }
+
+        public void RemoveAt(int i)
+        {
+            items.RemoveAt(i);
+        }
     }
 }
