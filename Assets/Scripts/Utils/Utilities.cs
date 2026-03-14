@@ -63,4 +63,22 @@ public class Utilities
 
         return false;
     }
+
+    public static int GetNearest(Vector3 Source, Vector3[] Positions)
+    {
+        int nearestIndex = -1;
+        float minDistance = float.MaxValue;
+
+        for (int i = 0; i < Positions.Length; i++)
+        {
+            float distance = Vector3.Distance(Source, Positions[i]);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestIndex = i;
+            }
+        }
+
+        return nearestIndex;
+    }
 }

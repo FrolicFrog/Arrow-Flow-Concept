@@ -13,7 +13,16 @@ MonoBehaviour:
   m_Name: 2
   m_EditorClassIdentifier: 
   ItemsData:
-    Rows: []
+    Rows:
+    - items:
+      - rid: 1986424213582643213
+      - rid: 1986424213582643214
+    - items:
+      - rid: 1986424213582643215
+      - rid: 1986424213582643216
+    - items:
+      - rid: 1986424213582643229
+      - rid: 1986424213582643230
   CrowdData:
     CrowdGrid:
       Rows:
@@ -201,4 +210,64 @@ MonoBehaviour:
       _Height: 5
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1986424213582643213
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 0, y: 0}
+        Type: 1
+        SpawnCount: 5
+        IsMysterious: 0
+        HasConnection: 1
+        ConnectedTo:
+        - {x: 1, y: 1}
+        - {x: 2, y: 0}
+    - rid: 1986424213582643214
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 0, y: 1}
+        Type: 2
+        SpawnCount: 5
+        IsMysterious: 0
+        HasConnection: 0
+        ConnectedTo: []
+    - rid: 1986424213582643215
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 1, y: 0}
+        Type: 1
+        SpawnCount: 1
+        IsMysterious: 0
+        HasConnection: 0
+        ConnectedTo: []
+    - rid: 1986424213582643216
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 1, y: 1}
+        Type: 4
+        SpawnCount: 5
+        IsMysterious: 0
+        HasConnection: 1
+        ConnectedTo:
+        - {x: 0, y: 0}
+        - {x: 2, y: 0}
+    - rid: 1986424213582643229
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 2, y: 0}
+        Type: 2
+        SpawnCount: 0
+        IsMysterious: 0
+        HasConnection: 1
+        ConnectedTo:
+        - {x: 1, y: 1}
+        - {x: 0, y: 0}
+    - rid: 1986424213582643230
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 2, y: 1}
+        Type: 3
+        SpawnCount: 0
+        IsMysterious: 0
+        HasConnection: 0
+        ConnectedTo: []
