@@ -1,13 +1,11 @@
 using UnityEngine;
 using ArrowFlowGame.Types;
 using System.Collections.Generic;
-using System;
 
 public class ReferenceManager : Singleton<ReferenceManager>
 {
-    public ItemMaterials ItemMats;
-    public ItemMaterials ArrowBodyMats;
-    public ItemMaterials ArrowTrailMats;
+    public ItemMaterials SpawnerMaterials;
+    public ArrowMats ArrowMaterials;
     public Material DeadPersonMaterial;
     public Material DamageFlashedPerson;
 

@@ -8,6 +8,7 @@ using TMPro;
 public class Spawner : Item, IClickable
 {
     [Header("REFERENCES")]
+    public ParticleSystem RevealEffect;
     public MeshRenderer Renderer;
     public Spawnable ItemToSpawn;
     public TextMeshPro CountLabel;
@@ -30,7 +31,7 @@ public class Spawner : Item, IClickable
         set
         {
             _LeftToSpawn = Mathf.Max(0, value);
-            CountLabel.text = _LeftToSpawn.ToString();
+            CountLabel.text = IsMysterious ? "?" : _LeftToSpawn.ToString();
         }
     }
 
@@ -63,10 +64,8 @@ public class Spawner : Item, IClickable
         SpawnCount = spawnerData.SpawnCount;
         LeftToSpawn = SpawnCount;
 
-        OriginalMat = ReferenceManager.Instance.ItemMats.GetMaterial(spawnerData.Type);
+        OriginalMat = ReferenceManager.Instance.SpawnerMaterials.GetMaterial(spawnerData.Type);
         Renderer.material = IsMysterious ? ReferenceManager.Instance.MysteriousSpawnerMat : OriginalMat;
-
-        CountLabel.enabled = !IsMysterious;
         HasConnection = spawnerData.HasConnection;
 
         if (spawnerData.ConnectedTo != null)
@@ -186,7 +185,6 @@ public class Spawner : Item, IClickable
         };
     }
 
-
     protected override void OnComplete()
     {
         if (!IsClicked || HasCompleted) return;
@@ -219,7 +217,11 @@ public class Spawner : Item, IClickable
 
     public override void OnMoveForward()
     {
+        if(!IsMysterious) return;
+
+        RevealEffect.Play();
+        IsMysterious = false;
         Renderer.material = OriginalMat;
-        CountLabel.enabled = true;
+        CountLabel.text = IsMysterious ? "?" : _LeftToSpawn.ToString();
     }
 }

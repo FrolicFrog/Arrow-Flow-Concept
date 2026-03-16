@@ -5,6 +5,9 @@ using ArrowFlowGame.Types;
 
 public class Person : CrowdElement
 {
+    public Mesh LowerPolyMesh;
+    public Mesh HigherPolyMesh; 
+    public SkinnedMeshRenderer Renderer;
     public ParticleSystem DamageEffect;
     public Animator Anim;
     public float MinAnimSpeed = 0.8f;
@@ -19,16 +22,27 @@ public class Person : CrowdElement
         set
         {
             Anim.SetBool("IsWalking", value);
+            if(!value && IsInFrontRow)
+            {
+                Renderer.sharedMesh = HigherPolyMesh;
+            }
         }
     }
 
     public bool AlreadyTarget {get; set;}
     public int RequiredHits = 1;
+    private bool IsInFrontRow => CrowdManager.Instance.CurFront.Contains(this);
 
     protected override void Awake()
     {
         base.Awake();
         Anim.speed = UnityEngine.Random.Range(MinAnimSpeed, MaxAnimSpeed);
+        Renderer.sharedMesh = LowerPolyMesh;
+    }
+
+    private void Start()
+    {
+        Renderer.sharedMesh = IsInFrontRow ? HigherPolyMesh : LowerPolyMesh;
     }
 
     public override void Init(CrowdElementData crowdElement)
@@ -53,7 +67,6 @@ public class Person : CrowdElement
         DeathSequence.Join(transform.DOMoveY(transform.position.y + YAnimOffset, 0.7f));
         DeathSequence.InsertCallback(0.25f, () => SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial));
         DeathSequence.Join(transform.DOScaleY(0, 0.3f).SetDelay(0.4f)).OnComplete(() => Destroy(gameObject));
-        // transform.DOScaleY(0, 0.3f).SetDelay(0.4f).OnComplete(() => Destroy(gameObject));
     }
     protected virtual void SwitchMaterial(Material TargetMaterial)
     {

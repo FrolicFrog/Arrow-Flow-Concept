@@ -68,6 +68,12 @@ public class LevelManager : Singleton<LevelManager>
 
                 Vector3Int GridIdx = new(i - HalfSize.x, flippedJ - HalfSize.y, 0);
                 Vector3 Pos = GridManager.Instance.GetPosition(GridIdx);
+                
+                if (CrowdData.Width % 2 == 0)
+                {
+                    Pos.x += GridManager.Instance.GridSystem.cellSize.x / 2f;
+                }
+
                 bool IsGiant = CrowdData.CrowdGrid[i, j].IsGiant;
                 CrowdElement PersonPrefab = IsGiant ? GiantPersonPrefab : CrowdElementPrefab;
 
@@ -75,6 +81,7 @@ public class LevelManager : Singleton<LevelManager>
                 CrowdEle.name = CrowdData.CrowdGrid[i, j].Type.ToString();
                 CrowdEle.Init(CrowdData.CrowdGrid[i, j]);
                 CrowdEle.GridPos = new Vector2Int(i, j);
+                CrowdEle.OriginalGridPos = new Vector2Int(i, j);
                 CrowdEle.GridIdxId = new Vector2Int(j, i);
                 CrowdManager.Instance.RegisterElement(new Vector2Int(i, j), CrowdEle);
                 CrowdGrid[i].Add(CrowdEle);

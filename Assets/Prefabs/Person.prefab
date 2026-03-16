@@ -144,6 +144,10 @@ MonoBehaviour:
   Renderers:
   - {fileID: 8102890605011211096}
   GridPos: {x: 0, y: 0}
+  OriginalGridPos: {x: 0, y: 0}
+  LowerPolyMesh: {fileID: 212370497460711607, guid: 44aabaf7bfec45d4aaebd08e82b65e27, type: 3}
+  HigherPolyMesh: {fileID: 212370497460711607, guid: 44aabaf7bfec45d4aaebd08e82b65e27, type: 3}
+  Renderer: {fileID: 8102890605011211096}
   DamageEffect: {fileID: 4261106075903021180}
   Anim: {fileID: 7662962690990169798}
   MinAnimSpeed: 0.8
@@ -15349,7 +15353,7 @@ GameObject:
   - component: {fileID: 4847685454194947752}
   - component: {fileID: 8102890605011211096}
   m_Layer: 0
-  m_Name: Sphere.002
+  m_Name: SkinnedMeshRenderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15364,7 +15368,7 @@ Transform:
   m_GameObject: {fileID: 8017552114463414761}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -2.5536196, y: 2.908089, z: 1.4171896}
+  m_LocalPosition: {x: -2.55, y: 2.908089, z: 0.18}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

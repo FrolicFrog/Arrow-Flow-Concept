@@ -14,6 +14,7 @@ public class CrowdElement : MonoBehaviour
     public ItemType Type {get; private set;}
     public bool IsKeyed {get; private set;}
     public Vector2Int GridPos;
+    public Vector2Int OriginalGridPos;
     public Vector2Int GridIdxId { get; set; }
 
     public Vector3 TargetLocalPosition { get; set; }
@@ -25,7 +26,7 @@ public class CrowdElement : MonoBehaviour
 
     public virtual void Init(CrowdElementData crowdElement)
     {
-        Material Mat = ReferenceManager.Instance.ItemMats.GetMaterial(crowdElement.Type);
+        Material Mat = ReferenceManager.Instance.SpawnerMaterials.GetMaterial(crowdElement.Type);
         Array.ForEach(Renderers, r => r.material = Mat);
         Type = crowdElement.Type;
         IsKeyed = crowdElement.IsKeyed;

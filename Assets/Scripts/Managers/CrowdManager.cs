@@ -20,22 +20,22 @@ public class CrowdManager : Singleton<CrowdManager>
     private List<CrowdElement> GetFrontRow()
     {
         List<CrowdElement> frontRow = new();
-        
+
         var columns = CrowdElements.Values.GroupBy(e => e.GridPos.x).OrderBy(g => g.Key);
-        
+
         foreach (var column in columns)
         {
             var frontEle = column.Where(e => !(e is Person p && p.AlreadyTarget && p is not Giant))
                 .OrderByDescending(e => e.GridPos.y)
                 .FirstOrDefault();
-            
+
             if (frontEle != null)
             {
                 frontRow.Add(frontEle);
             }
         }
 
-        return frontRow;
+        return frontRow.OrderByDescending(e => e.OriginalGridPos.y).ToList();
     }
     
     public void RemoveCrowdElement(CrowdElement Element)

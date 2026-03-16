@@ -36,8 +36,8 @@ namespace ArrowFlowGame.Types
 
 
             _completedMovements++;
-            rowsTransform.DOMoveZ(rowsTransform.transform.position.z + _gridSpacing.y, 0.5f);
-            _itemsInRows[0].OnMoveForward();
+            rowsTransform.DOMoveZ(rowsTransform.transform.position.z + _gridSpacing.y, 0.5f)
+            .OnComplete(() => _itemsInRows[0].OnMoveForward());
         }
 
         public int IndexOf(Item item)

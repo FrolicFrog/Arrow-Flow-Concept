@@ -1991,8 +1991,9 @@ GameObject:
   - component: {fileID: 932915752}
   - component: {fileID: 932915754}
   - component: {fileID: 932915753}
+  - component: {fileID: 932915755}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: FPSCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2015,7 +2016,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 147.2857, y: 142.7772}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &932915753
 MonoBehaviour:
@@ -2046,8 +2047,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2064,15 +2065,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 50
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 50
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -2114,6 +2115,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 932915751}
   m_CullTransparentMesh: 1
+--- !u!114 &932915755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932915751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36960507a1020c24fbe4f399282b3fc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fpsText: {fileID: 932915753}
+  pollingTime: 0.5
 --- !u!1 &940301754
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,7 +3071,7 @@ Transform:
   m_GameObject: {fileID: 1644393560}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 8.12}
+  m_LocalPosition: {x: -0.29, y: 1, z: 8.12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3588,7 +3603,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99db318e2660d024090c5ed32ea21977, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemMats:
+  SpawnerMaterials:
     Red: {fileID: 2100000, guid: 1e3c5f1db45b61a44985a819eae3f4c4, type: 2}
     Green: {fileID: 2100000, guid: 40bfa6ef501993c4dab51233ce251a59, type: 2}
     Yellow: {fileID: 2100000, guid: 31fd7395480bd1e4f8781f315bcf2b60, type: 2}
@@ -3601,32 +3616,46 @@ MonoBehaviour:
     White: {fileID: 2100000, guid: 0763660bf2da0614d9511bb6168c04ad, type: 2}
     DarkGreen: {fileID: 2100000, guid: 1f4100f45dc21c241b7307f6ef872894, type: 2}
     Orange: {fileID: 2100000, guid: 3bd24783f1769bc48a0ec24d795d1dfd, type: 2}
-  ArrowBodyMats:
-    Red: {fileID: 2100000, guid: 98694f9c4fab5fd43ba35439098bc9d2, type: 2}
-    Green: {fileID: 2100000, guid: 51450233d42bc8149b0cd333bf0ebb62, type: 2}
-    Yellow: {fileID: 2100000, guid: 6c01954372deefd46b9d4f8345da7f28, type: 2}
-    Blue: {fileID: 2100000, guid: 220157dfc255660409f39f3b9cc9dabd, type: 2}
-    Pink: {fileID: 2100000, guid: 6aa59e01d3c6ecd4fb7b881011f185f0, type: 2}
-    Cyan: {fileID: 2100000, guid: 4fa74bef890d4ab41862381e8b84faf5, type: 2}
-    Brown: {fileID: 2100000, guid: e0093cb6b4db5b7448af35158ada9ece, type: 2}
-    Black: {fileID: 2100000, guid: 377d86dd121a64d4f87132382cab2b31, type: 2}
-    OffWhite: {fileID: 2100000, guid: 7ea52ad77093bbd4ca3e7bc2beb679b0, type: 2}
-    White: {fileID: 2100000, guid: a762b8780d54a254684d72f7a5c4e4e3, type: 2}
-    DarkGreen: {fileID: 2100000, guid: b25583963d13b2c4d9a26e5328157606, type: 2}
-    Orange: {fileID: 2100000, guid: b9f97b6ed3d41e7489aae2820aba024a, type: 2}
-  ArrowTrailMats:
-    Red: {fileID: 2100000, guid: cc8f53cd2ed541c45b09fbdcba70f054, type: 2}
-    Green: {fileID: 2100000, guid: 2be69dccce144df4a83b87e5cb8da62c, type: 2}
-    Yellow: {fileID: 2100000, guid: b3701c3f5c9e5da44b15ddfbd2d24172, type: 2}
-    Blue: {fileID: 2100000, guid: a015573f364c5ca49a4530e2a89bc2a9, type: 2}
-    Pink: {fileID: 2100000, guid: 132bf00bf3012bd4fafe017ec4a74d63, type: 2}
-    Cyan: {fileID: 2100000, guid: 876092cb794ecc642a519d870e939b5a, type: 2}
-    Brown: {fileID: 2100000, guid: 15649183713f11d4f8afd9c031bdf834, type: 2}
-    Black: {fileID: 2100000, guid: 9e58c08c8592fcf4ca970877aa278897, type: 2}
-    OffWhite: {fileID: 2100000, guid: c61c544254fda1e4ebe598706077bd1d, type: 2}
-    White: {fileID: 2100000, guid: f824aa073fb9c064eb242db7c79287d7, type: 2}
-    DarkGreen: {fileID: 2100000, guid: 6e94f6750305f7049aacab43ad971734, type: 2}
-    Orange: {fileID: 2100000, guid: 0858463faeb890a46b7664ad852b0375, type: 2}
+  ArrowMaterials:
+    BodyMaterials:
+      Red: {fileID: 2100000, guid: 98694f9c4fab5fd43ba35439098bc9d2, type: 2}
+      Green: {fileID: 2100000, guid: 51450233d42bc8149b0cd333bf0ebb62, type: 2}
+      Yellow: {fileID: 2100000, guid: 6c01954372deefd46b9d4f8345da7f28, type: 2}
+      Blue: {fileID: 2100000, guid: 220157dfc255660409f39f3b9cc9dabd, type: 2}
+      Pink: {fileID: 2100000, guid: 6aa59e01d3c6ecd4fb7b881011f185f0, type: 2}
+      Cyan: {fileID: 2100000, guid: 4fa74bef890d4ab41862381e8b84faf5, type: 2}
+      Brown: {fileID: 2100000, guid: e0093cb6b4db5b7448af35158ada9ece, type: 2}
+      Black: {fileID: 2100000, guid: 377d86dd121a64d4f87132382cab2b31, type: 2}
+      OffWhite: {fileID: 2100000, guid: 7ea52ad77093bbd4ca3e7bc2beb679b0, type: 2}
+      White: {fileID: 2100000, guid: a762b8780d54a254684d72f7a5c4e4e3, type: 2}
+      DarkGreen: {fileID: 2100000, guid: b25583963d13b2c4d9a26e5328157606, type: 2}
+      Orange: {fileID: 2100000, guid: b9f97b6ed3d41e7489aae2820aba024a, type: 2}
+    TrailMaterials:
+      Red: {fileID: 2100000, guid: cc8f53cd2ed541c45b09fbdcba70f054, type: 2}
+      Green: {fileID: 2100000, guid: 2be69dccce144df4a83b87e5cb8da62c, type: 2}
+      Yellow: {fileID: 2100000, guid: b3701c3f5c9e5da44b15ddfbd2d24172, type: 2}
+      Blue: {fileID: 2100000, guid: a015573f364c5ca49a4530e2a89bc2a9, type: 2}
+      Pink: {fileID: 2100000, guid: 132bf00bf3012bd4fafe017ec4a74d63, type: 2}
+      Cyan: {fileID: 2100000, guid: 876092cb794ecc642a519d870e939b5a, type: 2}
+      Brown: {fileID: 2100000, guid: 15649183713f11d4f8afd9c031bdf834, type: 2}
+      Black: {fileID: 2100000, guid: 9e58c08c8592fcf4ca970877aa278897, type: 2}
+      OffWhite: {fileID: 2100000, guid: c61c544254fda1e4ebe598706077bd1d, type: 2}
+      White: {fileID: 2100000, guid: f824aa073fb9c064eb242db7c79287d7, type: 2}
+      DarkGreen: {fileID: 2100000, guid: 6e94f6750305f7049aacab43ad971734, type: 2}
+      Orange: {fileID: 2100000, guid: 0858463faeb890a46b7664ad852b0375, type: 2}
+    TipBackMaterials:
+      Red: {fileID: 2100000, guid: 099b561757746da46bdc09ca7e08c4b8, type: 2}
+      Green: {fileID: 2100000, guid: 31d7111d332859641bf20fdd6442fef9, type: 2}
+      Yellow: {fileID: 2100000, guid: 250aabb8b956e8346ac1d52ed5ad3a9c, type: 2}
+      Blue: {fileID: 2100000, guid: 83d471d5e1d9f834b905c21d8509c001, type: 2}
+      Pink: {fileID: 2100000, guid: 00ec47bf668d1ec43b2b4a9db4eebffb, type: 2}
+      Cyan: {fileID: 2100000, guid: 9028c0b94642b904896abf98c31c9673, type: 2}
+      Brown: {fileID: 2100000, guid: 2098ce5cb8883494ab848d14e78e782d, type: 2}
+      Black: {fileID: 2100000, guid: e4518ac583cbf5f4e9e4a3e08b48a1f2, type: 2}
+      OffWhite: {fileID: 2100000, guid: 8dfa3f92d136b5041b7a6a9d62f582f1, type: 2}
+      White: {fileID: 2100000, guid: 111ae4094432ba24f869bb4567291c91, type: 2}
+      DarkGreen: {fileID: 2100000, guid: d08ae6517db96c84aa3e73dbc957b85a, type: 2}
+      Orange: {fileID: 2100000, guid: a3337cced32b67e45902b189414ca14b, type: 2}
   DeadPersonMaterial: {fileID: 2100000, guid: 36b6cc285a970e54f839097daeff8b5a, type: 2}
   DamageFlashedPerson: {fileID: 2100000, guid: 049619d4bfb310e43b901a493c40f9a9, type: 2}
   MysteriousSpawnerMat: {fileID: 2100000, guid: 71eace84b36706547a902d2f3b96f3b1, type: 2}

@@ -20,24 +20,11 @@ public class EventManager : Singleton<EventManager>
 
     private void CheckForLvlCompletion()
     {
-        if(AllCrowdPersonKilled() && AllSpawnersUsed())
-        {
-            GameManager.Instance.CurGameState = GameState.COMPLETED;
-            GameManager.Instance.GlobalInputEnabled = false;
-            UIManager.Instance.ShowLevelCompleteScreen();
-        }
-    }
-
-    private bool AllSpawnersUsed()
-    {
-        VisualRows[] Rows = LevelManager.Instance.Rows;
-        foreach(var row in Rows)
-        {
-            if(row.Count != 0)
-                return false;
-        }
-
-        return true;
+        if(!AllCrowdPersonKilled()) return;
+        
+        GameManager.Instance.CurGameState = GameState.COMPLETED;
+        GameManager.Instance.GlobalInputEnabled = false;
+        UIManager.Instance.ShowLevelCompleteScreen();
     }
 
     private bool AllCrowdPersonKilled()

@@ -7,6 +7,7 @@ using UnityEngine.Splines;
 public class ArrowSocket : MonoBehaviour
 {
     [Header("References")]
+    public float MaxDot = 0.91f;
 
     public Spawnable ArrowPrefab;
     public SplineAnimate SplineAnimator;
@@ -88,22 +89,15 @@ public class ArrowSocket : MonoBehaviour
         Vector3 directionToTarget = (GridManager.Instance.Origin.position - transform.position).normalized;
         Vector3 forward = -transform.up;
         float dot = Vector3.Dot(forward, directionToTarget);
-
-        return dot > 0f;
+        return dot > MaxDot;
     }
 
     public void Ready(ItemType Type)
     {
-        Material ArrowMat = ReferenceManager.Instance.ItemMats.GetMaterial(Type);
-        Material ArrowBodyMat = ReferenceManager.Instance.ArrowBodyMats.GetMaterial(Type);
-        Material[] MatArr = new Material[3];
-        MatArr[0] = ArrowMat;
-        MatArr[1] = ArrowBodyMat;
-        MatArr[2] = ArrowMat;
+        ArrowRenderer.materials = ReferenceManager.Instance.ArrowMaterials.GetArrowMatArray(Type);
 
-        CurType = Type;
-        ArrowRenderer.materials = MatArr;
         ArrowRenderer.enabled = true;
+        CurType = Type;
         IsReady = true;
     }
 }

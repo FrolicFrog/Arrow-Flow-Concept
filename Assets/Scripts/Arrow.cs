@@ -30,18 +30,13 @@ public class Arrow : Spawnable
 
     public override void Init(ItemType type, Transform target, Action OnReachTarget = null, bool TakeCurvedPath = false)
     {
-        Material ArrowMat = ReferenceManager.Instance.ItemMats.GetMaterial(type);
-        Material ArrowBodyMat = ReferenceManager.Instance.ArrowBodyMats.GetMaterial(type);
-        Material[] MatArr = new Material[3];
-        MatArr[0] = ArrowMat;
-        MatArr[1] = ArrowBodyMat;
-        MatArr[2] = ArrowMat;
+        Material[] MatArr = ReferenceManager.Instance.ArrowMaterials.GetArrowMatArray(type);
 
         foreach(Renderer r in Renderers)
             r.materials = MatArr;
 
         Trail.Clear();
-        Trail.material = ReferenceManager.Instance.ArrowTrailMats.GetMaterial(type);
+        Trail.material = ReferenceManager.Instance.ArrowMaterials.TrailMaterials.GetMaterial(type);
 
         ArrowType = type;
         Target = target;
