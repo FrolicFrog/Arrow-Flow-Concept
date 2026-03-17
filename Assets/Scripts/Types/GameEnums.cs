@@ -55,4 +55,13 @@ namespace ArrowFlowGame.Types
         COMPLETED
     }
 
+    public enum LABELTYPE
+    {
+        DEFAULT,
+        ID,
+        HITS,
+        KEYED,
+        GIANT,
+    }
+
 }

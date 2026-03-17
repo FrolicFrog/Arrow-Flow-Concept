@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ReferenceManager : Singleton<ReferenceManager>
 {
     public ItemMaterials SpawnerMaterials;
+    public ItemMaterials PersonMaterials;
     public ArrowMats ArrowMaterials;
     public Material DeadPersonMaterial;
     public Material DamageFlashedPerson;
@@ -21,9 +22,7 @@ public class ReferenceManager : Singleton<ReferenceManager>
     public void RegisterLock(Lock lockClone, LockItemData data)
     {
         if (data.HasKey)
-        {
-            KeyIdToLockedItem.Add(data.KeyId, lockClone);
-        }
+        KeyIdToLockedItem.Add(data.KeyId, lockClone);
     }
     
     public void RegisterSpawner(Spawner spawnerClone, SpawnItemData spawnerData)

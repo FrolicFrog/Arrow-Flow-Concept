@@ -45,8 +45,10 @@ public class LevelManager : Singleton<LevelManager>
             _LevelData = Resources.Load<LevelData>($"Levels/{LevelNumber}");
         }
 
+
         SpawnItems();
         SpawnCrowdElements();
+        BeltManager.Instance.TotalSockets = _LevelData.BeltCapacity;
         UIManager.Instance.UpdateLevelLabel(_CurrentLevelNumber);
         GameManager.Instance.CurGameState = GameState.STARTED;
     }

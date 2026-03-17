@@ -47,13 +47,13 @@ public class UIManager : Singleton<UIManager>
 
     public void UpdateDangerVignetteAlpha(float fillAmount)
     {
-        if (fillAmount > 0.8f)
+        if (fillAmount > 0.7f)
         {
             if (!vignetteVisible)
             {
                 vignetteVisible = true;
                 vignetteTween?.Kill();
-                vignetteTween = DangerVignette.DOFade(fillAmount, 0.3f);
+                vignetteTween = DangerVignette.DOFade(fillAmount, 0.3f).SetLoops(-1, LoopType.Yoyo);
             }
             else
             {

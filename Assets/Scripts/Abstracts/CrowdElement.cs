@@ -26,7 +26,7 @@ public class CrowdElement : MonoBehaviour
 
     public virtual void Init(CrowdElementData crowdElement)
     {
-        Material Mat = ReferenceManager.Instance.SpawnerMaterials.GetMaterial(crowdElement.Type);
+        Material Mat = ReferenceManager.Instance.PersonMaterials.GetMaterial(crowdElement.Type);
         Array.ForEach(Renderers, r => r.material = Mat);
         Type = crowdElement.Type;
         IsKeyed = crowdElement.IsKeyed;

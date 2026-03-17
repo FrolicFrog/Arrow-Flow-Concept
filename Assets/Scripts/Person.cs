@@ -5,8 +5,9 @@ using ArrowFlowGame.Types;
 
 public class Person : CrowdElement
 {
+    public Key KeyObj;
     public Mesh LowerPolyMesh;
-    public Mesh HigherPolyMesh; 
+    public Mesh HigherPolyMesh;
     public SkinnedMeshRenderer Renderer;
     public ParticleSystem DamageEffect;
     public Animator Anim;
@@ -42,6 +43,7 @@ public class Person : CrowdElement
 
     private void Start()
     {
+        KeyObj.SetActive(IsKeyed);
         Renderer.sharedMesh = IsInFrontRow ? HigherPolyMesh : LowerPolyMesh;
     }
 
@@ -60,6 +62,12 @@ public class Person : CrowdElement
 
     protected virtual void Dead()
     {
+        if(IsKeyed && ReferenceManager.Instance.KeyIdToLockedItem.TryGetValue(GridIdxId, out Lock LockObj))
+        {
+            KeyObj.transform.SetParent(null);
+            KeyObj.Unlock(LockObj);
+        }
+
         Anim.Play("Death");
         Sequence DeathSequence = DOTween.Sequence();
         DeathSequence.AppendCallback(() => SwitchMaterial(ReferenceManager.Instance.DamageFlashedPerson));

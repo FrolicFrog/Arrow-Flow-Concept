@@ -22,7 +22,6 @@ MonoBehaviour:
     - items:
       - rid: 6744296964501536775
       - rid: 6744296964501536776
-      - rid: 6744296964501536777
       - rid: 6744296964501536780
       - rid: 6744296964501536781
   CrowdData:
@@ -846,6 +845,7 @@ MonoBehaviour:
           IsGiant: 0
       _Width: 10
       _Height: 16
+  BeltCapacity: 90
   references:
     version: 2
     RefIds:
@@ -893,12 +893,6 @@ MonoBehaviour:
         ConnectedTo:
         - {x: 0, y: 0}
         - {x: 2, y: 1}
-    - rid: 6744296964501536777
-      type: {class: LockItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
-      data:
-        Id: {x: 1, y: 4}
-        HasKey: 0
-        KeyId: {x: 0, y: 0}
     - rid: 6744296964501536778
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
@@ -920,7 +914,7 @@ MonoBehaviour:
     - rid: 6744296964501536780
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
-        Id: {x: 1, y: 3}
+        Id: {x: 1, y: 2}
         Type: 2
         SpawnCount: 20
         IsMysterious: 0
@@ -929,7 +923,7 @@ MonoBehaviour:
     - rid: 6744296964501536781
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
-        Id: {x: 1, y: 4}
+        Id: {x: 1, y: 3}
         Type: 3
         SpawnCount: 20
         IsMysterious: 0

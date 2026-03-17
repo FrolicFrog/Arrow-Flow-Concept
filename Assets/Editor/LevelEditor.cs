@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using ArrowFlowGame.Types;
+using UnityEngine.UI;
+
 
 public class LevelEditor : EditorWindow
 {
@@ -12,6 +14,7 @@ public class LevelEditor : EditorWindow
 
     private LevelData CurLvlData => Resources.Load<LevelData>("Levels/" + CurLvlNum);
     private int CurLvlNum = 1;
+    private int CurBeltCapacity = 10;
 
     //Data
     private ItemSpawnData _ItemSpawnData;
@@ -31,8 +34,55 @@ public class LevelEditor : EditorWindow
     private ToolbarOption<Hits> HitsToolbar = new ToolbarOption<Hits>(Hits.ONE, "Hits:", true);
     private ToolbarOption<KEYED> KeyedToolbar = new ToolbarOption<KEYED>(KEYED.YES, "Is Keyed:", true);
     private ToolbarOption<GIANT> GiantToolbar = new ToolbarOption<GIANT>(GIANT.YES, "Is Giant:", true);
+    private ToolbarOption<LABELTYPE> LabelSwitch = new ToolbarOption<LABELTYPE>(LABELTYPE.DEFAULT, "Label:", true);
 
+    [MenuItem("Arrow Flow/Fix All Level IDs Project-Wide")]
+    public static void FixAllLevelIDs()
+    {
+        // Load all LevelData assets from the Resources/Levels folder
+        LevelData[] allLevels = Resources.LoadAll<LevelData>("Levels");
+        int fixedCount = 0;
 
+        foreach (LevelData level in allLevels)
+        {
+            if (level.ItemsData == null) continue;
+
+            bool isModified = false;
+
+            for (int r = 0; r < level.ItemsData.RowsCount; r++)
+            {
+                ItemsRow row = level.ItemsData[r];
+                for (int c = 0; c < row.Count; c++)
+                {
+                    Vector2Int correctId = new Vector2Int(r, c);
+
+                    // If the ID is wrong (duplicate or skipped), fix it
+                    if (row[c].Id != correctId)
+                    {
+                        row[c].Id = correctId;
+                        isModified = true;
+                    }
+                }
+            }
+
+            // If we changed anything, mark the asset dirty so Unity saves it
+            if (isModified)
+            {
+                EditorUtility.SetDirty(level);
+                fixedCount++;
+            }
+        }
+
+        if (fixedCount > 0)
+        {
+            AssetDatabase.SaveAssets();
+            Debug.Log($"<color=green>Successfully fixed IDs in {fixedCount} levels!</color>");
+        }
+        else
+        {
+            Debug.Log("Scanned all levels. No duplicate or incorrect IDs were found.");
+        }
+    }
 
     [MenuItem("Arrow Flow/Level Editor")]
     public static void ShowWindow()
@@ -95,7 +145,18 @@ public class LevelEditor : EditorWindow
         ItemsSettings();
         CrowdSettings();
         Actions();
+        Shortcuts();
         EditorGUILayout.EndScrollView();
+    }
+
+    private void Shortcuts()
+    {
+        Event e = Event.current;
+        if(e.alt && e.keyCode == KeyCode.S)
+        {
+            UpdateLvl();
+            Debug.Log("Level Saved");
+        }
     }
 
     private void CrowdSettings()
@@ -140,6 +201,7 @@ public class LevelEditor : EditorWindow
         HitsToolbar.DrawToolbar();
         KeyedToolbar.DrawToolbar();
         GiantToolbar.DrawToolbar();
+        LabelSwitch.DrawToolbar();
         GUILayout.Space(10);
 
         GUIStyle idStyle = new GUIStyle(GUI.skin.label)
@@ -164,6 +226,16 @@ public class LevelEditor : EditorWindow
                 GUI.color = Utilities.GetColorByItemType(element.Type);
 
                 string ButtonLabel = element.RequiredHits == 1 ? "" : ToolbarOption<Hits>.ConvertToString(element.RequiredHits);
+                
+                if(LabelSwitch.Value == LABELTYPE.ID)
+                    ButtonLabel = $"{row}-{col}";
+                else if(LabelSwitch.Value == LABELTYPE.HITS)
+                    ButtonLabel = element.RequiredHits.ToString();
+                else if(LabelSwitch.Value == LABELTYPE.KEYED)
+                    ButtonLabel = element.IsKeyed ? "K" : "";
+                else if(LabelSwitch.Value == LABELTYPE.GIANT)
+                    ButtonLabel = element.IsGiant ? "G" : "";
+
                 GUIContent buttonContent = new GUIContent(ButtonLabel, $"{row}-{col}"); // tooltip is 2nd param
 
                 Rect rect = GUILayoutUtility.GetRect(buttonContent, GUI.skin.button, GUILayout.Width(30), GUILayout.Height(30));
@@ -240,6 +312,7 @@ public class LevelEditor : EditorWindow
         // Ensure data is initialized before saving
         _ItemSpawnData ??= new ItemSpawnData();
         _CrowdSpawnData ??= new CrowdSpawnData(2, 2);
+        CurLvlData.BeltCapacity = CurBeltCapacity;
 
         CurLvlData.ItemsData = _ItemSpawnData;
         CurLvlData.CrowdData = _CrowdSpawnData;
@@ -253,6 +326,7 @@ public class LevelEditor : EditorWindow
         if (CurLvlData == null) return;
         _ItemSpawnData = CurLvlData.ItemsData ?? new ItemSpawnData();
         _CrowdSpawnData = CurLvlData.CrowdData ?? new CrowdSpawnData(2, 2);
+        CurBeltCapacity = CurLvlData.BeltCapacity;
     }
 
     private void LevelSettings()
@@ -271,6 +345,12 @@ public class LevelEditor : EditorWindow
         EditorGUILayout.LabelField("Level Number :", GUILayout.ExpandWidth(false));
         CurLvlNum = EditorGUILayout.IntSlider(CurLvlNum, 1, 100);
         GUILayout.EndHorizontal();
+        
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Belt Capacity :", GUILayout.ExpandWidth(false));
+        CurBeltCapacity = EditorGUILayout.IntSlider(CurBeltCapacity, 1, 100);
+        GUILayout.EndHorizontal();
+
         GUILayout.EndVertical();
     }
 
@@ -315,7 +395,20 @@ public class LevelEditor : EditorWindow
 
     private void RowVisualization(ItemsRow Row, int RowIdx)
     {
-        void DeleteRow() => _ItemSpawnData.RemoveAt(RowIdx);
+        void DeleteRow()
+        {
+            _ItemSpawnData.RemoveAt(RowIdx);
+
+            // Re-assign IDs for ALL rows/items to ensure consistent IDs after a row is removed
+            for (int r = 0; r < _ItemSpawnData.RowsCount; r++)
+            {
+                for (int c = 0; c < _ItemSpawnData[r].Count; c++)
+                {
+                    _ItemSpawnData[r][c].Id = new Vector2Int(r, c);
+                }
+            }
+            GUIUtility.ExitGUI();
+        }
 
         GUILayout.BeginVertical(boxStyle);
         RowHeader(Row, RowIdx, DeleteRow);
@@ -326,10 +419,19 @@ public class LevelEditor : EditorWindow
         for (int i = 0; i < Row.Count; i++)
         {
             ItemData item = Row[i];
+            int itemIndex = i; // Safe capture for closure
 
             void DeleteItem()
             {
-                Row.RemoveAt(i);
+                Row.RemoveAt(itemIndex);
+
+                // Re-assign IDs for remaining items in this row to prevent duplicates when new ones are appended
+                for (int j = 0; j < Row.Count; j++)
+                {
+                    Row[j].Id = new Vector2Int(RowIdx, j);
+                }
+
+                GUIUtility.ExitGUI(); // Exits the current GUI Event to prevent OutOfRange or Layout errors
             }
 
             if (item is SpawnItemData spawnItemData)
@@ -338,7 +440,7 @@ public class LevelEditor : EditorWindow
             }
             else if (item is LockItemData lockItemData)
             {
-                LockItemDataVisualization(lockItemData);
+                LockItemDataVisualization(lockItemData, DeleteItem);
             }
         }
 
@@ -347,10 +449,21 @@ public class LevelEditor : EditorWindow
         GUILayout.EndVertical();
     }
 
-    private void LockItemDataVisualization(LockItemData lockItemData)
+    private void LockItemDataVisualization(LockItemData lockItemData, Action Delete)
     {
         GUILayout.BeginVertical(boxStyle);
-        EditorGUILayout.LabelField("LOCK");
+
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button($"Lock {lockItemData.Id}", GUILayout.ExpandWidth(true), GUILayout.Height(45)))
+        {
+            EditorGUIUtility.systemCopyBuffer = lockItemData.Id.ToString();
+        }
+
+        if (GUILayout.Button("Delete", GUILayout.Width(65), GUILayout.Height(45)))
+        {
+            Delete?.Invoke();
+        }
+        GUILayout.EndHorizontal();
 
         EditorGUILayout.Space(5);
         GUILayout.BeginHorizontal();
@@ -403,7 +516,7 @@ public class LevelEditor : EditorWindow
         if (item.HasConnection)
         {
             if (item.ConnectedTo == null) item.ConnectedTo = new List<Vector2Int>();
-            
+
             GUILayout.BeginHorizontal();
             EditorGUILayout.LabelField($"Connections: {item.ConnectedTo.Count}");
             if (GUILayout.Button("+", GUILayout.Width(25)))

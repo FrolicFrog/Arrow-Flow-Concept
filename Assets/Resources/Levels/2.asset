@@ -22,7 +22,6 @@ MonoBehaviour:
       - rid: 6744296940676579391
       - rid: 6744296940676579392
       - rid: 6744296940676579393
-      - rid: 6744296940676579394
   CrowdData:
     CrowdGrid:
       Rows:
@@ -946,6 +945,7 @@ MonoBehaviour:
           IsGiant: 0
       _Width: 10
       _Height: 18
+  BeltCapacity: 90
   references:
     version: 2
     RefIds:
@@ -1011,9 +1011,3 @@ MonoBehaviour:
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744296940676579394
-      type: {class: LockItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
-      data:
-        Id: {x: 1, y: 4}
-        HasKey: 0
-        KeyId: {x: 0, y: 0}

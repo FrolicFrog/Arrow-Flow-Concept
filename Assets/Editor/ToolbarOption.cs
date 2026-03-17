@@ -37,7 +37,7 @@ public class ToolbarOption<T>
             }
 
             string Label = (EqualityComparer<T>.Default.Equals(Value, option) ? "●" : "○") + (ShowName ? ConvertToString(option) : "");
-            if (GUILayout.Button(new GUIContent(Label, ConvertToString(option)), GUILayout.Width(50), GUILayout.Height(25)))
+            if (GUILayout.Button(new GUIContent(Label, ConvertToString(option)), GUILayout.Width(85), GUILayout.Height(25)))
             {
                 Value = option;
             }

@@ -25,7 +25,7 @@ public class Giant: Person
             Anim.Play("Hit " + UnityEngine.Random.Range(1,3));
             DeathSequence.AppendCallback(() => SwitchMaterial(ReferenceManager.Instance.DamageFlashedPerson));
             DeathSequence.AppendCallback(() => DamageEffect.Play());
-            DeathSequence.InsertCallback(0.25f, () => SwitchMaterial(ReferenceManager.Instance.SpawnerMaterials.GetMaterial(Type)));
+            DeathSequence.InsertCallback(0.25f, () => SwitchMaterial(ReferenceManager.Instance.PersonMaterials.GetMaterial(Type)));
         }
         else
         {

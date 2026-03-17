@@ -1,5 +1,6 @@
 using System;
 using ArrowFlowGame.Types;
+using DG.Tweening;
 using UnityEngine;
 
 public class Lock : Item
@@ -18,5 +19,13 @@ public class Lock : Item
     {
         Debug.Log("Lock Unlocked", gameObject);
         OnComplete();
+    }
+
+    protected override void OnComplete()
+    {
+        Row.Dequeue();
+        OnItemUsed?.Invoke(this);
+        Sequence sequence = DOTween.Sequence();
+        sequence.Join(transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject)));
     }
 }

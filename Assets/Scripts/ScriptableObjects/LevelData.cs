@@ -6,4 +6,5 @@ public class LevelData: ScriptableObject
 {
     public ItemSpawnData ItemsData;
     public CrowdSpawnData CrowdData;
+    public int BeltCapacity = 10;
 }
