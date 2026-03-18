@@ -21,18 +21,91 @@ public class BeltManager : Singleton<BeltManager>
 
     public event Action<ArrowSocket> OnSocketOccupied;
     private readonly List<ArrowSocket> Sockets = new();
+    private bool CanPreserveSockets => TotalSockets > Sockets.Count;
 
     private void Start()
     {
-        float Offset = (float)1 / TotalSockets;
-        for(int i = 0; i < TotalSockets; i++)
-        {
-            ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i);
-            Sockets.Add(Socket);
-        }
-
+        InitializeSockets();
         UpdateProgressbar();
     }
+
+    [ContextMenu("Initialize Sockets")]
+    private void InitPreserve()
+    {
+        InitializeSockets(true);
+    }
+
+    private void InitializeSockets(bool Preserve = false)
+    {
+        float Offset = (float) 1 / TotalSockets;
+
+        if(Preserve)
+        {
+           if(TotalSockets <= Sockets.Count)
+            {
+                if(TotalSockets < Sockets.Count) 
+                Debug.Log("Can't preserve sockets because target capacity is less than existing capacity");
+
+                return;
+            }
+
+            int CurrentSocketCount = Sockets.Count;
+            float currentNormTime = CurrentSocketCount > 0 ? Sockets[0].SplineAnimator.NormalizedTime : 0f;
+            bool currentSpeedState = CurrentSocketCount > 0 && Sockets[0].UseIncreasedSpeed;
+
+            for(int i = 0; i < TotalSockets; i++)
+            {
+                if(i <= CurrentSocketCount - 1)
+                {
+                    Sockets[i].SplineAnimator.StartOffset = Offset * i;
+                }
+                else
+                {
+                    ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i);
+                    Socket.UseIncreasedSpeed = currentSpeedState;
+                    Socket.SplineAnimator.NormalizedTime = currentNormTime;
+                    Sockets.Add(Socket);
+                }
+            }
+        }
+        else
+        {
+            for(int i = 0; i < TotalSockets; i++)
+            {
+                ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i);
+                Sockets.Add(Socket);
+            }
+        }
+        // int start = (Preserve && CanPreserveSockets) ? TotalSockets - Sockets.Count :  0;
+        
+        // if(!Preserve || !CanPreserveSockets) 
+        //     ClearSockets();
+
+        // float Offset = (float) 1 / TotalSockets;
+
+        // for(int k = 0; k < start; k++)
+        // {
+        //     Sockets[k].SplineAnimator.StartOffset = Offset * k;
+        // }
+
+        // for(int i = start; i < TotalSockets; i++)
+        // {
+        //     ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i);
+        //     Sockets.Add(Socket);
+        // }
+    }
+
+    private void ClearSockets()
+    {
+        foreach(ArrowSocket s in Sockets)
+        {
+            if (s == null) continue;
+            Destroy(s.gameObject);
+        }
+
+        Sockets.Clear();
+    }    
+
 
     public static bool TryGetSocket(Vector3 Pos, out ArrowSocket Socket)
     {

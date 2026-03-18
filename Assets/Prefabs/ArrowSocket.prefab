@@ -76,7 +76,7 @@ MonoBehaviour:
   ArrowRenderer: {fileID: 4003724122334115231}
   IsOccupied: 0
   IsReady: 0
-  OriginalDuration: 9
+  OriginalDuration: 8
   IncreasedSpeedDuration: 4.5
 --- !u!1 &3211323340556637258
 GameObject:

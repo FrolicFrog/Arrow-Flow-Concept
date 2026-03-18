@@ -7,7 +7,6 @@ public class Lock : Item
 {
     private bool HasKey;
     private Vector2Int KeyId;
-
     public override void Init(ItemData data, VisualRows Row, Action<Item> OnItemUsed)
     {
         base.Init(data, Row, OnItemUsed);
@@ -20,7 +19,6 @@ public class Lock : Item
         Debug.Log("Lock Unlocked", gameObject);
         OnComplete();
     }
-
     protected override void OnComplete()
     {
         Row.Dequeue();

@@ -139,7 +139,13 @@ public class Spawner : Item, IClickable
 
     public void OnClick()
     {
-        if (Row.FrontItem != this || IsClicked) return;
+        if (Row.FrontItem != this || IsClicked) 
+        {
+            Debug.Log("Cannot click spawner",gameObject);
+            return;
+        }
+
+        HapticsManager.MediumHaptic();
         Quaternion OrgRotation = transform.rotation;
         List<Spawner> ConnectedSpawners = new List<Spawner>();
 
@@ -205,6 +211,7 @@ public class Spawner : Item, IClickable
         Quaternion TargetRot = Quaternion.Euler(transform.rotation.x, LookRot.eulerAngles.y, transform.rotation.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, TargetRot, Time.deltaTime * RotationSpeed);
         Spawnable spawnable = Instantiate(ItemToSpawn, transform.position, Quaternion.identity);
+        HapticsManager.LightHaptic();
         spawnable.Init(Type, Socket.transform, () =>
         {
             BeltManager.Instance.SetSocketReady(Socket, Type);

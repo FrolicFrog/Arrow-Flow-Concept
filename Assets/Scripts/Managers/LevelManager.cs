@@ -25,6 +25,7 @@ public class LevelManager : Singleton<LevelManager>
     // Internal Private Variables....
     private LevelData _LevelData;
     private int _CurrentLevelNumber;
+    public int CurrentLevelNumber => _CurrentLevelNumber;
     private VisualRows[] RowsTransform;
     public VisualRows[] Rows => RowsTransform;
     public event Action<Item> OnItemUsed;

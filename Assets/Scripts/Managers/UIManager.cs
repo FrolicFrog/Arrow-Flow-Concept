@@ -7,8 +7,8 @@ using DG.Tweening;
 public class UIManager : Singleton<UIManager>
 {
     [Header("SCREENS")]
-    public UIScreen LevelCompleteScreen;
-    public UIScreen LevelFailedScreen;
+    public LevelCompleteScreen LevelCompleteScreen;
+    public LevelFailedScreen LevelFailedScreen;
     public UIScreen MainUIScreen;
 
     [Header("REFERENCES")]
@@ -35,12 +35,16 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowLevelCompleteScreen()
     {
+        Sequence seq = DOTween.Sequence();
+        seq.AppendCallback(() => EffectManager.Instance.Play("confetti"));
         LevelCompleteScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.NextLevel());
         LevelCompleteScreen.Display();
     }
 
     public void ShowLevelFailedScreen()
     {
+        Sequence seq = DOTween.Sequence();
+        seq.AppendCallback(() => EffectManager.Instance.Play("failed"));
         LevelFailedScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.ReloadLevel());
         LevelFailedScreen.Display();
     }

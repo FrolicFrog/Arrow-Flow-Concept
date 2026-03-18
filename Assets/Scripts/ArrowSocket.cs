@@ -16,10 +16,13 @@ public class ArrowSocket : MonoBehaviour
     public bool IsOccupied;
     public bool IsReady;
     public ItemType CurType { get; private set; }
+    private bool _useIncreasedSpeed;
     public bool UseIncreasedSpeed 
     { 
+        get => _useIncreasedSpeed;
         set
         {
+            _useIncreasedSpeed = value;
             if(value)
                 SplineAnimator.Duration = IncreasedSpeedDuration;
             else
