@@ -32,7 +32,7 @@ MonoBehaviour:
           IsGiant: 0
       _Width: 2
       _Height: 1
-  BeltCapacity: 1
+  BeltCapacity: 10
   references:
     version: 2
     RefIds:
