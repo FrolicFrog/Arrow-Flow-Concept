@@ -23,8 +23,6 @@ public class BeltManager : Singleton<BeltManager>
 
     public event Action<ArrowSocket> OnSocketOccupied;
     private readonly List<ArrowSocket> Sockets = new();
-    private bool CanPreserveSockets => TotalSockets > Sockets.Count;
-
 
     public void Initialize()
     {
@@ -38,12 +36,13 @@ public class BeltManager : Singleton<BeltManager>
     }
 
     [ContextMenu("Initialize Sockets")]
-    private void InitPreserve()
+    public void InitPreserve()
     {
-        InitializeSockets(true);
+        InitializeSockets(true, TutorialManager.Instance.NoPostProcessLayerIdx);
+        UpdateProgressbar();
     }
 
-    private void InitializeSockets(bool Preserve = false)
+    private void InitializeSockets(bool Preserve = false, int layerIdx = 0)
     {
         float Offset = (float) 1 / TotalSockets;
 
@@ -68,8 +67,8 @@ public class BeltManager : Singleton<BeltManager>
                     Sockets[i].SplineAnimator.StartOffset = Offset * i;
                 }
                 else
-                {
-                    ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i);
+                {   
+                    ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i, layerIdx);
                     Socket.UseIncreasedSpeed = currentSpeedState;
                     Socket.SplineAnimator.NormalizedTime = currentNormTime;
                     Sockets.Add(Socket);
@@ -80,27 +79,10 @@ public class BeltManager : Singleton<BeltManager>
         {
             for(int i = 0; i < TotalSockets; i++)
             {
-                ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i);
+                ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i, layerIdx);
                 Sockets.Add(Socket);
             }
         }
-        // int start = (Preserve && CanPreserveSockets) ? TotalSockets - Sockets.Count :  0;
-        
-        // if(!Preserve || !CanPreserveSockets) 
-        //     ClearSockets();
-
-        // float Offset = (float) 1 / TotalSockets;
-
-        // for(int k = 0; k < start; k++)
-        // {
-        //     Sockets[k].SplineAnimator.StartOffset = Offset * k;
-        // }
-
-        // for(int i = start; i < TotalSockets; i++)
-        // {
-        //     ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i);
-        //     Sockets.Add(Socket);
-        // }
     }
 
     private void ClearSockets()

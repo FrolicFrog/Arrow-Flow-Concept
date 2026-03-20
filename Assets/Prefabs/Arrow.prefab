@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5158241363279224397}
   m_Layer: 0
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: Arrow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -71,7 +71,8 @@ MonoBehaviour:
   - {fileID: 7412382096600043416}
   Trail: {fileID: 1663189187501061219}
   ArrowSpeed: 40
-  CurveMultiplier: 1
+  ClonedBy: {fileID: 0}
+  CurveMultiplier: 0.2
 --- !u!1 &9069948721464094285
 GameObject:
   m_ObjectHideFlags: 0

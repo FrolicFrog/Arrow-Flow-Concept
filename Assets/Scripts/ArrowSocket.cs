@@ -34,11 +34,14 @@ public class ArrowSocket : MonoBehaviour
     public float OriginalDuration;
     public float IncreasedSpeedDuration;
 
-    public static ArrowSocket CreateArrowSocket(ArrowSocket Prefab, SplineContainer Container, float Offset)
+    public static ArrowSocket CreateArrowSocket(ArrowSocket Prefab, SplineContainer Container, float Offset, int layerIdx)
     {
         ArrowSocket socket = Instantiate(Prefab, BeltManager.Instance.BeltObj.transform);
         socket.SplineAnimator.Container = Container;
         socket.SplineAnimator.StartOffset = Offset;
+        socket.SplineAnimator.Duration = socket.OriginalDuration;
+        Utilities.AssignLayerRecursively(socket.transform, layerIdx);
+
         socket.SplineAnimator.Play();
 
         return socket;

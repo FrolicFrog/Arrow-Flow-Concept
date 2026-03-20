@@ -10,14 +10,18 @@ public class Arrow : Spawnable
     public Renderer[] Renderers;
     public TrailRenderer Trail;
     public float ArrowSpeed = 50f;
+    [HideInInspector] public Arrow ClonedBy = null;
     
     [Header("Curved Path Settings")]
     [Tooltip("Controls how wide the curve stretches.")]
     public float CurveMultiplier = 0.5f;
 
-    private Transform Target;
+    private Transform target;
+    public Transform Target => target;
     private ItemType ArrowType;
+    public ItemType Type => ArrowType;
     private Action OnReachTarget;
+    public Action OnReachTargetAction => OnReachTarget;
     private bool TakeCurvedPath;
 
     private Vector3 startPosition;
@@ -39,7 +43,7 @@ public class Arrow : Spawnable
         Trail.material = ReferenceManager.Instance.ArrowMaterials.TrailMaterials.GetMaterial(type);
 
         ArrowType = type;
-        Target = target;
+        this.target = target;
         this.OnReachTarget = OnReachTarget;
         this.TakeCurvedPath = TakeCurvedPath;
 
@@ -48,9 +52,9 @@ public class Arrow : Spawnable
         startPosition = transform.position;
         progress = 0f;
 
-        if (Target != null)
+        if (this.target != null)
         {
-            initialDistance = Vector3.Distance(startPosition, Target.position);
+            initialDistance = Vector3.Distance(startPosition, this.target.position);
 
             if (TakeCurvedPath && initialDistance > 0)
             {
@@ -58,7 +62,7 @@ public class Arrow : Spawnable
                 Vector2 randomCircle = Random.insideUnitCircle;
 
                 // 2. Find relative axes so the curve expands outward perpendicular to the flight path
-                Vector3 directionToTarget = (Target.position - startPosition).normalized;
+                Vector3 directionToTarget = (this.target.position - startPosition).normalized;
                 Vector3 right = Vector3.Cross(directionToTarget, Vector3.up).normalized;
                 if (right == Vector3.zero) right = Vector3.right; // Edge case if shooting straight up/down
                 Vector3 up = Vector3.Cross(right, directionToTarget).normalized;
@@ -75,7 +79,7 @@ public class Arrow : Spawnable
 
     private void Update()
     {
-        if (Target == null || hasReachedTarget) return;
+        if (target == null || hasReachedTarget) return;
 
         if (TakeCurvedPath)
         {
@@ -84,7 +88,7 @@ public class Arrow : Spawnable
                 progress += (ArrowSpeed / initialDistance) * Time.deltaTime;
                 progress = Mathf.Clamp01(progress);
 
-                Vector3 nextPosition = GetQuadraticBezierPoint(startPosition, controlPoint, Target.position, progress);
+                Vector3 nextPosition = GetQuadraticBezierPoint(startPosition, controlPoint, target.position, progress);
 
                 if (nextPosition != transform.position)
                 {
@@ -93,7 +97,7 @@ public class Arrow : Spawnable
 
                 transform.position = nextPosition;
 
-                if (progress >= 1f || Vector3.Distance(transform.position, Target.position) < 0.1f)
+                if (progress >= 1f || Vector3.Distance(transform.position, target.position) < 0.1f)
                 {
                     TriggerReachTarget();
                 }
@@ -101,10 +105,10 @@ public class Arrow : Spawnable
         }
         else
         {
-            transform.position = Vector3.MoveTowards(transform.position, Target.position, Time.deltaTime * ArrowSpeed);
-            transform.LookAt(Target);
+            transform.position = Vector3.MoveTowards(transform.position, target.position, Time.deltaTime * ArrowSpeed);
+            transform.LookAt(target);
 
-            if (Vector3.Distance(transform.position, Target.position) < 0.1f)
+            if (Vector3.Distance(transform.position, target.position) < 0.1f)
             {
                 TriggerReachTarget();
             }
