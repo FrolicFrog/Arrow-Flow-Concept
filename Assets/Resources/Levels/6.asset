@@ -1153,7 +1153,7 @@ MonoBehaviour:
           IsGiant: 0
       _Width: 10
       _Height: 22
-  BeltCapacity: 90
+  BeltCapacity: 85
   references:
     version: 2
     RefIds:
