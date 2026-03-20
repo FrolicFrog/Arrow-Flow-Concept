@@ -34,4 +34,9 @@ public class GameManager : Singleton<GameManager>
     public event Action OnGameStarted;
     public event Action OnLevelComplete;
     public event Action OnLevelFailed;
+
+    public void Initialize()
+    {
+        CurGameState = GameState.STARTED;
+    }
 }

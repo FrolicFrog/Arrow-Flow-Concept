@@ -81,4 +81,13 @@ public class Utilities
 
         return nearestIndex;
     }
+
+    public static void AssignLayerRecursively(Transform Parent, int LayerIdx)
+    {
+        foreach (Transform child in Parent)
+        {
+            child.gameObject.layer = LayerIdx;
+            AssignLayerRecursively(child, LayerIdx);
+        }
+    }
 }

@@ -36,7 +36,7 @@ public class ArrowSocket : MonoBehaviour
 
     public static ArrowSocket CreateArrowSocket(ArrowSocket Prefab, SplineContainer Container, float Offset)
     {
-        ArrowSocket socket = Instantiate(Prefab);
+        ArrowSocket socket = Instantiate(Prefab, BeltManager.Instance.BeltObj.transform);
         socket.SplineAnimator.Container = Container;
         socket.SplineAnimator.StartOffset = Offset;
         socket.SplineAnimator.Play();

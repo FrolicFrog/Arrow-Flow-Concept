@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using DG.Tweening;
+using ArrowFlow.Types;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -10,6 +11,7 @@ public class UIManager : Singleton<UIManager>
     public LevelCompleteScreen LevelCompleteScreen;
     public LevelFailedScreen LevelFailedScreen;
     public UIScreen MainUIScreen;
+    public HintDialog HintBox;
 
     [Header("REFERENCES")]
     public TextMeshProUGUI LevelLabel;
@@ -26,6 +28,11 @@ public class UIManager : Singleton<UIManager>
         LevelCompleteScreen.Setup();
         LevelFailedScreen.Setup();
         MainUIScreen.Display();
+    }
+
+    public void Initialize()
+    {
+        UpdateLevelLabel(LevelManager.Instance.CurrentLevelNumber);
     }
 
     public void UpdateLevelLabel(int level)
@@ -74,5 +81,15 @@ public class UIManager : Singleton<UIManager>
                 vignetteTween = DangerVignette.DOFade(0f, 0.3f);
             }
         }
+    }
+
+    public void ShowHintBox(string hintLabel)
+    {
+        HintBox.Show(hintLabel);
+    }
+
+    public void DismissHintBox()
+    {
+        HintBox.Hide();
     }
 }

@@ -24,6 +24,7 @@ public class LevelManager : Singleton<LevelManager>
 
     // Internal Private Variables....
     private LevelData _LevelData;
+    public LevelData LevelData => _LevelData;
     private int _CurrentLevelNumber;
     public int CurrentLevelNumber => _CurrentLevelNumber;
     private VisualRows[] RowsTransform;
@@ -49,9 +50,11 @@ public class LevelManager : Singleton<LevelManager>
 
         SpawnItems();
         SpawnCrowdElements();
-        BeltManager.Instance.TotalSockets = _LevelData.BeltCapacity;
-        UIManager.Instance.UpdateLevelLabel(_CurrentLevelNumber);
-        GameManager.Instance.CurGameState = GameState.STARTED;
+        
+        PowerupManager.Instance.Initialize();
+        BeltManager.Instance.Initialize();
+        UIManager.Instance.Initialize();
+        GameManager.Instance.Initialize();
     }
 
     private void SpawnCrowdElements()

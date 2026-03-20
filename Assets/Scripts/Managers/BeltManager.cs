@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Splines;
+using Unity.VisualScripting;
 
 public class BeltManager : Singleton<BeltManager>
 {
@@ -13,6 +14,7 @@ public class BeltManager : Singleton<BeltManager>
     public ArrowSocket ArrowSocketPrefab;
     public SplineContainer SplineContain;
     public Image ProgressBarFill;
+    public Belt BeltObj;
 
     [Header("Settings")]
     [Range(1,90)]
@@ -22,6 +24,12 @@ public class BeltManager : Singleton<BeltManager>
     public event Action<ArrowSocket> OnSocketOccupied;
     private readonly List<ArrowSocket> Sockets = new();
     private bool CanPreserveSockets => TotalSockets > Sockets.Count;
+
+
+    public void Initialize()
+    {
+        TotalSockets = LevelManager.Instance.LevelData.BeltCapacity;
+    }
 
     private void Start()
     {
@@ -161,5 +169,10 @@ public class BeltManager : Singleton<BeltManager>
     {
         foreach(ArrowSocket s in Sockets)
         s.UseIncreasedSpeed = useIncreasedSpeed;
+    }
+
+    public void SwitchToLayer(int noPostProcessLayerIdx)
+    {
+        Utilities.AssignLayerRecursively(BeltObj.transform, noPostProcessLayerIdx);
     }
 }
