@@ -37,6 +37,7 @@ public class PowerupManager : Singleton<PowerupManager>
 
     private void UseExchangePowerup(bool showTutorial, string message)
     {
+        ReferenceManager.Instance.Cameras.DOMove(ReferenceManager.Instance.CameraExchangedFocusPos, 0.2f);
         foreach(Spawner V in ReferenceManager.Instance.IdToSpawner.Values)
         {
             if(V == null) continue;
@@ -84,6 +85,7 @@ public class PowerupManager : Singleton<PowerupManager>
                 Utilities.AssignLayerRecursively(V.transform, 0);
             }
 
+            ReferenceManager.Instance.Cameras.DOMove(ReferenceManager.Instance.CameraOriginalPos, 0.2f);
             EnableAllPowerups();
         }
     }

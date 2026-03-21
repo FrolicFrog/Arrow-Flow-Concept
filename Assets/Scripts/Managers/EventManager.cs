@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ArrowFlowGame.Types;
 using UnityEngine;
-
 public class EventManager : Singleton<EventManager>
 {
     private void Start()

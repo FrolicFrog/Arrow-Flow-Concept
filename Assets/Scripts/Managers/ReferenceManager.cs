@@ -10,6 +10,12 @@ public class ReferenceManager : Singleton<ReferenceManager>
     public Material DeadPersonMaterial;
     public Material DamageFlashedPerson;
 
+    [Header("CAMERA SETTINGS")]
+    public Transform Cameras;
+    public Vector3 CameraExchangedFocusPos;
+    public Vector3 CameraOriginalPos;
+
+
     [Header("MYSTERIOUS SPAWNERS")]
     public Material MysteriousSpawnerMat;
     public float ScrollSpeed;
