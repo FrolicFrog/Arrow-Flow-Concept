@@ -16,6 +16,13 @@ public class Belt : MonoBehaviour, IClickable
     [Header("REFERENCES")]
     public Transform MeshTransform;
     public SplineContainer SplineCon;
+    public GameObject FingerAnimation;
+    public int Layer => MeshTransform.gameObject.layer;
+    public bool ShowFingerAnimation
+    {
+        get => FingerAnimation.activeSelf;
+        set => FingerAnimation.SetActive(value);
+    }
 
     public event Action OnClicked;
 

@@ -42,7 +42,8 @@ public class Spawner : Item, IClickable
     private bool HasShotAll = false;
     
     public bool HasCompleted { get; private set; } = false;
-    
+    public int Layer => gameObject.layer;
+
     private List<Vector2Int> ConnectedSpawnerIds = new();
 
     private void OnEnable()

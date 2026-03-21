@@ -15,7 +15,10 @@ public class ClickDetector : MonoBehaviour
             {
                 if(hit.collider.TryGetComponent(out IClickable clickable))
                 {
-                    clickable.OnClick();
+                    if(!IsSecondaryCamera || clickable.Layer == TutorialManager.Instance.NoPostProcessLayerIdx)
+                    {
+                        clickable.OnClick();
+                    }
                 }
             }
         }

@@ -21,6 +21,7 @@ public class Portal : Singleton<Portal>
     [Header("REFERENCES")]
     public Transform Poles;
     public Transform PortalArea;
+    public BoxCollider ColliderObj;
 
     private bool IsPortalOpen = true;
 
@@ -41,6 +42,7 @@ public class Portal : Singleton<Portal>
         PortalArea.DOScale(PortalAreaScale.To, 0.5f).SetEase(Ease.InOutSine);
         DOVirtual.DelayedCall(PortalDuration.Value, ClosePortal);
         IsPortalOpen = true;
+        ColliderObj.enabled = true;
     }
 
     [ContextMenu("Close Portal")]
@@ -56,6 +58,7 @@ public class Portal : Singleton<Portal>
         });
 
         IsPortalOpen = false;
+        ColliderObj.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)

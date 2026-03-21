@@ -57,7 +57,6 @@ public class BeltManager : Singleton<BeltManager>
             }
 
             int CurrentSocketCount = Sockets.Count;
-            float currentNormTime = CurrentSocketCount > 0 ? Sockets[0].SplineAnimator.NormalizedTime : 0f;
             bool currentSpeedState = CurrentSocketCount > 0 && Sockets[0].UseIncreasedSpeed;
 
             for(int i = 0; i < TotalSockets; i++)
@@ -65,12 +64,12 @@ public class BeltManager : Singleton<BeltManager>
                 if(i <= CurrentSocketCount - 1)
                 {
                     Sockets[i].SplineAnimator.StartOffset = Offset * i;
+                    Sockets[i].SplineAnimator.Restart(true);
                 }
                 else
                 {   
                     ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i, layerIdx);
                     Socket.UseIncreasedSpeed = currentSpeedState;
-                    Socket.SplineAnimator.NormalizedTime = currentNormTime;
                     Sockets.Add(Socket);
                 }
             }
