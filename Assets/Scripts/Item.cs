@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
 
     public int VisualRowIndex = -1;
     public bool IsAtFrontBool = false;
-    protected VisualRows Row;
+    public VisualRows Row;
     protected Vector2Int Id;
     protected Action<Item> OnItemUsed = null;
     

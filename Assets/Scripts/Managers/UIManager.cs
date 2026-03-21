@@ -42,6 +42,9 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowLevelCompleteScreen()
     {
+        if(GameManager.Instance.CurGameState == ArrowFlowGame.Types.GameState.COMPLETED) return;
+
+        GameManager.Instance.CurGameState = ArrowFlowGame.Types.GameState.COMPLETED;
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => EffectManager.Instance.Play("confetti"));
         LevelCompleteScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.NextLevel());
@@ -50,6 +53,9 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowLevelFailedScreen()
     {
+        if(GameManager.Instance.CurGameState == ArrowFlowGame.Types.GameState.FAILED) return;
+
+        GameManager.Instance.CurGameState = ArrowFlowGame.Types.GameState.FAILED;
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => EffectManager.Instance.Play("failed"));
         LevelFailedScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.ReloadLevel());

@@ -57,5 +57,10 @@ namespace ArrowFlowGame.Types
         {
             _itemsInRows.Add(item);
         }
+
+        public void SetItem(Spawner spawner1, int idx2)
+        {
+            _itemsInRows[idx2] = spawner1;
+        }
     }
 }

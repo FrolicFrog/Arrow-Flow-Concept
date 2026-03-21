@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Splines;
 using Unity.VisualScripting;
+using UnityEditor;
 
 public class BeltManager : Singleton<BeltManager>
 {
@@ -27,10 +28,6 @@ public class BeltManager : Singleton<BeltManager>
     public void Initialize()
     {
         TotalSockets = LevelManager.Instance.LevelData.BeltCapacity;
-    }
-
-    private void Start()
-    {
         InitializeSockets();
         UpdateProgressbar();
     }
@@ -58,21 +55,26 @@ public class BeltManager : Singleton<BeltManager>
 
             int CurrentSocketCount = Sockets.Count;
             bool currentSpeedState = CurrentSocketCount > 0 && Sockets[0].UseIncreasedSpeed;
+            float NormalizedTime = Sockets[0].SplineAnimator.NormalizedTime;
 
             for(int i = 0; i < TotalSockets; i++)
             {
                 if(i <= CurrentSocketCount - 1)
                 {
                     Sockets[i].SplineAnimator.StartOffset = Offset * i;
-                    Sockets[i].SplineAnimator.Restart(true);
+                    Sockets[i].SplineAnimator.NormalizedTime = NormalizedTime;
+                    Sockets[i].SplineAnimator.Restart(false);
                 }
                 else
                 {   
                     ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i, layerIdx);
                     Socket.UseIncreasedSpeed = currentSpeedState;
+                    Socket.SplineAnimator.NormalizedTime = NormalizedTime;
                     Sockets.Add(Socket);
                 }
             }
+
+            Sockets.ForEach(S => S.SplineAnimator.Restart(true));
         }
         else
         {
@@ -83,18 +85,6 @@ public class BeltManager : Singleton<BeltManager>
             }
         }
     }
-
-    private void ClearSockets()
-    {
-        foreach(ArrowSocket s in Sockets)
-        {
-            if (s == null) continue;
-            Destroy(s.gameObject);
-        }
-
-        Sockets.Clear();
-    }    
-
 
     public static bool TryGetSocket(Vector3 Pos, out ArrowSocket Socket)
     {
@@ -136,6 +126,9 @@ public class BeltManager : Singleton<BeltManager>
 
     private void UpdateProgressbar()
     {
+        Debug.Log("UPDATED PROGESS");
+
+
         CurCapacityText.text = $"{CurOccupied}/{TotalSockets}";
         ProgressBarFill.fillAmount = CurOccupied / (float)TotalSockets;
         UIManager.Instance.UpdateDangerVignetteAlpha(ProgressBarFill.fillAmount);
@@ -148,12 +141,16 @@ public class BeltManager : Singleton<BeltManager>
 
     public void UpdateSpeed(bool useIncreasedSpeed)
     {
+        Debug.Log("UPDATED SPEED");
+
         foreach(ArrowSocket s in Sockets)
         s.UseIncreasedSpeed = useIncreasedSpeed;
     }
 
     public void SwitchToLayer(int noPostProcessLayerIdx)
     {
+        Debug.Log("UPDATED LAYER");
+
         Utilities.AssignLayerRecursively(BeltObj.transform, noPostProcessLayerIdx);
     }
 }

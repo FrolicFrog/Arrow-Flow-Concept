@@ -42,7 +42,15 @@ public class ArrowSocket : MonoBehaviour
         socket.SplineAnimator.Duration = socket.OriginalDuration;
         Utilities.AssignLayerRecursively(socket.transform, layerIdx);
 
-        socket.SplineAnimator.Play();
+        socket.SplineAnimator.Restart(true);
+
+        // Force evaluate position and rotation immediately to prevent 0-frame position bugs
+        Unity.Mathematics.float3 localPos = Container.EvaluatePosition(Offset);
+        Unity.Mathematics.float3 tangent = Container.EvaluateTangent(Offset);
+        Unity.Mathematics.float3 up = Container.EvaluateUpVector(Offset);
+        
+        socket.transform.position = Container.transform.TransformPoint(localPos);
+        socket.transform.rotation = Quaternion.LookRotation(Container.transform.TransformDirection(tangent), Container.transform.TransformDirection(up));
 
         return socket;
     }

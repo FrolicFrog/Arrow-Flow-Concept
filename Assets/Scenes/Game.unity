@@ -16463,7 +16463,7 @@ MonoBehaviour:
   SplineContain: {fileID: 1010849696}
   ProgressBarFill: {fileID: 986735378}
   BeltObj: {fileID: 919132147804407092}
-  TotalSockets: 31
+  TotalSockets: 85
   CurOccupied: 0
 --- !u!65 &433525204
 BoxCollider:
@@ -30346,6 +30346,8 @@ MonoBehaviour:
     ActionBtn: {fileID: 1894674888}
     LockedLabel: {fileID: 275941836}
     Quantity: {fileID: 1938629971}
+    QuantityLabel: {fileID: 553320242}
+    PlayerPrefsKey: belt_capacity_powerup
     FingerAnimation: {fileID: 4502115701147993687}
     HintLabel: Tap on the belt to increase it's capacity
   - type: 0
@@ -30355,17 +30357,22 @@ MonoBehaviour:
     ActionBtn: {fileID: 148170629}
     LockedLabel: {fileID: 1347514620}
     Quantity: {fileID: 655356254}
+    QuantityLabel: {fileID: 677921437}
+    PlayerPrefsKey: multiplier_powerup
     FingerAnimation: {fileID: 1101558376}
     HintLabel: This multiplier will duplicate your arrows.
   - type: 2
-    UnlocksAt: 5
+    UnlocksAt: 90
     EnabledGraphic: {fileID: 21300000, guid: 10d8f0e8dfd180640976ae3b534fceec, type: 3}
     PowerupGraphic: {fileID: 321783386}
     ActionBtn: {fileID: 321783385}
     LockedLabel: {fileID: 1966395929}
     Quantity: {fileID: 41973364}
+    QuantityLabel: {fileID: 23492178}
+    PlayerPrefsKey: exchange_powerup
     FingerAnimation: {fileID: 2005933198}
     HintLabel: Tap on two spawners to exchange their positions
+  IsTakingSpawnerInputForExchangePowerup: 0
 --- !u!1 &1815071273
 GameObject:
   m_ObjectHideFlags: 0

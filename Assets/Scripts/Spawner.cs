@@ -4,6 +4,7 @@ using ArrowFlowGame.Types;
 using DG.Tweening;
 using System;
 using TMPro;
+using ArrowFlow.Types;
 
 public class Spawner : Item, IClickable
 {
@@ -42,7 +43,7 @@ public class Spawner : Item, IClickable
     private bool HasShotAll = false;
     
     public bool HasCompleted { get; private set; } = false;
-    public int Layer => gameObject.layer;
+    public int Layer => Renderer.gameObject.layer;
 
     private List<Vector2Int> ConnectedSpawnerIds = new();
 
@@ -140,8 +141,19 @@ public class Spawner : Item, IClickable
 
     public void OnClick()
     {
-        if (Row.FrontItem != this || IsClicked) 
+        if(PowerupManager.Instance.IsTakingSpawnerInputForExchangePowerup)
         {
+            transform
+            .DOScale(transform.localScale * ScaleMultiplier, ScaleAnimationDuration)
+            .SetLoops(2, LoopType.Yoyo);
+
+            PowerupManager.Instance.AddSpawnerToExchange(this);
+            return;
+        }
+
+        if (Row.FrontItem != this || IsClicked)
+        {
+            Debug.Log("ROw front is : " + Row.FrontItem, Row.FrontItem.gameObject);
             Debug.Log("Cannot click spawner",gameObject);
             return;
         }

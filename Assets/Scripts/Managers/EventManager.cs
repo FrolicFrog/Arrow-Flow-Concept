@@ -16,7 +16,7 @@ public class EventManager : Singleton<EventManager>
     private void UpdateBeltSpeed()
     {
         bool FilledUpLevel = BeltManager.Instance.CurOccupied >= BeltManager.Instance.TotalSockets * 0.7f;
-        bool AllItemsUsed = ReferenceManager.Instance.IdToSpawner.Values.Where(x => x != null).ToList().Count > 0;
+        bool AllItemsUsed = ReferenceManager.Instance.IdToSpawner.Values.Where(x => x != null).ToList().Count == 0;
         bool UseIncreasedSpeed = FilledUpLevel || AllItemsUsed;
         BeltManager.Instance.UpdateSpeed(UseIncreasedSpeed);
     }
@@ -25,7 +25,6 @@ public class EventManager : Singleton<EventManager>
     {
         if(!AllCrowdPersonKilled()) return;
         
-        GameManager.Instance.CurGameState = GameState.COMPLETED;
         GameManager.Instance.GlobalInputEnabled = false;
         UIManager.Instance.ShowLevelCompleteScreen();
     }
@@ -40,7 +39,6 @@ public class EventManager : Singleton<EventManager>
 
     public static void GameOver()
     {
-        GameManager.Instance.CurGameState = GameState.FAILED;
         GameManager.Instance.GlobalInputEnabled = false;
         UIManager.Instance.ShowLevelFailedScreen();
     }

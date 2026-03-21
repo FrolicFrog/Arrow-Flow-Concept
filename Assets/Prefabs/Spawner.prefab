@@ -64,7 +64,7 @@ MonoBehaviour:
   CountLabel: {fileID: 3106849557578687677}
   LeftCon: {fileID: 5747615406941099213}
   RightCon: {fileID: 2394226344761167477}
-  SpawnDelay: 0.1
+  SpawnDelay: 0.05
   RotationSpeed: 20
   ScaleMultiplier: 0.6
   ScaleAnimationDuration: 0.08
