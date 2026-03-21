@@ -102,9 +102,14 @@ public class PowerupManager : Singleton<PowerupManager>
         spawner1.Row = Row2;
         spawner2.Row = Row1;
 
-        Vector3 pos = spawner1.transform.localPosition;
-        spawner1.transform.DOLocalMove(spawner2.transform.localPosition, 0.2f);
-        spawner2.transform.DOLocalMove(pos, 0.2f);
+        Vector3 pos1 = spawner1.transform.localPosition;
+        Vector3 pos2 = spawner2.transform.localPosition;
+
+        spawner1.transform.SetParent(Row2.rowsTransform, true);
+        spawner2.transform.SetParent(Row1.rowsTransform, true);
+
+        spawner1.transform.DOLocalMove(pos2, 0.2f);
+        spawner2.transform.DOLocalMove(pos1, 0.2f);
         spawner1.CountLabel.color = Color.white;
         spawner2.CountLabel.color = Color.white;
     }
