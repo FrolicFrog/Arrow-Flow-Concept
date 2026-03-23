@@ -19,6 +19,7 @@ public class Item : MonoBehaviour
     protected Action<Item> OnItemUsed = null;
     
     private Tween BreathingTween = null;
+    public bool IsBeingDestroy = false;
 
     public virtual void Init(ItemData data, VisualRows Row, Action<Item> OnItemUsed)
     {
@@ -43,6 +44,7 @@ public class Item : MonoBehaviour
     {
         Row.Dequeue();
         OnItemUsed?.Invoke(this);
+        IsBeingDestroy = true;
         BreathingTween.Kill();
         Sequence sequence = DOTween.Sequence();
         sequence.Join(transform.DOMoveY(transform.position.y + Elevation, ElevationAnimDur));

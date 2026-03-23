@@ -9,6 +9,7 @@ public class Spawner : Item, IClickable
 {
     [Header("REFERENCES")]
     public ParticleSystem RevealEffect;
+    public GameObject FingerAnimation;
     public MeshRenderer Renderer;
     public Spawnable ItemToSpawn;
     public TextMeshPro CountLabel;
@@ -35,6 +36,8 @@ public class Spawner : Item, IClickable
         }
     }
 
+    public bool CanTakeInputForExchangePowerup = true;
+    public event Action OnExchangePowerupClick; 
     public Color ConnectionColor => Utilities.GetColorByItemType(Type);
     private bool IsClicked = false;
     private Material OriginalMat;
@@ -50,6 +53,11 @@ public class Spawner : Item, IClickable
     private void OnEnable()
     {
         GameManager.Instance.OnGameStarted += CreateVisualConnections;
+    }
+
+    public void SetFingerAnimationVisible(bool visible)
+    {
+        FingerAnimation.SetActive(visible);
     }
 
     public override void Init(ItemData data, VisualRows Row, Action<Item> OnItemUsed)
@@ -143,11 +151,14 @@ public class Spawner : Item, IClickable
     {
         if(PowerupManager.Instance.IsTakingSpawnerInputForExchangePowerup)
         {
-            transform
-            .DOScale(transform.localScale * ScaleMultiplier, ScaleAnimationDuration)
-            .SetLoops(2, LoopType.Yoyo);
-
-            PowerupManager.Instance.AddSpawnerToExchange(this);
+            if(CanTakeInputForExchangePowerup)
+            {
+                transform.DOScale(transform.localScale * ScaleMultiplier, ScaleAnimationDuration).SetLoops(2, LoopType.Yoyo);
+                
+                PowerupManager.Instance.AddSpawnerToExchange(this);
+                OnExchangePowerupClick?.Invoke();    
+            }
+            
             return;
         }
 

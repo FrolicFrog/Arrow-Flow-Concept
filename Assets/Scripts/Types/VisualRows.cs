@@ -63,6 +63,7 @@ namespace ArrowFlowGame.Types
             _itemsInRows[idx2] = spawner1;
         }
 
+        public List<Item> ToList() => new List<Item>(_itemsInRows);
         public Stack<Item> ToStack()
         {
             Stack<Item> stack = new Stack<Item>();
