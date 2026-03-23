@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Splines;
 using Unity.VisualScripting;
 using UnityEditor;
+using DG.Tweening;
 
 public class BeltManager : Singleton<BeltManager>
 {
@@ -18,12 +19,18 @@ public class BeltManager : Singleton<BeltManager>
     public Belt BeltObj;
 
     [Header("Settings")]
-    [Range(1,90)]
+    public Color DangerLabelColor = Color.red;
+    public Color NormalLabelColor = Color.white;
+
+    [Range(1, 90)]
     public int TotalSockets;
     public int CurOccupied;
+    public float LabelAnimScaleMult = 1.2f;
+
 
     public event Action<ArrowSocket> OnSocketOccupied;
     private readonly List<ArrowSocket> Sockets = new();
+    private Tween DangerLabelAnim = null;
 
     public void Initialize()
     {
@@ -41,14 +48,14 @@ public class BeltManager : Singleton<BeltManager>
 
     private void InitializeSockets(bool Preserve = false, int layerIdx = 0)
     {
-        float Offset = (float) 1 / TotalSockets;
+        float Offset = (float)1 / TotalSockets;
 
-        if(Preserve)
+        if (Preserve)
         {
-           if(TotalSockets <= Sockets.Count)
+            if (TotalSockets <= Sockets.Count)
             {
-                if(TotalSockets < Sockets.Count) 
-                Debug.Log("Can't preserve sockets because target capacity is less than existing capacity");
+                if (TotalSockets < Sockets.Count)
+                    Debug.Log("Can't preserve sockets because target capacity is less than existing capacity");
 
                 return;
             }
@@ -57,16 +64,16 @@ public class BeltManager : Singleton<BeltManager>
             bool currentSpeedState = CurrentSocketCount > 0 && Sockets[0].UseIncreasedSpeed;
             float NormalizedTime = Sockets[0].SplineAnimator.NormalizedTime;
 
-            for(int i = 0; i < TotalSockets; i++)
+            for (int i = 0; i < TotalSockets; i++)
             {
-                if(i <= CurrentSocketCount - 1)
+                if (i <= CurrentSocketCount - 1)
                 {
                     Sockets[i].SplineAnimator.StartOffset = Offset * i;
                     Sockets[i].SplineAnimator.NormalizedTime = NormalizedTime;
                     Sockets[i].SplineAnimator.Restart(false);
                 }
                 else
-                {   
+                {
                     ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i, layerIdx);
                     Socket.UseIncreasedSpeed = currentSpeedState;
                     Socket.SplineAnimator.NormalizedTime = NormalizedTime;
@@ -78,7 +85,7 @@ public class BeltManager : Singleton<BeltManager>
         }
         else
         {
-            for(int i = 0; i < TotalSockets; i++)
+            for (int i = 0; i < TotalSockets; i++)
             {
                 ArrowSocket Socket = ArrowSocket.CreateArrowSocket(ArrowSocketPrefab, SplineContain, Offset * i, layerIdx);
                 Sockets.Add(Socket);
@@ -91,19 +98,19 @@ public class BeltManager : Singleton<BeltManager>
         Socket = null;
         float Distance = float.MaxValue;
 
-        foreach(ArrowSocket s in Instance.Sockets)
+        foreach (ArrowSocket s in Instance.Sockets)
         {
-            if(s == null) continue;
-            if(s.IsOccupied) continue;
+            if (s == null) continue;
+            if (s.IsOccupied) continue;
 
             float d = Vector3.Distance(Pos, s.transform.position);
-            if(d < Distance)            
+            if (d < Distance)
             {
                 Distance = d;
                 Socket = s;
             }
         }
-        
+
         return Socket != null;
     }
 
@@ -119,18 +126,45 @@ public class BeltManager : Singleton<BeltManager>
         arrowSocket.IsReady = false;
         arrowSocket.IsOccupied = false;
         arrowSocket.ArrowRenderer.enabled = false;
-        
+
         CurOccupied--;
         UpdateProgressbar();
     }
 
+    private Vector3 originalScale;
+
     private void UpdateProgressbar()
     {
-        Debug.Log("UPDATED PROGESS");
+        float filledAmount = CurOccupied / (float)TotalSockets;
 
+        if (originalScale == Vector3.zero)
+        {
+            originalScale = CurCapacityText.transform.localScale;
+        }
+
+        if (filledAmount > 0.7f)
+        {
+            if (DangerLabelAnim == null || !DangerLabelAnim.IsActive())
+            {
+                DangerLabelAnim = CurCapacityText.transform
+                    .DOScale(originalScale * LabelAnimScaleMult, 0.5f)
+                    .SetLoops(-1, LoopType.Yoyo);
+            }
+        }
+        else
+        {
+            if (DangerLabelAnim != null && DangerLabelAnim.IsActive())
+            {
+                DangerLabelAnim.Kill();
+                DangerLabelAnim = null;
+                CurCapacityText.transform.localScale = originalScale;
+            }
+        }
 
         CurCapacityText.text = $"{CurOccupied}/{TotalSockets}";
-        ProgressBarFill.fillAmount = CurOccupied / (float)TotalSockets;
+        CurCapacityText.color = filledAmount > 0.7f ? DangerLabelColor : NormalLabelColor;
+        ProgressBarFill.fillAmount = filledAmount;
+
         UIManager.Instance.UpdateDangerVignetteAlpha(ProgressBarFill.fillAmount);
     }
 
@@ -141,16 +175,20 @@ public class BeltManager : Singleton<BeltManager>
 
     public void UpdateSpeed(bool useIncreasedSpeed)
     {
-        Debug.Log("UPDATED SPEED");
-
-        foreach(ArrowSocket s in Sockets)
-        s.UseIncreasedSpeed = useIncreasedSpeed;
+        foreach (ArrowSocket s in Sockets)
+            s.UseIncreasedSpeed = useIncreasedSpeed;
     }
 
     public void SwitchToLayer(int noPostProcessLayerIdx)
     {
-        Debug.Log("UPDATED LAYER");
-
         Utilities.AssignLayerRecursively(BeltObj.transform, noPostProcessLayerIdx);
+    }
+
+    public void StopBelt()
+    {
+        foreach(ArrowSocket s in Sockets)
+        {
+            s.SplineAnimator.Pause();
+        }
     }
 }

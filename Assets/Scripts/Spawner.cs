@@ -4,7 +4,6 @@ using ArrowFlowGame.Types;
 using DG.Tweening;
 using System;
 using TMPro;
-using ArrowFlow.Types;
 
 public class Spawner : Item, IClickable
 {
@@ -46,6 +45,7 @@ public class Spawner : Item, IClickable
     public int Layer => Renderer.gameObject.layer;
 
     private List<Vector2Int> ConnectedSpawnerIds = new();
+    private Item ThisItem => this as Item;
 
     private void OnEnable()
     {
@@ -237,6 +237,9 @@ public class Spawner : Item, IClickable
 
     public override void OnMoveForward()
     {
+        if(Row.FrontItem == this)
+            CountLabel.color = new Color(CountLabel.color.r, CountLabel.color.g, CountLabel.color.b, 1f);
+
         if(!IsMysterious) return;
 
         RevealEffect.Play();

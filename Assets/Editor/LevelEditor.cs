@@ -175,11 +175,15 @@ public class LevelEditor : EditorWindow
         HorizontalLineAndSpace();
 
         GUILayout.BeginHorizontal();
-        if (GUILayout.Button("Add Row", GUILayout.Height(34)))
+        if (GUILayout.Button("Add Row Last", GUILayout.Height(34)))
         {
             _CrowdSpawnData.Resize(_CrowdSpawnData.Width, _CrowdSpawnData.Height + 1);
         }
-        if (GUILayout.Button("Remove Row", GUILayout.Height(34)))
+        if (GUILayout.Button("Add Row First", GUILayout.Height(34)))
+        {
+            _CrowdSpawnData.Resize(_CrowdSpawnData.Width, _CrowdSpawnData.Height + 1, 1);
+        }
+        if (GUILayout.Button("Remove Row Last", GUILayout.Height(34)))
         {
             _CrowdSpawnData.Resize(_CrowdSpawnData.Width, Mathf.Max(_CrowdSpawnData.Height - 1, 1));
         }
@@ -214,7 +218,7 @@ public class LevelEditor : EditorWindow
         for (int row = 0; row < _CrowdSpawnData.Height; row++)
         {
             GUILayout.BeginHorizontal();
-            if (row % 2 != 0) EditorGUILayout.Space(30);
+            if (row % 2 == 0) EditorGUILayout.Space(30);
             GUILayout.FlexibleSpace();
 
             for (int col = 0; col < _CrowdSpawnData.Width; col++)
