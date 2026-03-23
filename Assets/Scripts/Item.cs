@@ -34,7 +34,7 @@ public class Item : MonoBehaviour
         IsAtFrontBool = IsAtFront();
     }
 
-    protected bool IsAtFront()
+    public bool IsAtFront()
     {
         return Row.FrontItem == this;
     }

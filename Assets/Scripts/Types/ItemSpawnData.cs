@@ -11,6 +11,7 @@ namespace ArrowFlowGame.Types
         public List<ItemsRow> Rows;
         public int RowsCount => Rows.Count;
         public void AddRow(ItemsRow row = null) => Rows.Add(row ?? new ItemsRow());
+        public void InsertRow(int idx, ItemsRow row = null) => Rows.Insert(idx, row ?? new ItemsRow());
 
         public ItemSpawnData()
         {

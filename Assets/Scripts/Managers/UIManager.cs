@@ -17,10 +17,9 @@ public class UIManager : Singleton<UIManager>
     public TextMeshProUGUI LevelLabel;
     public Image DangerVignette;
 
-
-
-    private bool vignetteVisible = false;
-    private Tween vignetteTween;
+    //Tweens
+    private Tween FadeInTween;
+    private Tween FadeOutTween;
 
     protected override void Awake()
     {
@@ -42,9 +41,10 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowLevelCompleteScreen()
     {
-        if(GameManager.Instance.CurGameState == ArrowFlowGame.Types.GameState.COMPLETED) return;
+        if (GameManager.Instance.CurGameState == ArrowFlowGame.Types.GameState.COMPLETED) return;
 
         GameManager.Instance.CurGameState = ArrowFlowGame.Types.GameState.COMPLETED;
+        BeltManager.Instance.StopBelt();
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => EffectManager.Instance.Play("confetti"));
         LevelCompleteScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.NextLevel());
@@ -53,9 +53,10 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowLevelFailedScreen()
     {
-        if(GameManager.Instance.CurGameState == ArrowFlowGame.Types.GameState.FAILED) return;
+        if (GameManager.Instance.CurGameState == ArrowFlowGame.Types.GameState.FAILED) return;
 
         GameManager.Instance.CurGameState = ArrowFlowGame.Types.GameState.FAILED;
+        BeltManager.Instance.StopBelt();
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => EffectManager.Instance.Play("failed"));
         LevelFailedScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.ReloadLevel());
@@ -66,25 +67,36 @@ public class UIManager : Singleton<UIManager>
     {
         if (fillAmount > 0.7f)
         {
-            if (!vignetteVisible)
+            if (FadeInTween != null && FadeInTween.IsActive() && FadeInTween.IsPlaying())
             {
-                vignetteVisible = true;
-                vignetteTween?.Kill();
-                vignetteTween = DangerVignette.DOFade(fillAmount, 0.3f).SetLoops(-1, LoopType.Yoyo);
+                return;
             }
-            else
+
+            if (FadeOutTween != null && FadeOutTween.IsActive())
             {
-                Color c = DangerVignette.color;
-                DangerVignette.color = new Color(c.r, c.g, c.b, fillAmount);
+                FadeOutTween.Kill();
+            }
+
+            if (DangerVignette.color.a < 1f)
+            {
+                FadeInTween = DangerVignette.DOFade(1f, 1f);
             }
         }
         else
         {
-            if (vignetteVisible)
+            if (FadeOutTween != null && FadeOutTween.IsActive() && FadeOutTween.IsPlaying())
             {
-                vignetteVisible = false;
-                vignetteTween?.Kill();
-                vignetteTween = DangerVignette.DOFade(0f, 0.3f);
+                return;
+            }
+
+            if (FadeInTween != null && FadeInTween.IsActive())
+            {
+                FadeInTween.Kill();
+            }
+
+            if (DangerVignette.color.a > 0f)
+            {
+                FadeOutTween = DangerVignette.DOFade(0f, 1f);
             }
         }
     }

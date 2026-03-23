@@ -28,7 +28,7 @@ namespace ArrowFlowGame.Types
             }
         }
 
-        public void Resize(int newWidth, int newHeight)
+        public void Resize(int newWidth, int newHeight, int insertAt = 0)
         {
             Array2D<CrowdElementData> oldGrid = CrowdGrid;
             InitializeGrid(newWidth, newHeight);
@@ -40,7 +40,7 @@ namespace ArrowFlowGame.Types
             {
                 for (int x = 0; x < minWidth; x++)
                 {
-                    CrowdGrid[x, y] = oldGrid[x, y];
+                    CrowdGrid[x, y + insertAt] = oldGrid[x, y];
                 }
             }
         }

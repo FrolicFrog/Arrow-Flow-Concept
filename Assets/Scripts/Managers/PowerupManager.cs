@@ -43,6 +43,7 @@ public class PowerupManager : Singleton<PowerupManager>
             if(V == null) continue;
             Utilities.AssignLayerRecursively(V.transform, TutorialManager.Instance.NoPostProcessLayerIdx);
         }
+
         GameManager.Instance.GlobalInputEnabled = false;
         PostProcessingManager.Instance.AnimateDimmedExposure();
         ToExchange = new List<Spawner>(2);
@@ -51,6 +52,14 @@ public class PowerupManager : Singleton<PowerupManager>
         if(showTutorial)
         {
             UIManager.Instance.ShowHintBox(message);
+            foreach(VisualRows Row in LevelManager.Instance.Rows)
+            {
+                Stack<Item> ItemStack = Row.ToStack();
+                for(int i = 0; i < ItemStack.Count; i++)
+                {
+                    Debug.Log("ROW : "  + i);
+                }
+            }
         }
     }
 
@@ -70,9 +79,11 @@ public class PowerupManager : Singleton<PowerupManager>
 
         ToExchange.Add(s);
         s.CountLabel.color = Color.cyan;
+        s.Renderer.material.SetColor("_Outline_Color", Color.cyan);
+        
         if(ToExchange.Count == 2)
         {
-            ExchangeSpawners(ToExchange[0], ToExchange[1]);
+            Sequence Seq = ExchangeSpawners(ToExchange[0], ToExchange[1]);
             IsTakingSpawnerInputForExchangePowerup = false;
             ToExchange = null;
             UIManager.Instance.DismissHintBox();
@@ -85,13 +96,18 @@ public class PowerupManager : Singleton<PowerupManager>
                 Utilities.AssignLayerRecursively(V.transform, 0);
             }
 
-            ReferenceManager.Instance.Cameras.DOMove(ReferenceManager.Instance.CameraOriginalPos, 0.2f);
-            EnableAllPowerups();
+            Seq.OnComplete(() => 
+            {
+                ReferenceManager.Instance.Cameras.DOMove(ReferenceManager.Instance.CameraOriginalPos, 0.2f);
+                EnableAllPowerups();
+            });
         }
     }
 
-    private void ExchangeSpawners(Spawner spawner1, Spawner spawner2)
+    private Sequence ExchangeSpawners(Spawner spawner1, Spawner spawner2)
     {
+        Sequence seq = DOTween.Sequence();
+
         VisualRows Row1 = spawner1.Row;
         int Idx1 = spawner1.VisualRowIndex;
         
@@ -110,10 +126,16 @@ public class PowerupManager : Singleton<PowerupManager>
         spawner1.transform.SetParent(Row2.rowsTransform, true);
         spawner2.transform.SetParent(Row1.rowsTransform, true);
 
-        spawner1.transform.DOLocalMove(pos2, 0.2f);
-        spawner2.transform.DOLocalMove(pos1, 0.2f);
-        spawner1.CountLabel.color = Color.white;
-        spawner2.CountLabel.color = Color.white;
+        seq.Join(spawner1.transform.DOLocalMove(pos2, 0.4f).SetEase(Ease.InOutBack));
+        seq.Join(spawner2.transform.DOLocalMove(pos1, 0.4f).SetEase(Ease.InOutBack));
+
+        spawner1.CountLabel.color = new Color(Color.white.r,Color.white.g,Color.white.b, spawner1.IsAtFront() ? 1f : 0.5f);
+        spawner1.Renderer.material.SetColor("_Outline_Color", Color.black);
+
+        spawner2.CountLabel.color = new Color(Color.white.r,Color.white.g,Color.white.b, spawner2.IsAtFront() ? 1f : 0.5f);
+        spawner2.Renderer.material.SetColor("_Outline_Color", Color.black);
+
+        return seq;
     }
 
     private void UseMultiplierPowerup(bool showTutorial, string message)

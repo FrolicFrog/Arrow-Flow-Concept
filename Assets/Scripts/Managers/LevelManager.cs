@@ -118,6 +118,7 @@ public class LevelManager : Singleton<LevelManager>
             {
                 Vector3 offset = new(StartOffset + GridSpacing.x * i, 0, -GridSpacing.y * j);
                 ItemData data = Items[j];
+
                 if(data is SpawnItemData SpawnerData)
                 {
                     Spawner SpawnerClone = Instantiate(SpawnItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
@@ -137,6 +138,12 @@ public class LevelManager : Singleton<LevelManager>
                     Debug.Log("Item type not supported: " + data.GetType().Name.ToString());
                 }
             }
+        }
+
+        foreach(VisualRows Row in RowsTransform)
+        {
+            Spawner CurSpawner = Row.FrontItem as Spawner;
+            CurSpawner.CountLabel.color = new Color(CurSpawner.CountLabel.color.r,CurSpawner.CountLabel.color.g,CurSpawner.CountLabel.color.b, 1f);
         }
     }
 

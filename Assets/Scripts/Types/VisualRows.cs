@@ -62,5 +62,15 @@ namespace ArrowFlowGame.Types
         {
             _itemsInRows[idx2] = spawner1;
         }
+
+        public Stack<Item> ToStack()
+        {
+            Stack<Item> stack = new Stack<Item>();
+            
+            for (int i = _itemsInRows.Count - 1; i >= 0; i--)
+                stack.Push(_itemsInRows[i]);
+
+            return stack;
+        }
     }
 }

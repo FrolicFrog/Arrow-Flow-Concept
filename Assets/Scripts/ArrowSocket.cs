@@ -17,16 +17,21 @@ public class ArrowSocket : MonoBehaviour
     public bool IsReady;
     public ItemType CurType { get; private set; }
     private bool _useIncreasedSpeed;
-    public bool UseIncreasedSpeed 
-    { 
+    public bool UseIncreasedSpeed
+    {
         get => _useIncreasedSpeed;
         set
         {
             _useIncreasedSpeed = value;
-            if(value)
+
+            float normalizedTime = SplineAnimator.NormalizedTime;
+
+            if (value)
                 SplineAnimator.Duration = IncreasedSpeedDuration;
             else
                 SplineAnimator.Duration = OriginalDuration;
+
+            SplineAnimator.NormalizedTime = normalizedTime;
         }
     }
 
@@ -48,7 +53,7 @@ public class ArrowSocket : MonoBehaviour
         Unity.Mathematics.float3 localPos = Container.EvaluatePosition(Offset);
         Unity.Mathematics.float3 tangent = Container.EvaluateTangent(Offset);
         Unity.Mathematics.float3 up = Container.EvaluateUpVector(Offset);
-        
+
         socket.transform.position = Container.transform.TransformPoint(localPos);
         socket.transform.rotation = Quaternion.LookRotation(Container.transform.TransformDirection(tangent), Container.transform.TransformDirection(up));
 
@@ -62,24 +67,24 @@ public class ArrowSocket : MonoBehaviour
 
     private void Update()
     {
-        if(IsReady && IsFacingCrowd())
+        if (IsReady && IsFacingCrowd())
         {
             List<CrowdElement> FrontRow = CrowdManager.Instance.CurFront;
-            foreach(CrowdElement elem in FrontRow)
+            foreach (CrowdElement elem in FrontRow)
             {
                 if (elem == null) continue;
                 if (elem is Person person)
                 {
-                    if(person.Type == CurType && (!person.AlreadyTarget || person is Giant) && !person.IsWalking)
+                    if (person.Type == CurType && (!person.AlreadyTarget || person is Giant) && !person.IsWalking)
                     {
                         person.AlreadyTarget = true;
 
                         Spawnable Arrow = Instantiate(ArrowPrefab, transform.position, Quaternion.identity);
-                        Arrow.Init(CurType, person.transform, () => 
+                        Arrow.Init(CurType, person.transform, () =>
                         {
                             person.Damage();
                             Destroy(Arrow.gameObject);
-                            
+
                             if (person.RequiredHits <= 0)
                             {
                                 CrowdManager.Instance.RemoveCrowdElement(elem);
@@ -88,11 +93,11 @@ public class ArrowSocket : MonoBehaviour
                             {
                                 person.AlreadyTarget = false;
                             }
-                        }, UnityEngine.Random.Range(0,10) <= 6);
+                        }, UnityEngine.Random.Range(0, 10) <= 6);
 
                         BeltManager.Instance.SetSocketEmpty(this);
                         break;
-                    }    
+                    }
                 }
             }
         }
