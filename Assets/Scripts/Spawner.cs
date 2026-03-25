@@ -4,6 +4,7 @@ using ArrowFlowGame.Types;
 using DG.Tweening;
 using System;
 using TMPro;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class Spawner : Item, IClickable
 {
@@ -26,6 +27,7 @@ public class Spawner : Item, IClickable
     private int SpawnCount;
     private int _LeftToSpawn;
     private bool IsMysterious = false;
+    public bool IsMysteriousCurrently => IsMysterious;
     private int LeftToSpawn
     {
         get { return _LeftToSpawn; }

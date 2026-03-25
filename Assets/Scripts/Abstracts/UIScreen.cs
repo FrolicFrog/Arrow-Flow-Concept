@@ -25,13 +25,13 @@ public class UIScreen
 
     protected void HandleScreenToggles()
     {
-        Array.ForEach(ToggleScreens, s => s.SetActive(false));        
+        Array.ForEach(ToggleScreens, s => s.SetActive(false));
     }
 
     public void Hide()
     {
         Root.SetActive(false);
-    }   
+    }
 }
 
 [Serializable]
@@ -48,7 +48,7 @@ public class LevelCompleteScreen : UIScreen
 
     public override void Setup()
     {
-        Backdrop.color = new Color(Backdrop.color.r,Backdrop.color.g,Backdrop.color.b,0f);
+        Backdrop.color = new Color(Backdrop.color.r, Backdrop.color.g, Backdrop.color.b, 0f);
         ActionBtn.transform.localScale = Vector3.zero;
         VictoryTitle.localScale = Vector3.zero;
         VictoryTitle.anchoredPosition = TitleInitialPos;
@@ -62,8 +62,14 @@ public class LevelCompleteScreen : UIScreen
         Seq.AppendInterval(Delay);
         Seq.Append(Backdrop.DOFade(EndAlpha, FadeInDuration));
         Seq.Join(VictoryTitle.DOScale(Vector3.one, 0.2f).SetEase(Ease.InOutBack));
+        Seq.InsertCallback(Delay + 0.2f, () => FeatureManager.Instance.ShowFeature());
         Seq.Insert(Delay + 0.2f, VictoryTitle.DOAnchorPos(TitleFinalPos, 0.4f).SetEase(Ease.InOutBack));
-        Seq.Append(ActionBtn.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InOutBack));
+
+        Seq.AppendCallback(() =>
+        {
+            if (!FeatureManager.Instance.CompletedProgress)
+            ActionBtn.transform.DOScale(Vector3.one, 0.2f).SetEase(Ease.InOutBack);
+        });
     }
 }
 
@@ -82,7 +88,7 @@ public class LevelFailedScreen : UIScreen
 
     public override void Setup()
     {
-        Backdrop.color = new Color(Backdrop.color.r,Backdrop.color.g,Backdrop.color.b,0f);
+        Backdrop.color = new Color(Backdrop.color.r, Backdrop.color.g, Backdrop.color.b, 0f);
         ActionBtn.transform.localScale = Vector3.zero;
         FailedTitle.localScale = Vector3.zero;
         FailedTitle.anchoredPosition = TitleInitialPos;
