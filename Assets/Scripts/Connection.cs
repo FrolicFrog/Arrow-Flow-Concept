@@ -7,7 +7,6 @@ public class Connection : MonoBehaviour
     [Header("REFERENCES")]
     public Vector3 PosOffset;
 
-
     private Spawner Source;
     private Spawner Target;
     private Material MaterialA;
@@ -35,20 +34,20 @@ public class Connection : MonoBehaviour
 
         DestroyPipe();
 
-        Vector3 dir = (end - start);
+        Vector3 dir = end - start;
         float halfLength = dir.magnitude / 2;
 
         PipeA = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         PipeA.transform.position = (start + mid) / 2;
         PipeA.transform.up = (mid - start).normalized;
         PipeA.transform.localScale = new Vector3(0.5f, halfLength / 2f, 0.5f);
-        PipeA.GetComponent<Renderer>().material = MaterialA;
+        PipeA.GetComponent<Renderer>().material = Source.IsMysteriousCurrently ? ReferenceManager.Instance.MysteriousSpawnerMat : MaterialA;
 
         PipeB = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
         PipeB.transform.position = (mid + end) / 2;
         PipeB.transform.up = (end - mid).normalized;
         PipeB.transform.localScale = new Vector3(0.5f, halfLength / 2f, 0.5f);
-        PipeB.GetComponent<Renderer>().material = MaterialB;
+        PipeB.GetComponent<Renderer>().material = Target.IsMysteriousCurrently ? ReferenceManager.Instance.MysteriousSpawnerMat : MaterialB;
     }
 
     private void DestroyPipe()

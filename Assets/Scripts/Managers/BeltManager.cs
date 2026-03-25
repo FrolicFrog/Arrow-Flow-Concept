@@ -191,4 +191,12 @@ public class BeltManager : Singleton<BeltManager>
             s.SplineAnimator.Pause();
         }
     }
+
+    public void ResumeBelt()
+    {
+        foreach (ArrowSocket s in Sockets)
+        {
+            s.SplineAnimator.Play() ;
+        }
+    }
 }
