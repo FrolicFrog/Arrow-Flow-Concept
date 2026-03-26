@@ -13,6 +13,7 @@ public class BeltManager : Singleton<BeltManager>
 {
     [Header("References")]
     public TextMeshProUGUI CurCapacityText;
+    public Vector3 LabelOriginalScale;
     public ArrowSocket ArrowSocketPrefab;
     public SplineContainer SplineContain;
     public Image ProgressBarFill;
@@ -31,10 +32,12 @@ public class BeltManager : Singleton<BeltManager>
     public event Action<ArrowSocket> OnSocketOccupied;
     private readonly List<ArrowSocket> Sockets = new();
     private Tween DangerLabelAnim = null;
+    public bool OverridingColor { get; set; }
 
     public void Initialize()
     {
         TotalSockets = LevelManager.Instance.LevelData.BeltCapacity;
+        LabelOriginalScale = CurCapacityText.transform.localScale;
         InitializeSockets();
         UpdateProgressbar();
     }
@@ -162,6 +165,7 @@ public class BeltManager : Singleton<BeltManager>
         }
 
         CurCapacityText.text = $"{CurOccupied}/{TotalSockets}";
+        if(!OverridingColor)
         CurCapacityText.color = filledAmount > 0.7f ? DangerLabelColor : NormalLabelColor;
         ProgressBarFill.fillAmount = filledAmount;
 
@@ -184,19 +188,15 @@ public class BeltManager : Singleton<BeltManager>
         Utilities.AssignLayerRecursively(BeltObj.transform, noPostProcessLayerIdx);
     }
 
-    public void StopBelt()
+    public void SlowedBeltSpeed()
     {
         foreach(ArrowSocket s in Sockets)
-        {
-            s.SplineAnimator.Pause();
-        }
+            s.StartSuperSlowMotion();
     }
 
-    public void ResumeBelt()
+    public void NormalBeltSpeed()
     {
         foreach (ArrowSocket s in Sockets)
-        {
-            s.SplineAnimator.Play() ;
-        }
+            s.StopSuperSlowMotion();
     }
 }

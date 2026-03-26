@@ -16,7 +16,6 @@ public class CrowdElement : MonoBehaviour
     public Vector2Int GridPos;
     public Vector2Int OriginalGridPos;
     public Vector2Int GridIdxId { get; set; }
-
     public Vector3 TargetLocalPosition { get; set; }
 
     protected virtual void Awake()
