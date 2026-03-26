@@ -16,7 +16,6 @@ public class CrowdElement : MonoBehaviour
     public Vector2Int GridPos;
     public Vector2Int OriginalGridPos;
     public Vector2Int GridIdxId { get; set; }
-
     public Vector3 TargetLocalPosition { get; set; }
 
     protected virtual void Awake()
@@ -27,7 +26,7 @@ public class CrowdElement : MonoBehaviour
     public virtual void Init(CrowdElementData crowdElement)
     {
         Material Mat = ReferenceManager.Instance.PersonMaterials.GetMaterial(crowdElement.Type);
-        Array.ForEach(Renderers, r => r.material = Mat);
+        Array.ForEach(Renderers, r => r.sharedMaterial = Mat);
         Type = crowdElement.Type;
         IsKeyed = crowdElement.IsKeyed;
     }

@@ -44,7 +44,7 @@ public class UIManager : Singleton<UIManager>
         if (GameManager.Instance.CurGameState == ArrowFlowGame.Types.GameState.COMPLETED) return;
 
         GameManager.Instance.CurGameState = ArrowFlowGame.Types.GameState.COMPLETED;
-        BeltManager.Instance.StopBelt();
+        BeltManager.Instance.SlowedBeltSpeed();
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => EffectManager.Instance.Play("confetti"));
         LevelCompleteScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.NextLevel());
@@ -56,7 +56,7 @@ public class UIManager : Singleton<UIManager>
         if (GameManager.Instance.CurGameState == ArrowFlowGame.Types.GameState.FAILED) return;
 
         GameManager.Instance.CurGameState = ArrowFlowGame.Types.GameState.FAILED;
-        BeltManager.Instance.StopBelt();
+        BeltManager.Instance.SlowedBeltSpeed();
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => EffectManager.Instance.Play("failed"));
         LevelFailedScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.ReloadLevel());

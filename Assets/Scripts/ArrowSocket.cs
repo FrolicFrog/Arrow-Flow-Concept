@@ -38,6 +38,7 @@ public class ArrowSocket : MonoBehaviour
     [Header("Settings")]
     public float OriginalDuration;
     public float IncreasedSpeedDuration;
+    public float SlowMotionSpeedDuration = 50f;
 
     public static ArrowSocket CreateArrowSocket(ArrowSocket Prefab, SplineContainer Container, float Offset, int layerIdx)
     {
@@ -63,6 +64,20 @@ public class ArrowSocket : MonoBehaviour
     public void Occupied()
     {
         IsOccupied = true;
+    }
+
+    public void StartSuperSlowMotion()
+    {
+        float normalizedTime = SplineAnimator.NormalizedTime;
+        SplineAnimator.Duration = SlowMotionSpeedDuration;
+        SplineAnimator.NormalizedTime = normalizedTime;
+    }
+
+    public void StopSuperSlowMotion()
+    {
+        float normalizedTime = SplineAnimator.NormalizedTime;
+        SplineAnimator.Duration = OriginalDuration;
+        SplineAnimator.NormalizedTime = normalizedTime;
     }
 
     private void Update()

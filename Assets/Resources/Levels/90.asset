@@ -68,7 +68,7 @@ MonoBehaviour:
         - Type: 1
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
-          IsKeyed: 0
+          IsKeyed: 1
           IsGiant: 0
         - Type: 1
           GridPosition: {x: 0, y: 0}

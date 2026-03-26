@@ -18,6 +18,7 @@ public class Key : MonoBehaviour
     public void Unlock(Lock lockObj)
     {
         Sequence KeyUnlockSeq = DOTween.Sequence();
+        KeyUnlockSeq.JoinCallback(() => Destroy(transform.GetChild(0).gameObject));
         KeyUnlockSeq.Join(transform.DORotate(EndRot, Duration).SetEase(Ease.Linear));
         KeyUnlockSeq.Join(transform.DOScale(transform.localScale * ScaleMult, Duration).SetEase(Ease.Linear));
         KeyUnlockSeq.Join(transform.DOMove(lockObj.transform.position + PosOffset, Duration).SetEase(Ease.Linear));
