@@ -5,46 +5,80 @@ using ArrowFlowGame.Types;
 
 public class Person : CrowdElement
 {
+    public string DebugTxt;
+    public MeshVariant[] MeshVariants;
     public Key KeyObj;
-    public Mesh LowerPolyMesh;
-    public Mesh HigherPolyMesh;
-    public SkinnedMeshRenderer Renderer;
     public ParticleSystem DamageEffect;
-    public Animator Anim;
+    
+    [Header("Animation Settings")]
     public float MinAnimSpeed = 0.8f;
     public float MaxAnimSpeed = 1.5f;
     [Range(0.1f, 10f)] public float YAnimOffset;
+    
+    public Animator Anim { get; private set; }
+
+    private bool _isWalking;
     public bool IsWalking
     {
-        get
-        {
-            return Anim.GetBool("IsWalking");
-        }
+        get => _isWalking;
         set
         {
-            Anim.SetBool("IsWalking", value);
-            if(!value && IsInFrontRow)
+            _isWalking = value;
+            if (Anim != null)
             {
-                Renderer.sharedMesh = HigherPolyMesh;
+                Anim.SetBool("IsWalking", _isWalking);
             }
         }
     }
 
-    public bool AlreadyTarget {get; set;}
+    public bool AlreadyTarget { get; set; }
     public int RequiredHits = 1;
+    
     private bool IsInFrontRow => CrowdManager.Instance.CurFront.Contains(this);
+    private int RowIdx => CrowdManager.Instance.GetElementRowIdx(this);
+    
+    private int _lastRowIdx = -1;
+    private float _randomAnimSpeed;
 
     protected override void Awake()
     {
         base.Awake();
-        Anim.speed = UnityEngine.Random.Range(MinAnimSpeed, MaxAnimSpeed);
-        Renderer.sharedMesh = LowerPolyMesh;
+        _randomAnimSpeed = UnityEngine.Random.Range(MinAnimSpeed, MaxAnimSpeed);
     }
 
     private void Start()
     {
         KeyObj.SetActive(IsKeyed);
-        Renderer.sharedMesh = IsInFrontRow ? HigherPolyMesh : LowerPolyMesh;
+    }
+
+    private void Update()
+    {
+        int currentRow = RowIdx;
+        DebugTxt = currentRow.ToString();
+        
+        if (_lastRowIdx != currentRow)
+        {
+            SwitchMeshVariant(currentRow);
+        }
+    }
+
+    private void SwitchMeshVariant(int targetRow)
+    {
+        _lastRowIdx = targetRow;
+        int variantIndex = Mathf.Clamp(targetRow, 0, MeshVariants.Length - 1);
+        
+        for (int i = 0; i < MeshVariants.Length; i++)
+        {
+            bool isTargetVariant = (i == variantIndex);
+            MeshVariants[i].VariantObject.SetActive(isTargetVariant);
+            
+            if (isTargetVariant)
+            {
+                Anim = MeshVariants[i].VariantAnimator;
+                Anim.speed = _randomAnimSpeed;
+                Anim.SetBool("IsWalking", _isWalking);
+            }
+        }
     }
 
     public override void Init(CrowdElementData crowdElement)
@@ -56,28 +90,36 @@ public class Person : CrowdElement
     public virtual void Damage()
     {
         RequiredHits = Mathf.Max(RequiredHits - 1, 0);
-        if(RequiredHits <= 0)
-        Dead();
+        if (RequiredHits <= 0)
+        {
+            Dead();
+        }
     }
 
     protected virtual void Dead()
     {
-        if(IsKeyed && ReferenceManager.Instance.KeyIdToLockedItem.TryGetValue(GridIdxId, out Lock LockObj))
+        if (IsKeyed && ReferenceManager.Instance.KeyIdToLockedItem.TryGetValue(GridIdxId, out Lock lockObj))
         {
             KeyObj.transform.SetParent(null);
-            KeyObj.Unlock(LockObj);
+            KeyObj.Unlock(lockObj);
         }
 
-        Anim.Play("Death");
-        Sequence DeathSequence = DOTween.Sequence();
-        DeathSequence.AppendCallback(() => SwitchMaterial(ReferenceManager.Instance.DamageFlashedPerson));
-        DeathSequence.AppendCallback(() => DamageEffect.Play());
-        DeathSequence.Join(transform.DOMoveY(transform.position.y + YAnimOffset, 0.7f));
-        DeathSequence.InsertCallback(0.25f, () => SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial));
-        DeathSequence.Join(transform.DOScaleY(0, 0.3f).SetDelay(0.4f)).OnComplete(() => Destroy(gameObject));
+        if (Anim != null) Anim.Play("Death");
+        
+        Sequence deathSequence = DOTween.Sequence();
+        deathSequence.AppendCallback(() => SwitchMaterial(ReferenceManager.Instance.DamageFlashedPerson));
+        deathSequence.AppendCallback(() => DamageEffect.Play());
+        deathSequence.Join(transform.DOMoveY(transform.position.y + YAnimOffset, 0.7f));
+        deathSequence.InsertCallback(0.25f, () => SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial));
+        deathSequence.Join(transform.DOScaleY(0, 0.3f).SetDelay(0.4f))
+            .OnComplete(() => Destroy(gameObject));
     }
-    protected virtual void SwitchMaterial(Material TargetMaterial)
+
+    protected virtual void SwitchMaterial(Material targetMaterial)
     {
-        Array.ForEach(Renderers, R => R.material = TargetMaterial);
+        if (Renderers != null)
+        {
+            Array.ForEach(Renderers, r => r.material = targetMaterial);
+        }
     }
 }

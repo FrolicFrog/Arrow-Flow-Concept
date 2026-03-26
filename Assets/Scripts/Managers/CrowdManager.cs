@@ -37,18 +37,18 @@ public class CrowdManager : Singleton<CrowdManager>
 
         return frontRow.OrderByDescending(e => e.OriginalGridPos.y).ToList();
     }
-    
+
     public void RemoveCrowdElement(CrowdElement Element)
     {
         var keyPair = CrowdElements.FirstOrDefault(x => x.Value == Element);
-        if(keyPair.Value == null) return;
+        if (keyPair.Value == null) return;
 
         CrowdElements.Remove(keyPair.Key);
         OnCrowdPersonKilled?.Invoke(Element);
         AdjustCrowd(Element);
     }
-    
-    
+
+
     private void AdjustCrowd(CrowdElement element)
     {
         int[] xOffsets = { 0, 1, -1 };
@@ -66,12 +66,12 @@ public class CrowdManager : Singleton<CrowdManager>
                     AdjustCrowd(crowdElement);
 
                     crowdElement.GridPos = element.GridPos;
-                    CrowdElements[element.GridPos] = crowdElement; 
+                    CrowdElements[element.GridPos] = crowdElement;
 
                     Vector3 targetPos = element.TargetLocalPosition;
                     crowdElement.TargetLocalPosition = targetPos;
 
-                    if(crowdElement is Person person)
+                    if (crowdElement is Person person)
                     {
                         person.transform.DOLocalMove(targetPos, 0.5f)
                         .OnStart(() => person.IsWalking = true)
@@ -84,5 +84,23 @@ public class CrowdManager : Singleton<CrowdManager>
             }
             if (found) break;
         }
+    }
+
+    public int GetElementRowIdx(Person person)
+    {
+        int maxY = int.MinValue;
+
+        foreach (var kvp in CrowdElements)
+            maxY = Mathf.Max(maxY, kvp.Key.y);
+
+        foreach (var kvp in CrowdElements)
+        {
+            if (kvp.Value == person)
+            {
+                return maxY - kvp.Key.y;
+            }
+        }
+
+        return -1;
     }
 }
