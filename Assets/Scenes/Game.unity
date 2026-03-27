@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ff4c2f76ea0734494da7214b6649f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestLevelToLoad: 5
+  TestLevelToLoad: 40
   SpawnItemPrefab: {fileID: 2632661987628473247, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
   LockItemPrefab: {fileID: 5290314347958245746, guid: cdb3dda65d7507a4693f6ee923f5ac40, type: 3}
   CrowdElementPrefab: {fileID: 6206104431016008360, guid: 18874d00b0ccff34fbce27473fa1c37c, type: 3}
@@ -16474,6 +16474,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CurCapacityText: {fileID: 1996456860}
+  LabelOriginalScale: {x: 0, y: 0, z: 0}
   ArrowSocketPrefab: {fileID: 2984345053969643777, guid: dd4427db185930744b18d178044fe8f0, type: 3}
   SplineContain: {fileID: 1010849696}
   ProgressBarFill: {fileID: 986735378}

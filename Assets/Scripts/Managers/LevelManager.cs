@@ -143,6 +143,8 @@ public class LevelManager : Singleton<LevelManager>
         foreach(VisualRows Row in RowsTransform)
         {
             Spawner CurSpawner = Row.FrontItem as Spawner;
+            if(CurSpawner == null) continue;
+            
             CurSpawner.CountLabel.color = new Color(CurSpawner.CountLabel.color.r,CurSpawner.CountLabel.color.g,CurSpawner.CountLabel.color.b, 1f);
         }
     }

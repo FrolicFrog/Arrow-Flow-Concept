@@ -15,12 +15,13 @@ MonoBehaviour:
   ItemsData:
     Rows:
     - items:
-      - rid: 6744297189868044607
-      - rid: 6744297189868044608
+      - rid: 1986424506884292644
+      - rid: 1986424506884292645
     - items:
-      - rid: 6744297189868044609
-      - rid: 6744297189868044610
-    - items: []
+      - rid: 1986424506884292646
+      - rid: 1986424506884292647
+    - items:
+      - rid: 1986424506884292648
   CrowdData:
     CrowdGrid:
       Rows:
@@ -1142,7 +1143,7 @@ MonoBehaviour:
         - Type: 1
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
-          IsKeyed: 0
+          IsKeyed: 1
           IsGiant: 0
         - Type: 3
           GridPosition: {x: 0, y: 0}
@@ -1246,7 +1247,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 6744297189868044607
+    - rid: 1986424506884292644
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 0, y: 0}
@@ -1255,7 +1256,7 @@ MonoBehaviour:
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297189868044608
+    - rid: 1986424506884292645
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 0, y: 1}
@@ -1264,7 +1265,7 @@ MonoBehaviour:
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297189868044609
+    - rid: 1986424506884292646
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 1, y: 0}
@@ -1273,7 +1274,7 @@ MonoBehaviour:
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297189868044610
+    - rid: 1986424506884292647
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 1, y: 1}
@@ -1282,3 +1283,9 @@ MonoBehaviour:
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
+    - rid: 1986424506884292648
+      type: {class: LockItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 2, y: 0}
+        HasKey: 1
+        KeyId: {x: 14, y: 10}
