@@ -45,6 +45,7 @@ public class UIManager : Singleton<UIManager>
 
         GameManager.Instance.CurGameState = ArrowFlowGame.Types.GameState.COMPLETED;
         BeltManager.Instance.SlowedBeltSpeed();
+        BeltManager.Instance.ClearAllSockets();
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => EffectManager.Instance.Play("confetti"));
         LevelCompleteScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.NextLevel());

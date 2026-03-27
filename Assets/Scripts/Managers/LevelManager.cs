@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using ArrowFlow.Types;
 using System;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class LevelManager : Singleton<LevelManager>
 {
@@ -50,7 +51,7 @@ public class LevelManager : Singleton<LevelManager>
 
         SpawnItems();
         SpawnCrowdElements();
-        
+
         PowerupManager.Instance.Initialize();
         BeltManager.Instance.Initialize();
         UIManager.Instance.Initialize();
@@ -62,19 +63,19 @@ public class LevelManager : Singleton<LevelManager>
         CrowdSpawnData CrowdData = _LevelData.CrowdData;
         Vector2Int HalfSize = new(CrowdData.Width / 2, 0);
         List<List<CrowdElement>> CrowdGrid = new();
-        
+
         for (int i = 0; i < CrowdData.Width; i++)
         {
             CrowdGrid.Add(new List<CrowdElement>());
             for (int j = 0; j < CrowdData.Height; j++)
             {
-                if(CrowdData.CrowdGrid[i, j].Type == ItemType.NONE) continue;
-                
+                if (CrowdData.CrowdGrid[i, j].Type == ItemType.NONE) continue;
+
                 int flippedJ = CrowdData.Height - 1 - j;
 
                 Vector3Int GridIdx = new(i - HalfSize.x, flippedJ - HalfSize.y, 0);
                 Vector3 Pos = GridManager.Instance.GetPosition(GridIdx);
-                
+
                 if (CrowdData.Width % 2 == 0)
                 {
                     Pos.x += GridManager.Instance.GridSystem.cellSize.x / 2f;
@@ -93,8 +94,13 @@ public class LevelManager : Singleton<LevelManager>
                 CrowdGrid[i].Add(CrowdEle);
             }
         }
+
+        foreach (var person in CrowdGrid.SelectMany(row => row).OfType<Person>())
+        {
+            person.UpdateRowVisuals();
+        }
     }
-    
+
     private void SpawnItems()
     {
         ItemSpawnData SpawnData = _LevelData.ItemsData;
@@ -119,14 +125,14 @@ public class LevelManager : Singleton<LevelManager>
                 Vector3 offset = new(StartOffset + GridSpacing.x * i, 0, -GridSpacing.y * j);
                 ItemData data = Items[j];
 
-                if(data is SpawnItemData SpawnerData)
+                if (data is SpawnItemData SpawnerData)
                 {
                     Spawner SpawnerClone = Instantiate(SpawnItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
                     SpawnerClone.Init(Items[j], RowsTransform[i], OnItemUsed);
                     RowsTransform[i].Add(SpawnerClone);
                     ReferenceManager.Instance.RegisterSpawner(SpawnerClone, SpawnerData);
                 }
-                else if(data is LockItemData LockData)
+                else if (data is LockItemData LockData)
                 {
                     Lock LockClone = Instantiate(LockItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
                     LockClone.Init(Items[j], RowsTransform[i], OnItemUsed);
@@ -140,12 +146,12 @@ public class LevelManager : Singleton<LevelManager>
             }
         }
 
-        foreach(VisualRows Row in RowsTransform)
+        foreach (VisualRows Row in RowsTransform)
         {
             Spawner CurSpawner = Row.FrontItem as Spawner;
-            if(CurSpawner == null) continue;
-            
-            CurSpawner.CountLabel.color = new Color(CurSpawner.CountLabel.color.r,CurSpawner.CountLabel.color.g,CurSpawner.CountLabel.color.b, 1f);
+            if (CurSpawner == null) continue;
+
+            CurSpawner.CountLabel.color = new Color(CurSpawner.CountLabel.color.r, CurSpawner.CountLabel.color.g, CurSpawner.CountLabel.color.b, 1f);
         }
     }
 
