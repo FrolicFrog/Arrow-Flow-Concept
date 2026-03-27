@@ -128,7 +128,7 @@ public class ArrowSocket : MonoBehaviour
 
     public void Ready(ItemType Type)
     {
-        ArrowRenderer.materials = ReferenceManager.Instance.ArrowMaterials.GetArrowMatArray(Type);
+        ArrowRenderer.sharedMaterials = ReferenceManager.Instance.ArrowMaterials.GetArrowMatArray(Type);
 
         ArrowRenderer.enabled = true;
         CurType = Type;
