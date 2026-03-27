@@ -24,6 +24,10 @@ public class Lock : Item
         Row.Dequeue();
         OnItemUsed?.Invoke(this);
         Sequence sequence = DOTween.Sequence();
-        sequence.Join(transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(() => Destroy(gameObject)));
+        sequence.Join(transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(() =>
+        {
+            Row.MoveToNext();
+            Destroy(gameObject);
+        }));
     }
 }
