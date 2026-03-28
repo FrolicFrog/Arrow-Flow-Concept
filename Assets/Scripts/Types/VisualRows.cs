@@ -31,13 +31,47 @@ namespace ArrowFlowGame.Types
             if(rowsTransform == null)
             {
                 Debug.LogWarning("No Rows Transform Available to Animate");
-                return; 
+                return;
             }
-
 
             _completedMovements++;
             rowsTransform.DOMoveZ(rowsTransform.transform.position.z + _gridSpacing.y, 0.5f)
-            .OnComplete(() => _itemsInRows[0].OnMoveForward());
+            .OnComplete(() => {
+                // Saftey check added in case the row is empty when the tween finishes
+                if (_itemsInRows.Count > 0 && _itemsInRows[0] != null)
+                    _itemsInRows[0].OnMoveForward();
+            });
+        }
+
+        // Target and remove specific item (fixes the MissingReferenceException)
+        public void Remove(Item item)
+        {
+            if (_itemsInRows.Contains(item))
+            {
+                _itemsInRows.Remove(item);
+                item.transform.SetParent(null);
+            }
+        }
+
+        // Shifts only the items starting from the gap, leaving items in front of the gap untouched
+        public void ShiftItemsForward(int startIndex)
+        {
+            for (int i = startIndex; i < _itemsInRows.Count; i++)
+            {
+                Item item = _itemsInRows[i];
+                if (item != null)
+                {
+                    Item currentItem = item; // Capture for lambda
+                    currentItem.transform.DOMoveZ(currentItem.transform.position.z + _gridSpacing.y, 0.5f)
+                        .OnComplete(() => 
+                        {
+                            if (_itemsInRows.Count > 0 && _itemsInRows[0] == currentItem)
+                            {
+                                currentItem.OnMoveForward();
+                            }
+                        });
+                }
+            }
         }
 
         public int IndexOf(Item item)
@@ -47,6 +81,7 @@ namespace ArrowFlowGame.Types
 
         public void Dequeue()
         {
+            if (_itemsInRows.Count == 0) return;
             Item FrontItem = _itemsInRows[0];
             _itemsInRows.RemoveAt(0);
 

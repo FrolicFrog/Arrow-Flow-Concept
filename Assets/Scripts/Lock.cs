@@ -21,22 +21,23 @@ public class Lock : Item
     }
     protected override void OnComplete()
     {
-        Row.Dequeue();
+        int index = Row.IndexOf(this);
+        Row.Remove(this);
+        
         OnItemUsed?.Invoke(this);
         Sequence sequence = DOTween.Sequence();
         sequence.Join(transform.DOScale(Vector3.zero, 0.1f).SetEase(Ease.InBack).OnComplete(() =>
         {
             Destroy(gameObject);
-
-            if(Row.FrontItem == this)
+            
+            if (index == 0)
+            {
                 Row.MoveToNext();
+            }
+            else if (index > 0)
+            {
+                Row.ShiftItemsForward(index);
+            }
         }));
     }
 }
-
-/*
-MissingReferenceException: The object of type 'Lock' has been destroyed but you are still trying to access it.
-Your script should either check if it is null or you should not destroy the object.
-Spawner.OnClick () (at Assets/Scripts/Spawner.cs:169)
-ClickDetector.Update () (at Assets/Scripts/ClickDetector.cs:20)
-*/

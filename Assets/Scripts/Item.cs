@@ -42,14 +42,25 @@ public class Item : MonoBehaviour
 
     protected virtual void OnComplete()
     {
-        Row.Dequeue();
+        int index = Row.IndexOf(this);
+        Row.Remove(this); // Replacing Dequeue() ensures it removes exactly this item
+        
         OnItemUsed?.Invoke(this);
         IsBeingDestroy = true;
         BreathingTween.Kill();
+        
         Sequence sequence = DOTween.Sequence();
         sequence.Join(transform.DOMoveY(transform.position.y + Elevation, ElevationAnimDur));
         sequence.Join(transform.DORotate(new Vector3(0, 360, 0), ElevationAnimDur, RotateMode.FastBeyond360).SetRelative());
-        sequence.InsertCallback(ElevationAnimDur * 0.6f, () => Row.MoveToNext());
+        
+        sequence.InsertCallback(ElevationAnimDur * 0.6f, () => 
+        {
+            if (index == 0)
+                Row.MoveToNext();
+            else if (index > 0)
+                Row.ShiftItemsForward(index);
+        });
+        
         sequence.Insert(ElevationAnimDur * 0.6f, transform.DOScale(Vector3.zero, ElevationAnimDur * 0.4f).SetEase(Ease.InBack));
         sequence.InsertCallback(ElevationAnimDur, () => Destroy(gameObject));
         sequence.Play();
