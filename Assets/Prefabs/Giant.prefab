@@ -147,7 +147,9 @@ MonoBehaviour:
   GridPos: {x: 0, y: 0}
   OriginalGridPos: {x: 0, y: 0}
   DebugTxt: 
-  MeshVariants: []
+  MeshVariants:
+  - VariantObject: {fileID: 3523351989354086606}
+    VariantAnimator: {fileID: 7662962690990169798}
   KeyObj: {fileID: 6028578047029697754}
   DamageEffect: {fileID: 4590632155909148041}
   MinAnimSpeed: 0.8
