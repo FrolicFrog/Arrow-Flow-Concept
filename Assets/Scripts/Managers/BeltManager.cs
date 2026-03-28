@@ -199,15 +199,4 @@ public class BeltManager : Singleton<BeltManager>
         foreach (ArrowSocket s in Sockets)
             s.StopSuperSlowMotion();
     }
-
-    public void ClearAllSockets()
-    {
-        foreach(ArrowSocket s in Sockets)
-        {
-            if(s == null) continue;
-            Destroy(s.gameObject);
-        }
-
-        Sockets.Clear();
-    }
 }

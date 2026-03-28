@@ -9,12 +9,12 @@ public class Person : CrowdElement
     public MeshVariant[] MeshVariants;
     public Key KeyObj;
     public ParticleSystem DamageEffect;
-
+    
     [Header("Animation Settings")]
     public float MinAnimSpeed = 0.8f;
     public float MaxAnimSpeed = 1.5f;
     [Range(0.1f, 10f)] public float YAnimOffset;
-
+    
     public Animator Anim { get; private set; }
 
     private bool _isWalking;
@@ -33,10 +33,10 @@ public class Person : CrowdElement
 
     public bool AlreadyTarget { get; set; }
     public int RequiredHits = 1;
-
+    
     private bool IsInFrontRow => CrowdManager.Instance.CurFront.Contains(this);
     private int RowIdx => CrowdManager.Instance.GetElementRowIdx(this);
-
+    
     private int _lastRowIdx = -1;
     private float _randomAnimSpeed;
 
@@ -51,9 +51,11 @@ public class Person : CrowdElement
         KeyObj.SetActive(IsKeyed);
     }
 
-    public void UpdateRowVisuals()
+    private void Update()
     {
         int currentRow = RowIdx;
+        DebugTxt = currentRow.ToString();
+        
         if (_lastRowIdx != currentRow)
         {
             SwitchMeshVariant(currentRow);
@@ -64,12 +66,12 @@ public class Person : CrowdElement
     {
         _lastRowIdx = targetRow;
         int variantIndex = Mathf.Clamp(targetRow, 0, MeshVariants.Length - 1);
-
+        
         for (int i = 0; i < MeshVariants.Length; i++)
         {
             bool isTargetVariant = (i == variantIndex);
             MeshVariants[i].VariantObject.SetActive(isTargetVariant);
-
+            
             if (isTargetVariant)
             {
                 Anim = MeshVariants[i].VariantAnimator;
@@ -103,7 +105,7 @@ public class Person : CrowdElement
         }
 
         if (Anim != null) Anim.Play("Death");
-
+        
         Sequence deathSequence = DOTween.Sequence();
         deathSequence.AppendCallback(() => SwitchMaterial(ReferenceManager.Instance.DamageFlashedPerson));
         deathSequence.AppendCallback(() => DamageEffect.Play());
@@ -117,7 +119,7 @@ public class Person : CrowdElement
     {
         if (Renderers != null)
         {
-            Array.ForEach(Renderers, r => r.sharedMaterial = targetMaterial);
+            Array.ForEach(Renderers, r => r.material = targetMaterial);
         }
     }
 }

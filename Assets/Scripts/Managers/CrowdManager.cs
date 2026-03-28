@@ -75,11 +75,7 @@ public class CrowdManager : Singleton<CrowdManager>
                     {
                         person.transform.DOLocalMove(targetPos, 0.5f)
                         .OnStart(() => person.IsWalking = true)
-                        .OnComplete(() => 
-                        {
-                            person.IsWalking = false;
-                            person.UpdateRowVisuals();
-                        });
+                        .OnComplete(() => person.IsWalking = false);
                     }
 
                     found = true;
