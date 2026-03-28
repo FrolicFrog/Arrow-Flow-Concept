@@ -12,6 +12,7 @@ public class ArrowSocket : MonoBehaviour
     public Spawnable ArrowPrefab;
     public SplineAnimate SplineAnimator;
     public MeshRenderer ArrowRenderer;
+    public GameObject ArrowObject;
 
     public bool IsOccupied;
     public bool IsReady;
@@ -128,9 +129,8 @@ public class ArrowSocket : MonoBehaviour
 
     public void Ready(ItemType Type)
     {
-        ArrowRenderer.materials = ReferenceManager.Instance.ArrowMaterials.GetArrowMatArray(Type);
-
-        ArrowRenderer.enabled = true;
+        ArrowRenderer.sharedMaterials = ReferenceManager.Instance.ArrowMaterials.GetArrowMatArray(Type);
+        ArrowObject.SetActive(true);
         CurType = Type;
         IsReady = true;
     }
