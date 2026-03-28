@@ -47,6 +47,12 @@ public class LevelManager : Singleton<LevelManager>
             _LevelData = Resources.Load<LevelData>($"Levels/{LevelNumber}");
         }
 
+        if(Manager.Instance.ForceTestLevel != -1)
+        {
+            _LevelData = Resources.Load<LevelData>($"Levels/{Manager.Instance.ForceTestLevel}");
+            _CurrentLevelNumber = Manager.Instance.ForceTestLevel;
+        }
+
 
         SpawnItems();
         SpawnCrowdElements();
