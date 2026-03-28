@@ -1,6 +1,7 @@
 using System;
 using ArrowFlowGame.Types;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -35,8 +36,44 @@ public class GameManager : Singleton<GameManager>
     public event Action OnLevelComplete;
     public event Action OnLevelFailed;
 
+    private float _targetFPS = 28f;
+    private float _minScale = 0.85f;
+    private float _maxScale = 1.2f;
+    private float _adjustSpeed = 0.2f;
+
+    private float _deltaTime;
+    private UniversalRenderPipelineAsset _urpAsset;
+
     public void Initialize()
     {
+        _urpAsset = (UniversalRenderPipelineAsset)QualitySettings.renderPipeline;
         CurGameState = GameState.STARTED;
+    }
+
+    private void Update()
+    {
+        HandleDynamicResolution();
+    }
+
+    private void HandleDynamicResolution()
+    {
+        _deltaTime += (Time.unscaledDeltaTime - _deltaTime) * 0.1f;
+        float fps = 1.0f / _deltaTime;
+
+        if(_urpAsset == null) return;
+
+        float scale = _urpAsset.renderScale;
+
+        if(fps < _targetFPS)
+        {
+            scale -= _adjustSpeed * Time.deltaTime;
+        }
+        else if(fps > _targetFPS + 5f)
+        {
+            scale += _adjustSpeed * Time.deltaTime;
+        }
+
+        scale = Mathf.Clamp(scale, _minScale, _maxScale);
+        _urpAsset.renderScale = scale;
     }
 }
