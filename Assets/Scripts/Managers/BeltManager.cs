@@ -128,7 +128,7 @@ public class BeltManager : Singleton<BeltManager>
     {
         arrowSocket.IsReady = false;
         arrowSocket.IsOccupied = false;
-        arrowSocket.ArrowRenderer.enabled = false;
+        arrowSocket.ArrowObject.SetActive(false);
 
         CurOccupied--;
         UpdateProgressbar();

@@ -62,11 +62,7 @@ public class EventManager : Singleton<EventManager>
     private void UpdateBeltSpeed()
     {
         bool FilledUpLevel = BeltManager.Instance.CurOccupied >= BeltManager.Instance.TotalSockets * 0.7f;
-
         var list = ReferenceManager.Instance.IdToSpawner.Values.Where(x => x != null && x.IsBeingDestroy == false).ToList();
-
-        foreach (var d in list)
-            Debug.Log(d.name, d.gameObject);
 
         bool AllItemsUsed = list.Count == 0;
         bool UseIncreasedSpeed = FilledUpLevel || AllItemsUsed;

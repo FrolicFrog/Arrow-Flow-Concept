@@ -29985,6 +29985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TestMode: 1
+  ForceTestLevel: -1
   TargetFPS: 60
   MaxLvl: 40
   MinLvl: 4

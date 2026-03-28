@@ -74,6 +74,7 @@ MonoBehaviour:
   ArrowPrefab: {fileID: 5158241363279224397, guid: b8c1f277dbc52c44eb8eff9a55a08202, type: 3}
   SplineAnimator: {fileID: 5916513404427842393}
   ArrowRenderer: {fileID: 4003724122334115231}
+  ArrowObject: {fileID: 3211323340556637258}
   IsOccupied: 0
   IsReady: 0
   OriginalDuration: 6.5
@@ -96,7 +97,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2871952120569712368
 Transform:
   m_ObjectHideFlags: 0
@@ -127,7 +128,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3211323340556637258}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
