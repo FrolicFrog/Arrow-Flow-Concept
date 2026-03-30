@@ -10,10 +10,8 @@ public class TutorialManager : Singleton<TutorialManager>
 
     [Header("TUTORIALS")]
     [TextArea(3, 10)]
-    public string FirstLvlHintText = "This is a Spawner. It creates items for you to use. Let's start by creating some arrows!";
-
+    public string FirstLvlHintText = "Tap the shooter to attack!";
     public bool IsTakingSpawnerInputForTutorial { get; private set; } = false;
-
     public void Initialize()
     {
         int LevelNum = LevelManager.Instance.CurrentLevelNumber;

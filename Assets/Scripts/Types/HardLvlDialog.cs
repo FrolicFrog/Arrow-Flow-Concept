@@ -33,11 +33,9 @@ namespace ArrowFlowGame.Types
 
             Sequence seq = DOTween.Sequence();
 
-            // Entry (move + scale with overshoot)
             seq.Append(Dialog.DOAnchorPos(midPos, 0.6f).SetEase(Ease.OutBack));
             seq.Join(Dialog.DOScale(Vector3.one, 0.6f).SetEase(Ease.OutBack));
 
-            // Start floating
             seq.AppendCallback(() =>
             {
                 floatTween = Dialog.DOAnchorPosY(midPos.y + 20f, 1f)
@@ -45,10 +43,8 @@ namespace ArrowFlowGame.Types
                     .SetLoops(-1, LoopType.Yoyo);
             });
 
-            // Stay duration
             seq.AppendInterval(2f);
 
-            // Stop floating
             seq.AppendCallback(() =>
             {
                 if (floatTween != null)
@@ -57,7 +53,6 @@ namespace ArrowFlowGame.Types
                 }
             });
 
-            // Exit (move up + scale down)
             seq.Append(Dialog.DOAnchorPos(endPos, 0.5f).SetEase(Ease.InCubic));
             seq.Join(Dialog.DOScale(Vector3.zero, 0.5f).SetEase(Ease.InBack));
 
