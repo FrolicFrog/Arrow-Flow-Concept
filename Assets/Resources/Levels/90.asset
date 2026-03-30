@@ -15,146 +15,18 @@ MonoBehaviour:
   ItemsData:
     Rows:
     - items:
-      - rid: 6744297177088524288
-      - rid: 6744297177088524289
-      - rid: 6744297177088524290
+      - rid: 1986424575737200760
+      - rid: 1986424575737200761
+      - rid: 1986424575737200762
     - items:
-      - rid: 6744297177088524291
-      - rid: 6744297177088524292
+      - rid: 1986424575737200763
+      - rid: 1986424575737200764
+      - rid: 1986424575737200765
   CrowdData:
     CrowdGrid:
       Rows:
       - Values:
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-      - Values:
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 1
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-      - Values:
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-      - Values:
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-      - Values:
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
@@ -162,164 +34,978 @@ MonoBehaviour:
         - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
-          IsKeyed: 1
+          IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-      - Values:
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 2
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 2
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 2
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 2
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 2
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-      - Values:
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
-          GridPosition: {x: 0, y: 0}
-          RequiredHits: 1
-          IsKeyed: 0
-          IsGiant: 0
-        - Type: 1
+        - Type: 2
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
       - Values:
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-        - Type: 1
+        - Type: 3
           GridPosition: {x: 0, y: 0}
           RequiredHits: 1
           IsKeyed: 0
           IsGiant: 0
-      _Width: 6
-      _Height: 8
-  BeltCapacity: 35
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      - Values:
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 3
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+        - Type: 2
+          GridPosition: {x: 0, y: 0}
+          RequiredHits: 1
+          IsKeyed: 0
+          IsGiant: 0
+      _Width: 12
+      _Height: 15
+  BeltCapacity: 90
+  HardLevel: 0
   references:
     version: 2
     RefIds:
-    - rid: 6744297177088524288
+    - rid: 1986424575737200760
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 0, y: 0}
-        Type: 2
-        SpawnCount: 15
+        Type: 3
+        SpawnCount: 40
         IsMysterious: 0
         HasConnection: 0
-        ConnectedTo: []
-    - rid: 6744297177088524289
+        ConnectedTo:
+        - {x: 1, y: 1}
+        - {x: 2, y: 1}
+    - rid: 1986424575737200761
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 0, y: 1}
-        Type: 1
-        SpawnCount: 15
+        Type: 2
+        SpawnCount: 30
         IsMysterious: 0
         HasConnection: 0
-        ConnectedTo: []
-    - rid: 6744297177088524290
+        ConnectedTo:
+        - {x: -131262320, y: 535}
+        - {x: 1, y: 0}
+    - rid: 1986424575737200762
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 0, y: 2}
-        Type: 0
-        SpawnCount: 0
+        Type: 3
+        SpawnCount: 20
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297177088524291
+    - rid: 1986424575737200763
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 1, y: 0}
-        Type: 1
-        SpawnCount: 15
+        Type: 2
+        SpawnCount: 40
         IsMysterious: 0
         HasConnection: 0
-        ConnectedTo: []
-    - rid: 6744297177088524292
+        ConnectedTo:
+        - {x: -131262320, y: 535}
+        - {x: 1, y: 0}
+    - rid: 1986424575737200764
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 1, y: 1}
-        Type: 1
-        SpawnCount: 10
+        Type: 3
+        SpawnCount: 30
+        IsMysterious: 0
+        HasConnection: 0
+        ConnectedTo:
+        - {x: 0, y: 0}
+        - {x: 2, y: 1}
+    - rid: 1986424575737200765
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 1, y: 2}
+        Type: 2
+        SpawnCount: 20
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []

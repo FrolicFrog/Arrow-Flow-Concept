@@ -57,6 +57,7 @@ public class LevelManager : Singleton<LevelManager>
         SpawnItems();
         SpawnCrowdElements();
         
+        TutorialManager.Instance.Initialize();
         PowerupManager.Instance.Initialize();
         BeltManager.Instance.Initialize();
         UIManager.Instance.Initialize();

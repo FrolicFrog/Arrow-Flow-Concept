@@ -40,7 +40,7 @@ public class Portal : Singleton<Portal>
         Poles.gameObject.SetActive(true);
         Poles.DOLocalMoveZ(PortalZPos.To, 0.5f).SetEase(Ease.InOutSine);
         PortalArea.DOScale(PortalAreaScale.To, 0.5f).SetEase(Ease.InOutSine);
-        // DOVirtual.DelayedCall(PortalDuration.Value, ClosePortal);
+        DOVirtual.DelayedCall(PortalDuration.Value, ClosePortal);
         IsPortalOpen = true;
         ColliderObj.enabled = true;
     }

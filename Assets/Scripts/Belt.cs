@@ -39,8 +39,9 @@ public class Belt : MonoBehaviour, IClickable
         transform.DOScale(transform.localScale * 1.05f, 0.1f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutBack);
         MeshTransform.DOScale(IncreasedScale, 0.5f);
         MeshTransform.DOLocalMove(IncreasedPosition, 0.5f);
+        int ToIncrease = (BeltManager.Instance.TotalSockets + 10) > 100 ? (100 - BeltManager.Instance.TotalSockets) : 10;
 
-        BeltManager.Instance.TotalSockets += 10;
+        BeltManager.Instance.TotalSockets += ToIncrease;
         BeltManager.Instance.InitPreserve();
         
         Spline spline = SplineCon.Spline;

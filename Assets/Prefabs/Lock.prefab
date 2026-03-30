@@ -46,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae31a02c4eb8f3747b14c83ca290ad33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DespawnEffect: {fileID: 198622091686617900, guid: f2bb6fbe63bfed24f8ee027776bfed73, type: 3}
+  DespawnEffectScale: 1.5
   Elevation: 1
   ElevationAnimDur: 1
   BreathScaleUp: 1.05

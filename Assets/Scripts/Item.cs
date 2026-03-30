@@ -6,6 +6,8 @@ using DG.Tweening;
 public class Item : MonoBehaviour
 {
     [Header("ANIMATION SETTINGS")]
+    public ParticleSystem DespawnEffect;
+    public float DespawnEffectScale = 1f;
     public float Elevation = 1f;
     public float ElevationAnimDur = 1f;
     public float BreathScaleUp = 1.05f;
@@ -61,6 +63,11 @@ public class Item : MonoBehaviour
                 Row.ShiftItemsForward(index);
         });
         
+        sequence.InsertCallback(ElevationAnimDur * 0.8f, () => 
+        {
+            GameObject effect = Instantiate(DespawnEffect.gameObject, transform.position, Quaternion.identity);
+            effect.transform.localScale = Vector3.one * DespawnEffectScale;
+        });
         sequence.Insert(ElevationAnimDur * 0.6f, transform.DOScale(Vector3.zero, ElevationAnimDur * 0.4f).SetEase(Ease.InBack));
         sequence.InsertCallback(ElevationAnimDur, () => Destroy(gameObject));
         sequence.Play();

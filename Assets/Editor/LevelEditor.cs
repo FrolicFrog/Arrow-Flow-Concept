@@ -19,6 +19,7 @@ public class LevelEditor : EditorWindow
     //Data
     private ItemSpawnData _ItemSpawnData;
     private CrowdSpawnData _CrowdSpawnData;
+    private HardLevelType HardLvlType = HardLevelType.NONE;
 
     //Styles
     private GUIStyle headerStyle;
@@ -317,6 +318,7 @@ public class LevelEditor : EditorWindow
         _ItemSpawnData ??= new ItemSpawnData();
         _CrowdSpawnData ??= new CrowdSpawnData(2, 2);
         CurLvlData.BeltCapacity = CurBeltCapacity;
+        CurLvlData.HardLevel = HardLvlType;
 
         CurLvlData.ItemsData = _ItemSpawnData;
         CurLvlData.CrowdData = _CrowdSpawnData;
@@ -331,6 +333,7 @@ public class LevelEditor : EditorWindow
         _ItemSpawnData = CurLvlData.ItemsData ?? new ItemSpawnData();
         _CrowdSpawnData = CurLvlData.CrowdData ?? new CrowdSpawnData(2, 2);
         CurBeltCapacity = CurLvlData.BeltCapacity;
+        HardLvlType = CurLvlData.HardLevel;
     }
 
     private void LevelSettings()
@@ -353,6 +356,11 @@ public class LevelEditor : EditorWindow
         GUILayout.BeginHorizontal();
         EditorGUILayout.LabelField("Belt Capacity :", GUILayout.ExpandWidth(false));
         CurBeltCapacity = EditorGUILayout.IntSlider(CurBeltCapacity, 1, 100);
+        GUILayout.EndHorizontal();
+
+        GUILayout.BeginHorizontal();
+        EditorGUILayout.LabelField("Hard Level :", GUILayout.ExpandWidth(false));
+        HardLvlType = (HardLevelType)EditorGUILayout.EnumPopup(HardLvlType);
         GUILayout.EndHorizontal();
 
         GUILayout.EndVertical();
