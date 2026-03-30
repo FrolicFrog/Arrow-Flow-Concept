@@ -9,7 +9,6 @@ using System.Linq;
 public class PowerupManager : Singleton<PowerupManager>
 {
     public Powerup[] Powerups;
-    private bool UsedBeltCapacityPowerupInLvl = false;
     public bool IsTakingSpawnerInputForExchangePowerup = false;
     private List<Spawner> ToExchange = null;
 
@@ -21,19 +20,36 @@ public class PowerupManager : Singleton<PowerupManager>
 
     public void UsePowerup(PowerupType type, bool ShowTutorial = false, string Message = null)
     {
-        if (type == PowerupType.BELTCAPACITY && !UsedBeltCapacityPowerupInLvl)
+        if (type == PowerupType.BELTCAPACITY)
         {
-            UseBeltCapacityPowerup(ShowTutorial, Message);
-            UsedBeltCapacityPowerupInLvl = true;
+            if(BeltManager.Instance.TotalSockets < 100)
+            UseBeltCapacityPowerup(ShowTutorial && !TutorialAlreadyShown(type), Message);
+            else
+            {
+                PostProcessingManager.Instance.AnimateDimmedExposure();
+                GameManager.Instance.GlobalInputEnabled = false;
+                UIManager.Instance.ShowHintBox("Belt capacity is already at maximum!", true);
+                DOVirtual.DelayedCall(1f, () =>
+                {
+                    UIManager.Instance.DismissHintBox();
+                    PostProcessingManager.Instance.AnimateNormalExposure();
+                    GameManager.Instance.GlobalInputEnabled = true;
+                });
+            }
         }
         else if (type == PowerupType.MULTIPLIER)
         {
-            UseMultiplierPowerup(ShowTutorial, Message);
+            UseMultiplierPowerup(ShowTutorial && !TutorialAlreadyShown(type), Message);
         }
         else if (type == PowerupType.EXCHANGE)
         {
-            UseExchangePowerup(ShowTutorial, Message);
+            UseExchangePowerup(ShowTutorial && !TutorialAlreadyShown(type), Message);
         }
+    }
+
+    public static bool TutorialAlreadyShown(PowerupType type)
+    {
+        return PlayerPrefs.GetInt("Tutorial_" + type.ToString(), 0) == 1;
     }
 
     private void UseExchangePowerup(bool showTutorial, string message)
@@ -52,6 +68,7 @@ public class PowerupManager : Singleton<PowerupManager>
 
         if (showTutorial)
         {
+            SetTutorialShown(PowerupType.EXCHANGE);
             UIManager.Instance.ShowHintBox(message);
             if (LevelManager.Instance.Rows.Length < 2)
             {
@@ -69,7 +86,7 @@ public class PowerupManager : Singleton<PowerupManager>
                 var spawner = ItemList1[i] as Spawner;
                 if (spawner == null) continue;
 
-                spawner.CanTakeInputForExchangePowerup = i == 0;
+                spawner.CanTakeSecondaryActionInput = i == 0;
                 if (i == 0)
                     S1 = spawner;
             }
@@ -81,7 +98,7 @@ public class PowerupManager : Singleton<PowerupManager>
                 var spawner = ItemList2[i] as Spawner;
                 if (spawner == null) continue;
 
-                spawner.CanTakeInputForExchangePowerup = i == 1;
+                spawner.CanTakeSecondaryActionInput = i == 1;
                 if (i == 1)
                     S2 = spawner;
             }
@@ -92,7 +109,7 @@ public class PowerupManager : Singleton<PowerupManager>
                 return;
             }
             
-            S2.CanTakeInputForExchangePowerup = false;
+            S2.CanTakeSecondaryActionInput = false;
             SetupFlowActionListeners(S1, S2);
         }
     }
@@ -104,16 +121,16 @@ public class PowerupManager : Singleton<PowerupManager>
         System.Action s1Handler = null;
         s1Handler = () =>
         {
-            s1.OnExchangePowerupClick -= s1Handler;
+            s1.OnSecondaryActionClick -= s1Handler;
 
             s1.SetFingerAnimationVisible(false);
             s2.SetFingerAnimationVisible(true);
-            s2.CanTakeInputForExchangePowerup = true;
+            s2.CanTakeSecondaryActionInput = true;
             
             System.Action s2Handler = null;
             s2Handler = () =>
             {
-                s2.OnExchangePowerupClick -= s2Handler;
+                s2.OnSecondaryActionClick -= s2Handler;
                 s2.SetFingerAnimationVisible(false);
 
                 Sequence Seq = ExchangeSpawners(ToExchange[0], ToExchange[1]);
@@ -136,10 +153,10 @@ public class PowerupManager : Singleton<PowerupManager>
                 });
             };
 
-            s2.OnExchangePowerupClick += s2Handler;
+            s2.OnSecondaryActionClick += s2Handler;
         };
 
-        s1.OnExchangePowerupClick += s1Handler;
+        s1.OnSecondaryActionClick += s1Handler;
     }
 
     public void AddSpawnerToExchange(Spawner s)
@@ -220,6 +237,7 @@ public class PowerupManager : Singleton<PowerupManager>
     {
         if (showTutorial)
         {
+            SetTutorialShown(PowerupType.MULTIPLIER);
             Utilities.AssignLayerRecursively(Portal.Instance.transform, TutorialManager.Instance.NoPostProcessLayerIdx);
             PostProcessingManager.Instance.AnimateDimmedExposure();
             GameManager.Instance.GlobalInputEnabled = false;
@@ -244,6 +262,7 @@ public class PowerupManager : Singleton<PowerupManager>
     {
         if (ShowTutorial)
         {
+            SetTutorialShown(PowerupType.BELTCAPACITY);
             BeltManager.Instance.SwitchToLayer(TutorialManager.Instance.NoPostProcessLayerIdx);
             BeltManager.Instance.BeltObj.ShowFingerAnimation = true;
             PostProcessingManager.Instance.AnimateDimmedExposure();
@@ -284,5 +303,10 @@ public class PowerupManager : Singleton<PowerupManager>
         {
             p.ActionBtn.interactable = true;
         }
+    }
+
+    private void SetTutorialShown(PowerupType type)
+    {
+        PlayerPrefs.SetInt("Tutorial_" + type.ToString(), 1);
     }
 }

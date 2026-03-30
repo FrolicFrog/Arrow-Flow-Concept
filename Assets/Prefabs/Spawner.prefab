@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29dd979143e02744eb7b619ec071b7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DespawnEffect: {fileID: 198622091686617900, guid: f2bb6fbe63bfed24f8ee027776bfed73, type: 3}
+  DespawnEffectScale: 1.5
   Elevation: 4
   ElevationAnimDur: 0.5
   BreathScaleUp: 1.1
@@ -59,6 +61,7 @@ MonoBehaviour:
   MaxBreathingAnimDur: 2
   VisualRowIndex: -1
   IsAtFrontBool: 0
+  IsBeingDestroy: 0
   RevealEffect: {fileID: 7988194420220030219}
   FingerAnimation: {fileID: 6117909583775393375}
   Renderer: {fileID: 4525786472624154785}
@@ -120,7 +123,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.000002078712, y: 0.70710796, z: 0.7071057, w: 0.0000021234155}
   m_LocalPosition: {x: 0, y: 0.28, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 2.63978}
+  m_LocalScale: {x: 1.6, y: 1.6, z: 2.63978}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1364890228483710338}
@@ -5523,8 +5526,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.03, y: 1.49, z: 0.06}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.35, y: 1.35, z: 1.35}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7988194420200622593}
   m_Father: {fileID: 1364890228483710338}

@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using ArrowFlow.Types;
+using ArrowFlowGame.Types;
 
 public class UIManager : Singleton<UIManager>
 {
@@ -12,6 +13,8 @@ public class UIManager : Singleton<UIManager>
     public LevelFailedScreen LevelFailedScreen;
     public UIScreen MainUIScreen;
     public HintDialog HintBox;
+    public HardLvlDialog HardLevelWarning;
+    public HardLvlDialog SuperHardLevelWarning;
 
     [Header("REFERENCES")]
     public TextMeshProUGUI LevelLabel;
@@ -32,6 +35,22 @@ public class UIManager : Singleton<UIManager>
     public void Initialize()
     {
         UpdateLevelLabel(LevelManager.Instance.CurrentLevelNumber);
+        HardLvlWarnings(LevelManager.Instance.LevelData.HardLevel);
+    }
+
+    private void HardLvlWarnings(HardLevelType hardLevel)
+    {
+        HardLevelWarning.Init();
+        SuperHardLevelWarning.Init();
+
+        if(hardLevel == HardLevelType.HARD)
+        {
+            HardLevelWarning.Display();
+        }
+        else if(hardLevel == HardLevelType.SUPER_HARD)
+        {
+            SuperHardLevelWarning.Display();
+        }
     }
 
     public void UpdateLevelLabel(int level)
@@ -101,9 +120,9 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    public void ShowHintBox(string hintLabel)
+    public void ShowHintBox(string hintLabel, bool disableDialogGraphics = false)
     {
-        HintBox.Show(hintLabel);
+        HintBox.Show(hintLabel, disableDialogGraphics);
     }
 
     public void DismissHintBox()

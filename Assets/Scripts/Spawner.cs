@@ -38,8 +38,8 @@ public class Spawner : Item, IClickable
         }
     }
 
-    public bool CanTakeInputForExchangePowerup = true;
-    public event Action OnExchangePowerupClick; 
+    public bool CanTakeSecondaryActionInput = true;
+    public event Action OnSecondaryActionClick; 
     public Color ConnectionColor => Utilities.GetColorByItemType(Type);
     private bool IsClicked = false;
     private Material OriginalMat;
@@ -151,14 +151,14 @@ public class Spawner : Item, IClickable
 
     public void OnClick()
     {
-        if(PowerupManager.Instance.IsTakingSpawnerInputForExchangePowerup)
+        if(PowerupManager.Instance.IsTakingSpawnerInputForExchangePowerup || TutorialManager.Instance.IsTakingSpawnerInputForTutorial)
         {
-            if(CanTakeInputForExchangePowerup)
+            if(CanTakeSecondaryActionInput)
             {
                 transform.DOScale(transform.localScale * ScaleMultiplier, ScaleAnimationDuration).SetLoops(2, LoopType.Yoyo);
                 
                 PowerupManager.Instance.AddSpawnerToExchange(this);
-                OnExchangePowerupClick?.Invoke();    
+                OnSecondaryActionClick?.Invoke();    
             }
             
             return;

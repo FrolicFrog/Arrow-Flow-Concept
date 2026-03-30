@@ -41,7 +41,7 @@ namespace ArrowFlow.Types
             bool IsUnlocked = CurrentLvl >= UnlocksAt;
             Quantity.gameObject.SetActive(CurrentLvl >= UnlocksAt);
             QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "+";
-            FingerAnimation.SetActive(CurrentLvl == UnlocksAt);
+            FingerAnimation.SetActive(CurrentLvl == UnlocksAt && !PowerupManager.TutorialAlreadyShown(type));
 
             if(!IsUnlocked)
             {
@@ -57,7 +57,7 @@ namespace ArrowFlow.Types
                 DisableFingerAnimation();
             });
 
-            if(CurrentLvl == UnlocksAt)
+            if(CurrentLvl == UnlocksAt && !PowerupManager.TutorialAlreadyShown(type))
             {
                 GameManager.Instance.GlobalInputEnabled = false;
                 PowerupManager.Instance.AllowInputForPowerupOnly(type);

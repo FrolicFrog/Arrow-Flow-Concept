@@ -2,6 +2,7 @@ using System;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace ArrowFlow.Types
 {
@@ -10,12 +11,14 @@ namespace ArrowFlow.Types
     {
         public RectTransform Root;
         public RectTransform Dialog;
+        public Image Graphics;
         public TextMeshProUGUI Label;
 
-        public void Show(string message)
+        public void Show(string message, bool disableDialogGraphics = false)
         {
             if(string.IsNullOrEmpty(message)) return;
-            
+
+            Graphics.enabled = !disableDialogGraphics;
             Label.text = message;
             Dialog.localScale = Vector3.zero;
             Root.gameObject.SetActive(true);
