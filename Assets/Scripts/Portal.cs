@@ -24,9 +24,13 @@ public class Portal : Singleton<Portal>
     public BoxCollider ColliderObj;
 
     private bool IsPortalOpen = true;
+    private Tween ScalingTween = null;
+    private Vector3 OrgScale;
+    private bool IsScalingAnimating = false;
 
     private void Start()
     {
+        OrgScale = transform.localScale;
         ClosePortal();
     }
 
@@ -68,6 +72,9 @@ public class Portal : Singleton<Portal>
             Debug.Log("Arrow Hit Portal");
             if(!other.TryGetComponent(out Arrow arrow)) return;
             if(arrow.ClonedBy != null) return;
+
+            if(!IsScalingAnimating)
+            transform.DOScale(OrgScale * 1.05f, 0.08f).SetEase(Ease.OutBounce).SetLoops(2, LoopType.Yoyo).OnStart(() => IsScalingAnimating = true).OnComplete(() => IsScalingAnimating = false);
 
             List<CrowdElement> FrontRow = CrowdManager.Instance.CurFront;
             foreach(CrowdElement elem in FrontRow)

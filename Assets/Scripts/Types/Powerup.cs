@@ -32,7 +32,7 @@ namespace ArrowFlow.Types
             set
             {
                 PlayerPrefs.SetInt(PlayerPrefsKey, value);
-                QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "+";
+                QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "<sprite name=video-ad>";
             }
         }
 
@@ -40,7 +40,7 @@ namespace ArrowFlow.Types
         {
             bool IsUnlocked = CurrentLvl >= UnlocksAt;
             Quantity.gameObject.SetActive(CurrentLvl >= UnlocksAt);
-            QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "+";
+            QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "<sprite name=video-ad>";
             FingerAnimation.SetActive(CurrentLvl == UnlocksAt && !PowerupManager.TutorialAlreadyShown(type));
 
             if(!IsUnlocked)
