@@ -21,7 +21,7 @@ namespace ArrowFlowGame.Types
         {
             Root.SetActive(true);
             GameManager.Instance.GlobalInputEnabled = false;
-
+            PostProcessingManager.Instance.AnimateDimmedExposure();
             float screenHeight = Screen.height;
 
             Vector2 startPos = new Vector2(0, -screenHeight);
@@ -60,6 +60,7 @@ namespace ArrowFlowGame.Types
             {
                 Root.SetActive(false);
                 GameManager.Instance.GlobalInputEnabled = true;
+                PostProcessingManager.Instance.AnimateNormalExposure();
             });
         }
     }   

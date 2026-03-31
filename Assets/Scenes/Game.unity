@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ff4c2f76ea0734494da7214b6649f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestLevelToLoad: 33
+  TestLevelToLoad: 92
   SpawnItemPrefab: {fileID: 2632661987628473247, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
   LockItemPrefab: {fileID: 5290314347958245746, guid: cdb3dda65d7507a4693f6ee923f5ac40, type: 3}
   CrowdElementPrefab: {fileID: 6206104431016008360, guid: 18874d00b0ccff34fbce27473fa1c37c, type: 3}
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
   m_sharedMaterial: {fileID: -2583947881128249416, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
@@ -249,7 +249,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 37821afade50e2141a22eb4d272495f4, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 39.56
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -16914,7 +16914,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: <sprite name=video-ad>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
   m_sharedMaterial: {fileID: -2583947881128249416, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
@@ -16933,7 +16933,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 37821afade50e2141a22eb4d272495f4, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -17513,7 +17513,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1
+  m_text: <sprite name=video-ad>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
   m_sharedMaterial: {fileID: -2583947881128249416, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
@@ -17532,7 +17532,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 37821afade50e2141a22eb4d272495f4, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -29101,7 +29101,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1101558377
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30576,7 +30576,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1729966405
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30609,7 +30609,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -31990,7 +31990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2005933199
 RectTransform:
   m_ObjectHideFlags: 0
@@ -57203,7 +57203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4652318512715343286
 MonoBehaviour:
   m_ObjectHideFlags: 0
