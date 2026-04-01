@@ -28,7 +28,7 @@ public class PowerupManager : Singleton<PowerupManager>
             {
                 PostProcessingManager.Instance.AnimateDimmedExposure();
                 GameManager.Instance.GlobalInputEnabled = false;
-                UIManager.Instance.ShowHintBox("Belt capacity is already at maximum!", true);
+                UIManager.Instance.ShowHintBox("Belt capacity is already at maximum!");
                 DOVirtual.DelayedCall(1f, () =>
                 {
                     UIManager.Instance.DismissHintBox();

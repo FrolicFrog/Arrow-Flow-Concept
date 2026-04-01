@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8d1d53666dd394fae50d0e6daf0349, type: 3}
   m_Name: 92
   m_EditorClassIdentifier: 
-  BeltCapacity: 22
+  BeltCapacity: 2
   HardLevel: 1
   ItemsData:
     Rows:
@@ -68,7 +68,7 @@ MonoBehaviour:
       data:
         Id: {x: 0, y: 0}
         Type: 3
-        SpawnCount: 1
+        SpawnCount: 5
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo:

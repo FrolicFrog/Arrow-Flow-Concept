@@ -72,12 +72,22 @@ public class UIManager : Singleton<UIManager>
 
     public void ShowLevelFailedScreen()
     {
-        if (GameManager.Instance.CurGameState == ArrowFlowGame.Types.GameState.FAILED) return;
+        if (GameManager.Instance.CurGameState == GameState.FAILED) return;
 
-        GameManager.Instance.CurGameState = ArrowFlowGame.Types.GameState.FAILED;
+        GameManager.Instance.CurGameState = GameState.FAILED;
         BeltManager.Instance.SlowedBeltSpeed();
         Sequence seq = DOTween.Sequence();
-        seq.AppendCallback(() => EffectManager.Instance.Play("failed"));
+        seq.AppendCallback(() =>
+        {
+            BeltManager.Instance.CurCapacityText.transform.DOScale(BeltManager.Instance.LabelOriginalScale * 3f,0.5f).SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.InOutBack)
+            .OnComplete(() =>
+            {
+                EffectManager.Instance.Play("failed");
+            });
+        });
+
+        seq.AppendInterval(0.5f);
         LevelFailedScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.ReloadLevel());
         LevelFailedScreen.Display();
     }
@@ -120,9 +130,9 @@ public class UIManager : Singleton<UIManager>
         }
     }
 
-    public void ShowHintBox(string hintLabel, bool disableDialogGraphics = false)
+    public void ShowHintBox(string hintLabel)
     {
-        HintBox.Show(hintLabel, disableDialogGraphics);
+        HintBox.Show(hintLabel);
     }
 
     public void DismissHintBox()

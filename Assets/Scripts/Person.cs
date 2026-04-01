@@ -109,9 +109,9 @@ public class Person : CrowdElement
         Sequence deathSequence = DOTween.Sequence();
         deathSequence.AppendCallback(() => SwitchMaterial(ReferenceManager.Instance.DamageFlashedPerson));
         deathSequence.AppendCallback(() => DamageEffect.Play());
-        deathSequence.Join(transform.DOMoveY(transform.position.y + YAnimOffset, 0.7f));
+        deathSequence.Join(transform.DOMoveY(transform.position.y + YAnimOffset, 0.5f).SetLoops(2, LoopType.Yoyo));
         deathSequence.InsertCallback(0.25f, () => SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial));
-        deathSequence.Join(transform.DOScaleY(0, 0.3f).SetDelay(0.4f))
+        deathSequence.Join(transform.DOScaleY(0, 0.3f).SetDelay(1f))
             .OnComplete(() => Destroy(gameObject));
     }
 
