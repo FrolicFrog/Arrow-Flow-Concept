@@ -45,7 +45,7 @@ public class EventManager : Singleton<EventManager>
         seq.Append(text.transform.DOScale(BeltManager.Instance.LabelOriginalScale * 1.8f,0.2f).SetLoops(4, LoopType.Yoyo));
         seq.AppendCallback(() =>
         {
-            UIManager.Instance.UpdateDangerVignetteAlpha(0f);
+            PostProcessingManager.Instance.UpdateDangerVignette(0f);
             BeltManager.Instance.OverridingColor = false;
 
             text.color = originalColor;

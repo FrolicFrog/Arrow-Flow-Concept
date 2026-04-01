@@ -1,4 +1,3 @@
-using System;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
@@ -20,16 +19,17 @@ public class UIManager : Singleton<UIManager>
     public TextMeshProUGUI LevelLabel;
     public Image DangerVignette;
 
-    //Tweens
-    private Tween FadeInTween;
-    private Tween FadeOutTween;
-
     protected override void Awake()
     {
         base.Awake();
         LevelCompleteScreen.Setup();
         LevelFailedScreen.Setup();
         MainUIScreen.Display();
+
+        // Ensure vignette is completely invisible at the start
+        Color vColor = DangerVignette.color;
+        vColor.a = 0f;
+        DangerVignette.color = vColor;
     }
 
     public void Initialize()
@@ -64,6 +64,7 @@ public class UIManager : Singleton<UIManager>
 
         GameManager.Instance.CurGameState = ArrowFlowGame.Types.GameState.COMPLETED;
         BeltManager.Instance.SlowedBeltSpeed();
+        
         Sequence seq = DOTween.Sequence();
         seq.AppendCallback(() => EffectManager.Instance.Play("confetti"));
         LevelCompleteScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.NextLevel());
@@ -77,8 +78,10 @@ public class UIManager : Singleton<UIManager>
         GameManager.Instance.CurGameState = GameState.FAILED;
         BeltManager.Instance.SlowedBeltSpeed();
         Sequence seq = DOTween.Sequence();
+
         seq.AppendCallback(() =>
         {
+            BeltManager.Instance.ClearBeltSockets();
             BeltManager.Instance.CurCapacityText.transform.DOScale(BeltManager.Instance.LabelOriginalScale * 3f,0.5f).SetLoops(2, LoopType.Yoyo)
             .SetEase(Ease.InOutBack)
             .OnComplete(() =>
@@ -90,44 +93,6 @@ public class UIManager : Singleton<UIManager>
         seq.AppendInterval(0.5f);
         LevelFailedScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.ReloadLevel());
         LevelFailedScreen.Display();
-    }
-
-    public void UpdateDangerVignetteAlpha(float fillAmount)
-    {
-        if (fillAmount > 0.7f)
-        {
-            if (FadeInTween != null && FadeInTween.IsActive() && FadeInTween.IsPlaying())
-            {
-                return;
-            }
-
-            if (FadeOutTween != null && FadeOutTween.IsActive())
-            {
-                FadeOutTween.Kill();
-            }
-
-            if (DangerVignette.color.a < 1f)
-            {
-                FadeInTween = DangerVignette.DOFade(1f, 1f);
-            }
-        }
-        else
-        {
-            if (FadeOutTween != null && FadeOutTween.IsActive() && FadeOutTween.IsPlaying())
-            {
-                return;
-            }
-
-            if (FadeInTween != null && FadeInTween.IsActive())
-            {
-                FadeInTween.Kill();
-            }
-
-            if (DangerVignette.color.a > 0f)
-            {
-                FadeOutTween = DangerVignette.DOFade(0f, 1f);
-            }
-        }
     }
 
     public void ShowHintBox(string hintLabel)

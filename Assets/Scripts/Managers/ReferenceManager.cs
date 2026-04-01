@@ -20,6 +20,9 @@ public class ReferenceManager : Singleton<ReferenceManager>
     public Material MysteriousSpawnerMat;
     public float ScrollSpeed;
 
+    [Header("KEYED OUTLINE")]
+    public Color KeyedOutlineColor;
+    public float KeyedOutlineWidth = 56f;
     private Vector2 currentOffset = Vector2.zero;
 
     public Dictionary<Vector2Int, Lock> KeyIdToLockedItem = new();

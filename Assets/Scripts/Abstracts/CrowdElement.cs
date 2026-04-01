@@ -11,8 +11,8 @@ public class CrowdElement : MonoBehaviour
 {
     [Header("REFERENCES")]
     public Renderer[] Renderers;
-    public ItemType Type {get; private set;}
-    public bool IsKeyed {get; private set;}
+    public ItemType Type { get; private set; }
+    public bool IsKeyed { get; private set; }
     public Vector2Int GridPos;
     public Vector2Int OriginalGridPos;
     public Vector2Int GridIdxId { get; set; }
@@ -26,9 +26,18 @@ public class CrowdElement : MonoBehaviour
     public virtual void Init(CrowdElementData crowdElement)
     {
         Material Mat = ReferenceManager.Instance.PersonMaterials.GetMaterial(crowdElement.Type);
-        Array.ForEach(Renderers, r => r.sharedMaterial = Mat);
+
+        Array.ForEach(Renderers, r => r.material = Mat);
+
         Type = crowdElement.Type;
         IsKeyed = crowdElement.IsKeyed;
+
+        if (IsKeyed)
+            Array.ForEach(Renderers, r =>
+            {
+                r.material.SetColor("_Outline_Color", ReferenceManager.Instance.KeyedOutlineColor);
+                r.material.SetFloat("_Outline_Width", ReferenceManager.Instance.KeyedOutlineWidth);
+            });
     }
 
     private void OnDrawGizmos()

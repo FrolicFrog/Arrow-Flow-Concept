@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ff4c2f76ea0734494da7214b6649f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestLevelToLoad: 90
+  TestLevelToLoad: 41
   SpawnItemPrefab: {fileID: 2632661987628473247, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
   LockItemPrefab: {fileID: 5290314347958245746, guid: cdb3dda65d7507a4693f6ee923f5ac40, type: 3}
   CrowdElementPrefab: {fileID: 6206104431016008360, guid: 18874d00b0ccff34fbce27473fa1c37c, type: 3}
@@ -18805,13 +18805,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelFeatures:
   - StartLevelNum: 1
-    EndLevelNum: 20
-    Graphic: {fileID: 21300000, guid: 80457d56042eb14409f1c455ce28f7e9, type: 3}
+    EndLevelNum: 7
+    Graphic: {fileID: 21300000, guid: 7bd18d586df5bbf42815ea7b767bebe7, type: 3}
     FeatureUIGraphic: {fileID: 21300000, guid: be26cee6eca283c46afbdbb78e81c410, type: 3}
-  - StartLevelNum: 21
-    EndLevelNum: 24
-    Graphic: {fileID: 21300000, guid: 80457d56042eb14409f1c455ce28f7e9, type: 3}
+  - StartLevelNum: 8
+    EndLevelNum: 13
+    Graphic: {fileID: 21300000, guid: 96124d1e19d9855418d8dbca8864094b, type: 3}
     FeatureUIGraphic: {fileID: 21300000, guid: 9e51ad658c1b7b44fbfd3ac49a5658e2, type: 3}
+  - StartLevelNum: 14
+    EndLevelNum: 29
+    Graphic: {fileID: 21300000, guid: 5deafc42a04cae141ba42ba5bafb5884, type: 3}
+    FeatureUIGraphic: {fileID: 21300000, guid: c45450a70f419c1488d56b37e4ef5ccc, type: 3}
+  - StartLevelNum: 30
+    EndLevelNum: 39
+    Graphic: {fileID: 21300000, guid: 9abba8e9e61c24f4eafdb1e5aadb1e84, type: 3}
+    FeatureUIGraphic: {fileID: 21300000, guid: 434022d08b7d7d448874cf2709776915, type: 3}
   FeatureDialog: {fileID: 78110168}
   ImageDisplay: {fileID: 1267800371}
   ProgressText: {fileID: 1787213727}
@@ -30668,6 +30676,10 @@ MonoBehaviour:
   DimmedExposure: -6
   NormalExposure: 0
   Duration: 0.5
+  MaxVignetteIntensity: 0.4
+  MinBreathingIntensity: 0.25
+  VignetteFadeDuration: 0.5
+  VignetteBreathDuration: 1
 --- !u!1 &1753167633
 GameObject:
   m_ObjectHideFlags: 0
@@ -32190,6 +32202,8 @@ MonoBehaviour:
   CameraOriginalPos: {x: 0, y: 38.8, z: -30}
   MysteriousSpawnerMat: {fileID: 2100000, guid: 71eace84b36706547a902d2f3b96f3b1, type: 2}
   ScrollSpeed: 0.1
+  KeyedOutlineColor: {r: 0, g: 0, b: 0, a: 1}
+  KeyedOutlineWidth: 350
 --- !u!1 &2105620780
 GameObject:
   m_ObjectHideFlags: 0

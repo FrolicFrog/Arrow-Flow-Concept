@@ -169,7 +169,7 @@ public class BeltManager : Singleton<BeltManager>
         CurCapacityText.color = filledAmount > 0.7f ? DangerLabelColor : NormalLabelColor;
         ProgressBarFill.fillAmount = filledAmount;
 
-        UIManager.Instance.UpdateDangerVignetteAlpha(ProgressBarFill.fillAmount);
+        PostProcessingManager.Instance.UpdateDangerVignette(ProgressBarFill.fillAmount);
     }
 
     public void SocketOccupied(ArrowSocket socket)
@@ -198,5 +198,16 @@ public class BeltManager : Singleton<BeltManager>
     {
         foreach (ArrowSocket s in Sockets)
             s.StopSuperSlowMotion();
+    }
+
+    public void ClearBeltSockets()
+    {
+        foreach (ArrowSocket s in Sockets)
+        {
+            if (s == null) continue;
+            Destroy(s.gameObject);
+        }
+
+        Sockets.Clear();
     }
 }

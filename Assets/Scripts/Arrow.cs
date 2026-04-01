@@ -79,8 +79,16 @@ public class Arrow : Spawnable
 
     private void Update()
     {
-        if (target == null || hasReachedTarget) return;
-
+        if (target == null)
+        {
+            if(hasReachedTarget) return;
+            else if(GameManager.Instance.CurGameState != GameState.STARTED)
+            {
+                Destroy(gameObject);
+                return;
+            }
+        }
+        
         if (TakeCurvedPath)
         {
             if (initialDistance > 0)
