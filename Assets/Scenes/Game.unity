@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ff4c2f76ea0734494da7214b6649f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestLevelToLoad: 41
+  TestLevelToLoad: 14
   SpawnItemPrefab: {fileID: 2632661987628473247, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
   LockItemPrefab: {fileID: 5290314347958245746, guid: cdb3dda65d7507a4693f6ee923f5ac40, type: 3}
   CrowdElementPrefab: {fileID: 6206104431016008360, guid: 18874d00b0ccff34fbce27473fa1c37c, type: 3}
@@ -1843,7 +1843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2528302, g: 0.2528302, b: 0.2528302, a: 1}
+  m_Color: {r: 0.14716971, g: 0.14716971, b: 0.14716971, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2199,7 +2199,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 0
   useUnscaledTime: 0
@@ -18822,6 +18822,7 @@ MonoBehaviour:
     FeatureUIGraphic: {fileID: 21300000, guid: 434022d08b7d7d448874cf2709776915, type: 3}
   FeatureDialog: {fileID: 78110168}
   ImageDisplay: {fileID: 1267800371}
+  FadedDisplay: {fileID: 323601668}
   ProgressText: {fileID: 1787213727}
   FeatureUI: {fileID: 1558554545}
   FeatureImage: {fileID: 938530437}
@@ -29057,8 +29058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoPostProcessLayerIdx: 3
-  FirstLvlHintText: This is a Spawner. It creates items for you to use. Let's start
-    by creating some arrows!
+  FirstLvlHintText: Tap shooter to place arrows into the conveyer.
 --- !u!1 &1101558376
 GameObject:
   m_ObjectHideFlags: 0
@@ -29539,7 +29539,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 1
-  m_FillAmount: 0.355
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

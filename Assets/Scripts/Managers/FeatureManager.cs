@@ -10,6 +10,7 @@ public class FeatureManager : Singleton<FeatureManager>
     public LevelFeature[] LevelFeatures;
     public RectTransform FeatureDialog;
     public Image ImageDisplay;
+    public Image FadedDisplay;
     public TextMeshProUGUI ProgressText;
 
     [Header("FEATURE UI")]
@@ -26,6 +27,7 @@ public class FeatureManager : Singleton<FeatureManager>
 
         CompletedProgress = Feature.EndLevelNum == CurLvl;
         ImageDisplay.sprite = Feature.Graphic;
+        FadedDisplay.sprite = Feature.Graphic;
 
         float StartFillAmount = Feature.ProgressPercent(LevelManager.Instance.CurrentLevelNumber - 1);  
         float EndFillAmount = Feature.ProgressPercent(LevelManager.Instance.CurrentLevelNumber);
@@ -54,6 +56,9 @@ public class FeatureManager : Singleton<FeatureManager>
             FeatureUI.SetActive(true);
         });
 
-        Seq.Join(FeatureContinueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.InOutBounce));
+        Seq.Join(FeatureContinueButton.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.InOutBounce).OnComplete(() => 
+        {
+            FeatureContinueButton.transform.DOScale(Vector3.one * 1.1f, 0.5f).SetLoops(-1, LoopType.Yoyo);
+        }));
     }
 }

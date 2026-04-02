@@ -33,7 +33,6 @@ public class EventManager : Singleton<EventManager>
 
         PostProcessingManager.Instance.AnimateDimmedExposure();
         Time.timeScale = 0.2f;
-        UIManager.Instance.DangerVignette.DOFade(1f,0.1f);
 
         TextMeshProUGUI text = BeltManager.Instance.CurCapacityText;
         Color originalColor = text.color;
@@ -45,13 +44,9 @@ public class EventManager : Singleton<EventManager>
         seq.Append(text.transform.DOScale(BeltManager.Instance.LabelOriginalScale * 1.8f,0.2f).SetLoops(4, LoopType.Yoyo));
         seq.AppendCallback(() =>
         {
-            PostProcessingManager.Instance.UpdateDangerVignette(0f);
-            BeltManager.Instance.OverridingColor = false;
-
             text.color = originalColor;
             text.transform.localScale = BeltManager.Instance.LabelOriginalScale;
-            UIManager.Instance.DangerVignette.DOFade(0f,0.1f);
-
+            BeltManager.Instance.OverridingColor = false;
             Time.timeScale = 1f;
             Utilities.AssignLayerRecursively(BeltManager.Instance.BeltObj.transform, 0);
             PostProcessingManager.Instance.AnimateNormalExposure();

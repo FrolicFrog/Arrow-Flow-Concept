@@ -32,13 +32,10 @@ public class PostProcessingManager : Singleton<PostProcessingManager>
     protected override void Awake()
     {
         base.Awake();
-        
-        // Extract components from the volume profile
         PostProcessVolume.profile.TryGet(out colorAdjustments);
         
         if (PostProcessVolume.profile.TryGet(out vignette))
         {
-            // Ensure the override state is active, and set initial value to 0
             vignette.intensity.overrideState = true;
             vignette.intensity.value = 0f;
         }
@@ -56,53 +53,44 @@ public class PostProcessingManager : Singleton<PostProcessingManager>
         DOTween.To(() => colorAdjustments.postExposure.value, x => colorAdjustments.postExposure.value = x, NormalExposure, Duration);
     }
 
-    // Call this from UIManager or BeltManager instead of the UI Image logic
     public void UpdateDangerVignette(float fillAmount)
     {
-        if (vignette == null) return; // Safety check in case the profile lacks a Vignette
+        if (vignette == null) return;
 
         bool shouldBeDanger = fillAmount > 0.7f;
-
-        // If state hasn't changed, do nothing
         if (shouldBeDanger == isDangerState) return;
 
         isDangerState = shouldBeDanger;
-
-        // Kill any ongoing vignette fade or breathing loop
         vignetteTween?.Kill();
 
         if (isDangerState)
         {
-            // FADE IN & BREATHE
             Sequence dangerSequence = DOTween.Sequence();
+            dangerSequence
+            .Append
+            (
+                DOTween.To
+                (
+                    () => vignette.intensity.value, 
+                    x => vignette.intensity.value = x, 
+                    MaxVignetteIntensity, 
+                    VignetteFadeDuration
+                )
+            );
             
-            // 1. Smoothly fade up to Max intensity
-            dangerSequence.Append(DOTween.To(
-                () => vignette.intensity.value, 
-                x => vignette.intensity.value = x, 
-                MaxVignetteIntensity, 
-                VignetteFadeDuration));
-            
-            // 2. Loop endlessly between MinBreathingIntensity and MaxVignetteIntensity
-            dangerSequence.Append(DOTween.To(
-                () => vignette.intensity.value, 
-                x => vignette.intensity.value = x, 
-                MinBreathingIntensity, 
-                VignetteBreathDuration)
+            dangerSequence
+            .Append
+            (
+                DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, MinBreathingIntensity, VignetteBreathDuration)
                 .SetEase(Ease.InOutSine)
-                .SetLoops(-1, LoopType.Yoyo));
+                .SetLoops(-1, LoopType.Yoyo)
+            );
 
             vignetteTween = dangerSequence;
         }
         else
         {
-            // FADE OUT
-            // Smoothly fade back down to 0 intensity
-            vignetteTween = DOTween.To(
-                () => vignette.intensity.value, 
-                x => vignette.intensity.value = x, 
-                0f, 
-                VignetteFadeDuration);
+            vignetteTween = DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 0f, VignetteFadeDuration);
         }
     }
 }
