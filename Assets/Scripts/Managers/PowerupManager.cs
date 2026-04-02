@@ -23,7 +23,10 @@ public class PowerupManager : Singleton<PowerupManager>
         if (type == PowerupType.BELTCAPACITY)
         {
             if(BeltManager.Instance.TotalSockets < 100)
-            UseBeltCapacityPowerup(ShowTutorial && !TutorialAlreadyShown(type), Message);
+            {
+                UseBeltCapacityPowerup(ShowTutorial && !TutorialAlreadyShown(type), Message);
+                AnalyticsManager.PowerupUsed(LevelManager.Instance.CurrentLevelNumber, type.ToString());
+            }
             else
             {
                 PostProcessingManager.Instance.AnimateDimmedExposure();
@@ -40,10 +43,12 @@ public class PowerupManager : Singleton<PowerupManager>
         else if (type == PowerupType.MULTIPLIER)
         {
             UseMultiplierPowerup(ShowTutorial && !TutorialAlreadyShown(type), Message);
+            AnalyticsManager.PowerupUsed(LevelManager.Instance.CurrentLevelNumber, type.ToString());
         }
         else if (type == PowerupType.EXCHANGE)
         {
             UseExchangePowerup(ShowTutorial && !TutorialAlreadyShown(type), Message);
+            AnalyticsManager.PowerupUsed(LevelManager.Instance.CurrentLevelNumber, type.ToString());
         }
     }
 

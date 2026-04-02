@@ -69,6 +69,7 @@ public class UIManager : Singleton<UIManager>
         seq.AppendCallback(() => EffectManager.Instance.Play("confetti"));
         LevelCompleteScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.NextLevel());
         LevelCompleteScreen.Display();
+        AnalyticsManager.LevelCompleted(LevelManager.Instance.CurrentLevelNumber);
     }
 
     public void ShowLevelFailedScreen()
@@ -93,6 +94,7 @@ public class UIManager : Singleton<UIManager>
         seq.AppendInterval(0.5f);
         LevelFailedScreen.ActionBtn.onClick.AddListener(() => LevelManager.Instance.ReloadLevel());
         LevelFailedScreen.Display();
+        AnalyticsManager.LevelFailed(LevelManager.Instance.CurrentLevelNumber);
     }
 
     public void ShowHintBox(string hintLabel)

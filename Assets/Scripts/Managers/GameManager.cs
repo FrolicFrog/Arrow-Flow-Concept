@@ -48,6 +48,7 @@ public class GameManager : Singleton<GameManager>
     {
         _urpAsset = (UniversalRenderPipelineAsset)QualitySettings.renderPipeline;
         CurGameState = GameState.STARTED;
+        AnalyticsManager.LevelStarted(LevelManager.Instance.CurrentLevelNumber);
     }
 
     private void Update()
