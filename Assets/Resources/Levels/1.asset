@@ -963,7 +963,7 @@ MonoBehaviour:
       data:
         Id: {x: 0, y: 1}
         Type: 2
-        SpawnCount: 30
+        SpawnCount: 20
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo:
@@ -974,7 +974,7 @@ MonoBehaviour:
       data:
         Id: {x: 0, y: 2}
         Type: 3
-        SpawnCount: 20
+        SpawnCount: 30
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
@@ -994,7 +994,7 @@ MonoBehaviour:
       data:
         Id: {x: 1, y: 1}
         Type: 3
-        SpawnCount: 30
+        SpawnCount: 20
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo:
@@ -1005,7 +1005,7 @@ MonoBehaviour:
       data:
         Id: {x: 1, y: 2}
         Type: 2
-        SpawnCount: 20
+        SpawnCount: 30
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
