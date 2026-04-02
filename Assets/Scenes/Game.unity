@@ -30440,8 +30440,8 @@ MonoBehaviour:
   TestMode: 1
   ForceTestLevel: -1
   TargetFPS: 60
-  MaxLvl: 40
-  MinLvl: 4
+  MaxLvl: 57
+  MinLvl: 10
 --- !u!1 &1674573018
 GameObject:
   m_ObjectHideFlags: 0
