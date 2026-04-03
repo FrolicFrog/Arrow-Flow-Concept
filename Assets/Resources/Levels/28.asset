@@ -12,27 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8d1d53666dd394fae50d0e6daf0349, type: 3}
   m_Name: 28
   m_EditorClassIdentifier: 
+  BeltCapacity: 90
+  HardLevel: 1
   ItemsData:
     Rows:
     - items:
-      - rid: 6744297219786539145
-      - rid: 6744297219786539146
-      - rid: 6744297219786539147
-      - rid: 6744297219786539148
-      - rid: 6744297219786539149
+      - rid: 4637161781204877853
+      - rid: 4637161781204877854
+      - rid: 4637161781204877855
+      - rid: 4637161781204877856
+      - rid: 4637161781204877857
+      - rid: 4637161781204877858
+      - rid: 4637161781204877859
     - items:
-      - rid: 6744297219786539150
-      - rid: 6744297219786539151
-      - rid: 6744297219786539152
-      - rid: 6744297219786539153
-      - rid: 6744297219786539154
+      - rid: 4637161781204877860
+      - rid: 4637161781204877861
+      - rid: 4637161781204877862
+      - rid: 4637161781204877863
+      - rid: 4637161781204877864
+      - rid: 4637161781204877865
+      - rid: 4637161781204877866
     - items:
-      - rid: 6744297219786539155
-      - rid: 6744297219786539156
-      - rid: 6744297219786539157
-      - rid: 6744297219786539158
-      - rid: 6744297219786539159
-      - rid: 6744297219786539160
+      - rid: 4637161781204877867
+      - rid: 4637161781204877868
+      - rid: 4637161781204877869
+      - rid: 4637161781204877870
+      - rid: 4637161781204877871
+      - rid: 4637161781204877872
+      - rid: 4637161781204877873
   CrowdData:
     CrowdGrid:
       Rows:
@@ -1406,30 +1413,29 @@ MonoBehaviour:
           IsGiant: 0
       _Width: 15
       _Height: 18
-  BeltCapacity: 90
   references:
     version: 2
     RefIds:
-    - rid: 6744297219786539145
+    - rid: 4637161781204877853
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 0, y: 0}
         Type: 11
-        SpawnCount: 15
+        SpawnCount: 10
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297219786539146
+    - rid: 4637161781204877854
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 0, y: 1}
         Type: 6
-        SpawnCount: 25
+        SpawnCount: 15
         IsMysterious: 1
         HasConnection: 1
         ConnectedTo:
         - {x: 1, y: 2}
-    - rid: 6744297219786539147
+    - rid: 4637161781204877855
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 0, y: 2}
@@ -1438,25 +1444,45 @@ MonoBehaviour:
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297219786539148
+    - rid: 4637161781204877856
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 0, y: 3}
         Type: 6
-        SpawnCount: 32
-        IsMysterious: 0
-        HasConnection: 0
-        ConnectedTo: []
-    - rid: 6744297219786539149
-      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
-      data:
-        Id: {x: 0, y: 4}
-        Type: 5
         SpawnCount: 15
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297219786539150
+    - rid: 4637161781204877857
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 0, y: 4}
+        Type: 5
+        SpawnCount: 5
+        IsMysterious: 0
+        HasConnection: 1
+        ConnectedTo:
+        - {x: 1, y: 4}
+        - {x: 2, y: 4}
+    - rid: 4637161781204877858
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 0, y: 5}
+        Type: 11
+        SpawnCount: 25
+        IsMysterious: 0
+        HasConnection: 0
+        ConnectedTo: []
+    - rid: 4637161781204877859
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 0, y: 6}
+        Type: 6
+        SpawnCount: 15
+        IsMysterious: 0
+        HasConnection: 0
+        ConnectedTo: []
+    - rid: 4637161781204877860
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 1, y: 0}
@@ -1465,7 +1491,7 @@ MonoBehaviour:
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297219786539151
+    - rid: 4637161781204877861
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 1, y: 1}
@@ -1474,7 +1500,7 @@ MonoBehaviour:
         IsMysterious: 0
         HasConnection: 1
         ConnectedTo: []
-    - rid: 6744297219786539152
+    - rid: 4637161781204877862
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 1, y: 2}
@@ -1484,26 +1510,46 @@ MonoBehaviour:
         HasConnection: 1
         ConnectedTo:
         - {x: 0, y: 1}
-    - rid: 6744297219786539153
+    - rid: 4637161781204877863
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 1, y: 3}
         Type: 2
-        SpawnCount: 15
+        SpawnCount: 10
         IsMysterious: 1
         HasConnection: 1
         ConnectedTo:
         - {x: 2, y: 2}
-    - rid: 6744297219786539154
+    - rid: 4637161781204877864
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 1, y: 4}
         Type: 11
-        SpawnCount: 25
+        SpawnCount: 15
+        IsMysterious: 0
+        HasConnection: 1
+        ConnectedTo:
+        - {x: 0, y: 4}
+        - {x: 2, y: 4}
+    - rid: 4637161781204877865
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 1, y: 5}
+        Type: 6
+        SpawnCount: 20
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297219786539155
+    - rid: 4637161781204877866
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 1, y: 6}
+        Type: 5
+        SpawnCount: 15
+        IsMysterious: 0
+        HasConnection: 0
+        ConnectedTo: []
+    - rid: 4637161781204877867
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 2, y: 0}
@@ -1512,7 +1558,7 @@ MonoBehaviour:
         IsMysterious: 0
         HasConnection: 1
         ConnectedTo: []
-    - rid: 6744297219786539156
+    - rid: 4637161781204877868
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 2, y: 1}
@@ -1521,40 +1567,53 @@ MonoBehaviour:
         IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
-    - rid: 6744297219786539157
+    - rid: 4637161781204877869
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 2, y: 2}
         Type: 6
-        SpawnCount: 25
+        SpawnCount: 20
         IsMysterious: 1
         HasConnection: 1
         ConnectedTo:
         - {x: 1, y: 3}
-    - rid: 6744297219786539158
+    - rid: 4637161781204877870
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 2, y: 3}
         Type: 11
-        SpawnCount: 25
+        SpawnCount: 20
         IsMysterious: 0
         HasConnection: 0
-        ConnectedTo: []
-    - rid: 6744297219786539159
+        ConnectedTo:
+        - {x: 0, y: 4}
+        - {x: 1, y: 4}
+    - rid: 4637161781204877871
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 2, y: 4}
         Type: 2
-        SpawnCount: 15
+        SpawnCount: 5
         IsMysterious: 0
-        HasConnection: 0
-        ConnectedTo: []
-    - rid: 6744297219786539160
+        HasConnection: 1
+        ConnectedTo:
+        - {x: 0, y: 4}
+        - {x: 1, y: 4}
+    - rid: 4637161781204877872
       type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
       data:
         Id: {x: 2, y: 5}
         Type: 6
-        SpawnCount: 20
+        SpawnCount: 15
+        IsMysterious: 0
+        HasConnection: 0
+        ConnectedTo: []
+    - rid: 4637161781204877873
+      type: {class: SpawnItemData, ns: ArrowFlowGame.Types, asm: Assembly-CSharp}
+      data:
+        Id: {x: 2, y: 6}
+        Type: 2
+        SpawnCount: 15
         IsMysterious: 0
         HasConnection: 0
         ConnectedTo: []
