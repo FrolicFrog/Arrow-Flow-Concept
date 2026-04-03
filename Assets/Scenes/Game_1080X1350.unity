@@ -626,9 +626,9 @@ RectTransform:
   - {fileID: 1243149694909333694}
   m_Father: {fileID: 1919169937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 285, y: 9.5}
   m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &127533974
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 145146827}
   - component: {fileID: 145146829}
   - component: {fileID: 145146828}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1223,9 +1223,9 @@ RectTransform:
   - {fileID: 1101558377}
   m_Father: {fileID: 1919169937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 540, y: 9.5}
   m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &259722247
@@ -1522,7 +1522,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &292335411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16764,7 +16764,7 @@ GameObject:
   - component: {fileID: 540599052}
   - component: {fileID: 540599051}
   - component: {fileID: 540599050}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17024,9 +17024,9 @@ RectTransform:
   - {fileID: 2005933199}
   m_Father: {fileID: 1919169937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 795, y: 9.5}
   m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &566769302
@@ -17266,7 +17266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 641265148}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17888,7 +17888,7 @@ GameObject:
   - component: {fileID: 749653792}
   - component: {fileID: 749653794}
   - component: {fileID: 749653793}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18254,7 +18254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &932915752
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18891,7 +18891,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 22.8
+  orthographic size: 20
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -19091,7 +19091,7 @@ GameObject:
   - component: {fileID: 986735377}
   - component: {fileID: 986735379}
   - component: {fileID: 986735378}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28791,7 +28791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1010849697}
   - component: {fileID: 1010849696}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Spline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29167,6 +29167,10 @@ PrefabInstance:
     - target: {fileID: 4828097815593588741, guid: c9496bf5bd726594ca6174a1472e6cbb, type: 3}
       propertyPath: m_Name
       value: FingerAnimation
+      objectReference: {fileID: 0}
+    - target: {fileID: 4828097815593588741, guid: c9496bf5bd726594ca6174a1472e6cbb, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4828097815593588741, guid: c9496bf5bd726594ca6174a1472e6cbb, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -29935,7 +29939,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1481450798
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31787,7 +31791,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 22.8
+  orthographic size: 15.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -31812,7 +31816,7 @@ Transform:
   m_GameObject: {fileID: 1971253731}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: -0, z: -0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31829,7 +31833,7 @@ GameObject:
   - component: {fileID: 1996456859}
   - component: {fileID: 1996456861}
   - component: {fileID: 1996456860}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32217,7 +32221,7 @@ GameObject:
   - component: {fileID: 2105620784}
   - component: {fileID: 2105620783}
   - component: {fileID: 2105620782}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FingerAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42330,7 +42334,7 @@ GameObject:
   - component: {fileID: 543450651728174985}
   - component: {fileID: 919132147804407092}
   - component: {fileID: 919132147804407093}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Belt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42474,7 +42478,7 @@ GameObject:
   - component: {fileID: 666369313674959939}
   - component: {fileID: 3418485909031556015}
   - component: {fileID: 976723959701112836}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
