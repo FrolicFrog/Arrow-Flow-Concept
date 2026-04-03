@@ -131,9 +131,8 @@ public class PowerupManager : Singleton<PowerupManager>
             s1.SetFingerAnimationVisible(false);
             s2.SetFingerAnimationVisible(true);
             s2.CanTakeSecondaryActionInput = true;
-            
-            System.Action s2Handler = null;
-            s2Handler = () =>
+
+            void s2Handler()
             {
                 s2.OnSecondaryActionClick -= s2Handler;
                 s2.SetFingerAnimationVisible(false);
@@ -156,7 +155,7 @@ public class PowerupManager : Singleton<PowerupManager>
                     ReferenceManager.Instance.Cameras.DOMove(ReferenceManager.Instance.CameraOriginalPos, 0.2f);
                     EnableAllPowerups();
                 });
-            };
+            }
 
             s2.OnSecondaryActionClick += s2Handler;
         };

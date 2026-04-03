@@ -228,7 +228,7 @@ public class Spawner : Item, IClickable
     {
         if (!BeltManager.TryGetSocket(transform.position, out ArrowSocket Socket))
         {
-            EventManager.GameOver();
+            // EventManager.GameOver();
             return;
         }
 
@@ -237,11 +237,15 @@ public class Spawner : Item, IClickable
         Quaternion TargetRot = Quaternion.Euler(transform.rotation.x, LookRot.eulerAngles.y, transform.rotation.z);
         transform.rotation = Quaternion.Slerp(transform.rotation, TargetRot, Time.deltaTime * RotationSpeed);
         Spawnable spawnable = Instantiate(ItemToSpawn, transform.position, Quaternion.identity);
+        ReferenceManager.Instance.ActiveArrows.Add(spawnable);
+
         HapticsManager.LightHaptic();
         spawnable.Init(Type, Socket.transform, () =>
         {
             BeltManager.Instance.SetSocketReady(Socket, Type);
             BeltManager.Instance.SocketOccupied(Socket);
+            ReferenceManager.Instance.ActiveArrows.Remove(spawnable);
+            ReferenceManager.Instance.OnActiveArrowDispose();
             Destroy(spawnable.gameObject);
         });
 
