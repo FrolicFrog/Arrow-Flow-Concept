@@ -1,6 +1,7 @@
 using UnityEngine;
 using ArrowFlowGame.Types;
 using System.Collections.Generic;
+using System;
 
 public class ReferenceManager : Singleton<ReferenceManager>
 {
@@ -28,6 +29,8 @@ public class ReferenceManager : Singleton<ReferenceManager>
     public Dictionary<Vector2Int, Lock> KeyIdToLockedItem = new();
     public Dictionary<Vector2Int, Spawner> IdToSpawner = new();
 
+    public List<Spawnable> ActiveArrows;
+
     public void RegisterLock(Lock lockClone, LockItemData data)
     {
         if (data.HasKey)
@@ -48,5 +51,13 @@ public class ReferenceManager : Singleton<ReferenceManager>
 
         MysteriousSpawnerMat.SetTextureOffset("_MainTex", currentOffset);
         MysteriousSpawnerMat.SetTextureOffset("_BaseMap", currentOffset);
+    }
+
+    public void OnActiveArrowDispose()
+    {
+        if(BeltManager.Instance.CurOccupied >= BeltManager.Instance.TotalSockets && ActiveArrows.Count == 0)
+        {
+            EventManager.GameOver();
+        }
     }
 }
