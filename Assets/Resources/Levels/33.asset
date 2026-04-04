@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d8d1d53666dd394fae50d0e6daf0349, type: 3}
   m_Name: 33
   m_EditorClassIdentifier: 
+  BeltCapacity: 90
+  HardLevel: 1
   ItemsData:
     Rows:
     - items:
@@ -1229,7 +1231,6 @@ MonoBehaviour:
           IsGiant: 0
       _Width: 13
       _Height: 18
-  BeltCapacity: 90
   references:
     version: 2
     RefIds:
