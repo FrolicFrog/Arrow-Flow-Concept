@@ -1429,7 +1429,7 @@ MonoBehaviour:
         Id: {x: 0, y: 1}
         Type: 2
         SpawnCount: 15
-        IsMysterious: 0
+        IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
     - rid: 6744297279764300389
@@ -1447,7 +1447,7 @@ MonoBehaviour:
         Id: {x: 0, y: 3}
         Type: 9
         SpawnCount: 15
-        IsMysterious: 0
+        IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
     - rid: 6744297279764300391
@@ -1483,7 +1483,7 @@ MonoBehaviour:
         Id: {x: 1, y: 1}
         Type: 1
         SpawnCount: 15
-        IsMysterious: 0
+        IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
     - rid: 6744297279764300395
@@ -1492,7 +1492,7 @@ MonoBehaviour:
         Id: {x: 1, y: 2}
         Type: 6
         SpawnCount: 20
-        IsMysterious: 0
+        IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
     - rid: 6744297279764300396
@@ -1510,7 +1510,7 @@ MonoBehaviour:
         Id: {x: 2, y: 1}
         Type: 2
         SpawnCount: 15
-        IsMysterious: 0
+        IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
     - rid: 6744297279764300398
@@ -1519,7 +1519,7 @@ MonoBehaviour:
         Id: {x: 2, y: 2}
         Type: 1
         SpawnCount: 15
-        IsMysterious: 0
+        IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
     - rid: 6744297279764300399
@@ -1528,7 +1528,7 @@ MonoBehaviour:
         Id: {x: 2, y: 3}
         Type: 6
         SpawnCount: 25
-        IsMysterious: 0
+        IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
     - rid: 6744297279764300400
@@ -1546,7 +1546,7 @@ MonoBehaviour:
         Id: {x: 3, y: 1}
         Type: 2
         SpawnCount: 15
-        IsMysterious: 0
+        IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
     - rid: 6744297279764300402
@@ -1564,7 +1564,7 @@ MonoBehaviour:
         Id: {x: 3, y: 3}
         Type: 6
         SpawnCount: 20
-        IsMysterious: 0
+        IsMysterious: 1
         HasConnection: 0
         ConnectedTo: []
     - rid: 6744297279764300404

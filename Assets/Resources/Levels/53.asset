@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 53
   m_EditorClassIdentifier: 
   BeltCapacity: 85
-  HardLevel: 2
+  HardLevel: 1
   ItemsData:
     Rows:
     - items:
