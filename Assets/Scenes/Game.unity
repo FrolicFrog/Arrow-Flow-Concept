@@ -30437,7 +30437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8569eeed98d004899cf497ca9a2936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestMode: 1
+  TestMode: 0
   ForceTestLevel: -1
   TargetFPS: 60
   MaxLvl: 57

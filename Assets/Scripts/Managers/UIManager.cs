@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using ArrowFlow.Types;
 using ArrowFlowGame.Types;
+using Managers;
 
 public class UIManager : Singleton<UIManager>
 {

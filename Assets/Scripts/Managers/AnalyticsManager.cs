@@ -1,26 +1,61 @@
 using UnityEngine;
+using LionStudios.Suite.Analytics;
 
-public class AnalyticsManager : MonoBehaviour
+namespace Managers
 {
-    private static readonly int CurrentCoins = -1; //No Coins System in Game
-
-    public static void LevelStarted(int LevelNumber)
+    public class AnalyticsManager : MonoBehaviour
     {
-        // TinySauce.OnGameStarted(LevelNumber);
-    }
+        public static void LevelStarted(int LevelNumber)
+        {
+            LionAnalytics.MissionStarted(
+                missionType: "main",
+                missionName: $"main_{LevelNumber}",
+                missionID: LevelNumber,
+                missionAttempt: null,
+                additionalData: null,
+                isGamePlay: true
+            );
+        }
 
-    public static void LevelCompleted(int LevelNumber)
-    {
-        // TinySauce.OnGameFinished(true, CurrentCoins, LevelNumber);
-    }
+        public static void LevelCompleted(int LevelNumber)
+        {
+            int TotalCoins = PlayerPrefs.GetInt("coins", 0);
 
-    public static void LevelFailed(int LevelNumber)
-    {
-        // TinySauce.OnGameFinished(false, CurrentCoins, LevelNumber);
-    }
+            LionAnalytics.SetPlayerScore(TotalCoins);
 
-    public static void PowerupUsed(int LevelNumber, string PowerupName)
-    {
-        // TinySauce.OnPowerUpUsed(PowerupName, LevelNumber);
+            LionAnalytics.MissionCompleted(
+                missionType: "main",
+                missionName: $"main_{LevelNumber}",
+                missionID: LevelNumber,
+                missionAttempt: null,
+                additionalData: null,
+                reward: null,
+                isGamePlay: true
+            );
+        }
+
+        public static void LevelFailed(int LevelNumber)
+        {
+            LionAnalytics.MissionFailed(
+                missionType: "main",
+                missionName: $"main_{LevelNumber}",
+                missionID: LevelNumber,
+                missionAttempt: null,
+                additionalData: null,
+                failReason: "Belt Filled Completely",
+                isGamePlay: true
+            );
+        }
+
+        public static void PowerupUsed(int LevelNumber, string PowerupName)
+        {
+            LionAnalytics.PowerUpUsed(
+                missionID: LevelNumber.ToString(),
+                missionType: "main",
+                missionAttempt: -1, // Kept -1 as per your original code
+                powerUpName: PowerupName,
+                missionName: $"main_{LevelNumber}"
+            );
+        }
     }
 }

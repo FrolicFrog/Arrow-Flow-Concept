@@ -5,6 +5,8 @@ using DG.Tweening;
 using System.Collections.Generic;
 using ArrowFlowGame.Types;
 using System.Linq;
+using Managers;
+using LionStudios.Suite.Ads;
 
 public class PowerupManager : Singleton<PowerupManager>
 {
@@ -20,6 +22,8 @@ public class PowerupManager : Singleton<PowerupManager>
 
     public void UsePowerup(PowerupType type, bool ShowTutorial = false, string Message = null)
     {
+        if(TryShowAdIfNotAvailable(type)) return;
+
         if (type == PowerupType.BELTCAPACITY)
         {
             if(BeltManager.Instance.TotalSockets < 100)
@@ -50,6 +54,18 @@ public class PowerupManager : Singleton<PowerupManager>
             UseExchangePowerup(ShowTutorial && !TutorialAlreadyShown(type), Message);
             AnalyticsManager.PowerupUsed(LevelManager.Instance.CurrentLevelNumber, type.ToString());
         }
+    }
+
+    private bool TryShowAdIfNotAvailable(PowerupType type)
+    {
+        Powerup BeltCapacityPowerup = Powerups.FirstOrDefault(P => P.type == PowerupType.BELTCAPACITY);
+        if(BeltCapacityPowerup.QuantityOwned <= 0)
+        {
+            LionAds.TryShowRewarded("placement", () => BeltCapacityPowerup.QuantityOwned += 1);
+            return true;
+        }
+
+        return false;
     }
 
     public static bool TutorialAlreadyShown(PowerupType type)

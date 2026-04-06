@@ -2,6 +2,7 @@ using System;
 using ArrowFlowGame.Types;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Managers;
 
 public class GameManager : Singleton<GameManager>
 {

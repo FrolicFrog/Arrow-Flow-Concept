@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90e709c35dc874a5d8a3602cd826e4d2, type: 3}
+  m_Name: Helpshift_Settings
+  m_EditorClassIdentifier: 
+  EnableInitialization: 0
+  DomainName: algames.helpshift.com
+  AndroidAppId: algames_platform_20230919190441267-590b6e37013cc2b
+  IosAppId: algames_platform_20230919190441235-80eb62f1d2b679e

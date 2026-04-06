@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f442f52ed952c45bd51186ff90ab42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SplashScreenDuration: 2
+  SplashScreenDuration: 1
 --- !u!1 &2021598437
 GameObject:
   m_ObjectHideFlags: 0
