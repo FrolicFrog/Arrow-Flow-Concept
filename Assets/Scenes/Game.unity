@@ -230,7 +230,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
   m_sharedMaterial: {fileID: -2583947881128249416, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
@@ -249,7 +249,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 37821afade50e2141a22eb4d272495f4, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -257,7 +257,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 39.56
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -626,9 +626,9 @@ RectTransform:
   - {fileID: 1243149694909333694}
   m_Father: {fileID: 1919169937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 285, y: 9.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &127533974
@@ -1223,9 +1223,9 @@ RectTransform:
   - {fileID: 1101558377}
   m_Father: {fileID: 1919169937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 540, y: 9.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &259722247
@@ -1342,7 +1342,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 37821afade50e2141a22eb4d272495f4, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -16913,7 +16913,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite name=video-ad>
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
   m_sharedMaterial: {fileID: -2583947881128249416, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
@@ -16932,7 +16932,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 37821afade50e2141a22eb4d272495f4, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -17024,9 +17024,9 @@ RectTransform:
   - {fileID: 2005933199}
   m_Father: {fileID: 1919169937}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 795, y: 9.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 135, y: 135}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &566769302
@@ -17512,7 +17512,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <sprite name=video-ad>
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
   m_sharedMaterial: {fileID: -2583947881128249416, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
@@ -17531,7 +17531,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 37821afade50e2141a22eb4d272495f4, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -29628,7 +29628,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 37821afade50e2141a22eb4d272495f4, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -29935,7 +29935,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1481450798
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30800,7 +30800,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Powerups:
-  - type: 1
+  - DefeaultQuantityBgColor: {r: 0.14509805, g: 0.7254902, b: 0.98039216, a: 1}
+    QuantityBackgroundImage: {fileID: 1938629973}
+    DefaultQuantityBackgroundImg: {fileID: -2413806693520163455, guid: d193c2cbe9784804e80b5bf02b00bbb5, type: 3}
+    AdIconImg: {fileID: 21300000, guid: c9235289d4c01be478f490558be02d68, type: 3}
+    type: 1
     UnlocksAt: 4
     EnabledGraphic: {fileID: 21300000, guid: 872d8536219e41b499245ce3ffbfa30c, type: 3}
     PowerupGraphic: {fileID: 1894674889}
@@ -30811,7 +30815,11 @@ MonoBehaviour:
     PlayerPrefsKey: belt_capacity_powerup
     FingerAnimation: {fileID: 4502115701147993687}
     HintLabel: Tap on the belt to increase it's capacity
-  - type: 0
+  - DefeaultQuantityBgColor: {r: 0.14509805, g: 0.7254902, b: 0.98039216, a: 1}
+    QuantityBackgroundImage: {fileID: 655356255}
+    DefaultQuantityBackgroundImg: {fileID: -2413806693520163455, guid: d193c2cbe9784804e80b5bf02b00bbb5, type: 3}
+    AdIconImg: {fileID: 21300000, guid: c9235289d4c01be478f490558be02d68, type: 3}
+    type: 0
     UnlocksAt: 18
     EnabledGraphic: {fileID: 21300000, guid: 80457d56042eb14409f1c455ce28f7e9, type: 3}
     PowerupGraphic: {fileID: 148170630}
@@ -30822,7 +30830,11 @@ MonoBehaviour:
     PlayerPrefsKey: multiplier_powerup
     FingerAnimation: {fileID: 1101558376}
     HintLabel: This multiplier will duplicate your arrows.
-  - type: 2
+  - DefeaultQuantityBgColor: {r: 0.14509805, g: 0.7254902, b: 0.98039216, a: 1}
+    QuantityBackgroundImage: {fileID: 41973366}
+    DefaultQuantityBackgroundImg: {fileID: -2413806693520163455, guid: d193c2cbe9784804e80b5bf02b00bbb5, type: 3}
+    AdIconImg: {fileID: 21300000, guid: c9235289d4c01be478f490558be02d68, type: 3}
+    type: 2
     UnlocksAt: 35
     EnabledGraphic: {fileID: 21300000, guid: 10d8f0e8dfd180640976ae3b534fceec, type: 3}
     PowerupGraphic: {fileID: 321783386}
@@ -31617,7 +31629,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 11400000, guid: 37821afade50e2141a22eb4d272495f4, type: 2}
+  m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901

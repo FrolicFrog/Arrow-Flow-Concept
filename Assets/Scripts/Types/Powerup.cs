@@ -18,6 +18,10 @@ namespace ArrowFlow.Types
     public class Powerup
     {
         private static WaitForSecondsRealtime _waitForSecondsRealtime10 = new(10);
+        public Color DefeaultQuantityBgColor = new Color32(0x25, 0xB9, 0xFA, 0xFF);
+        public Image QuantityBackgroundImage;
+        public Sprite DefaultQuantityBackgroundImg;
+        public Sprite AdIconImg;
         public PowerupType type;
         public int UnlocksAt;
         public Sprite EnabledGraphic;
@@ -35,7 +39,8 @@ namespace ArrowFlow.Types
             set
             {
                 PlayerPrefs.SetInt(PlayerPrefsKey, value);
-                QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "<sprite name=video-ad>";
+                QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "";
+                UpdateQuantityLabel();
             }
         }
 
@@ -46,10 +51,10 @@ namespace ArrowFlow.Types
         public void Initialize(int CurrentLvl, MonoBehaviour Mb)
         {
             _Mb = Mb;
-            OrgScale = QuantityLabel.transform.localScale;
+            OrgScale = Quantity.transform.localScale;
             IsUnlocked = CurrentLvl >= UnlocksAt;
             Quantity.gameObject.SetActive(CurrentLvl >= UnlocksAt);
-            QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "<sprite name=video-ad>";
+            QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "";
             FingerAnimation.SetActive(CurrentLvl == UnlocksAt && !PowerupManager.TutorialAlreadyShown(type));
 
             if (!IsUnlocked)
@@ -81,7 +86,7 @@ namespace ArrowFlow.Types
             while (true)
             {
                 if (QuantityOwned == 0 && IsUnlocked)
-                    QuantityLabel.transform.DOScale(OrgScale * 1.5f, 0.5f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutBack);
+                    Quantity.transform.DOScale(OrgScale * 1.5f, 0.5f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutBack);
 
                 yield return _waitForSecondsRealtime10;
             }
@@ -90,7 +95,22 @@ namespace ArrowFlow.Types
         private void ShowUnlocked()
         {
             LockedLabel.text = "";
-            PowerupGraphic.sprite = EnabledGraphic;
+            UpdateQuantityLabel();
+        }
+
+        private void UpdateQuantityLabel()
+        {
+            if(QuantityOwned > 0)
+            {
+                PowerupGraphic.sprite = EnabledGraphic;
+                QuantityBackgroundImage.sprite = DefaultQuantityBackgroundImg;
+                QuantityBackgroundImage.color = DefeaultQuantityBgColor;
+            }
+            else
+            {
+                QuantityBackgroundImage.sprite = AdIconImg;
+                QuantityBackgroundImage.color = Color.white;
+            }
         }
 
         private void ShowLocked()
