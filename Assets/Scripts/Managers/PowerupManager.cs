@@ -17,7 +17,7 @@ public class PowerupManager : Singleton<PowerupManager>
     public void Initialize()
     {
         int CurNum = LevelManager.Instance.CurrentLevelNumber;
-        Array.ForEach(Powerups, P => P.Initialize(CurNum));
+        Array.ForEach(Powerups, P => P.Initialize(CurNum, this));
     }
 
     public void UsePowerup(PowerupType type, bool ShowTutorial = false, string Message = null)

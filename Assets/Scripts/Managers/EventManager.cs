@@ -23,8 +23,7 @@ public class EventManager : Singleton<EventManager>
     private void FirstHalfFillWarning(ArrowSocket socket)
     {
         if (AlreadyShownHalfFillWarning) return;
-
-        if (BeltManager.Instance.CurOccupied < BeltManager.Instance.TotalSockets * 0.5f) return;
+        if (BeltManager.Instance.CurOccupied < BeltManager.Instance.TotalSockets * 0.70f) return;
 
         AlreadyShownHalfFillWarning = true;
         BeltManager.Instance.OnSocketOccupied -= FirstHalfFillWarning;

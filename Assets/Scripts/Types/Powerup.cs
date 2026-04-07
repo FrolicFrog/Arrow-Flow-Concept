@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +17,7 @@ namespace ArrowFlow.Types
     [Serializable]
     public class Powerup
     {
+        private static WaitForSecondsRealtime _waitForSecondsRealtime10 = new(10);
         public PowerupType type;
         public int UnlocksAt;
         public Sprite EnabledGraphic;
@@ -36,32 +39,51 @@ namespace ArrowFlow.Types
             }
         }
 
-        public void Initialize(int CurrentLvl)
+        private bool IsUnlocked = false;
+        private Vector3 OrgScale;
+        private MonoBehaviour _Mb;
+
+        public void Initialize(int CurrentLvl, MonoBehaviour Mb)
         {
-            bool IsUnlocked = CurrentLvl >= UnlocksAt;
+            _Mb = Mb;
+            OrgScale = QuantityLabel.transform.localScale;
+            IsUnlocked = CurrentLvl >= UnlocksAt;
             Quantity.gameObject.SetActive(CurrentLvl >= UnlocksAt);
             QuantityLabel.text = QuantityOwned > 0 ? QuantityOwned.ToString() : "<sprite name=video-ad>";
             FingerAnimation.SetActive(CurrentLvl == UnlocksAt && !PowerupManager.TutorialAlreadyShown(type));
 
-            if(!IsUnlocked)
+            if (!IsUnlocked)
             {
                 ShowLocked();
                 return;
             }
 
             ShowUnlocked();
-            ActionBtn.onClick.AddListener(() => 
+            ActionBtn.onClick.AddListener(() =>
             {
                 PowerupManager.Instance.UsePowerup(type, CurrentLvl == UnlocksAt, HintLabel);
                 QuantityOwned = Math.Max(0, QuantityOwned -= 1);
                 DisableFingerAnimation();
             });
 
-            if(CurrentLvl == UnlocksAt && !PowerupManager.TutorialAlreadyShown(type))
+            if (CurrentLvl == UnlocksAt && !PowerupManager.TutorialAlreadyShown(type))
             {
                 GameManager.Instance.GlobalInputEnabled = false;
                 PowerupManager.Instance.AllowInputForPowerupOnly(type);
                 PostProcessingManager.Instance.AnimateDimmedExposure();
+            }
+
+            _Mb.StartCoroutine(AnimateIfNotAvailable());
+        }
+
+        private IEnumerator AnimateIfNotAvailable()
+        {
+            while (true)
+            {
+                if (QuantityOwned == 0 && IsUnlocked)
+                    QuantityLabel.transform.DOScale(OrgScale * 1.5f, 0.5f).SetLoops(2, LoopType.Yoyo).SetEase(Ease.InOutBack);
+
+                yield return _waitForSecondsRealtime10;
             }
         }
 
@@ -80,5 +102,5 @@ namespace ArrowFlow.Types
         {
             FingerAnimation.SetActive(false);
         }
-    }    
+    }
 }

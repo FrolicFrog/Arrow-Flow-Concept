@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!21 &-2128295473062392669
+--- !u!21 &-5808008576900087400
 Material:
   serializedVersion: 8
   m_ObjectHideFlags: 1
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Name: video-ad
   m_EditorClassIdentifier: 
   hashCode: 2120475673
-  material: {fileID: -2128295473062392669}
+  material: {fileID: -5808008576900087400}
   materialHashCode: 0
   m_Version: 1.1.0
   m_FaceInfo:
@@ -90,17 +90,17 @@ MonoBehaviour:
   m_SpriteGlyphTable:
   - m_Index: 0
     m_Metrics:
-      m_Width: 128
-      m_Height: 128
-      m_HorizontalBearingX: -55.36
-      m_HorizontalBearingY: 109.1
+      m_Width: 797
+      m_Height: 694
+      m_HorizontalBearingX: -329.2
+      m_HorizontalBearingY: 535.7
       m_HorizontalAdvance: 0
     m_GlyphRect:
       m_X: 0
       m_Y: 0
-      m_Width: 128
-      m_Height: 128
-    m_Scale: 1.23
+      m_Width: 797
+      m_Height: 694
+    m_Scale: 1.59
     m_AtlasIndex: 0
     m_ClassDefinitionType: 0
     sprite: {fileID: 21300000, guid: c9235289d4c01be478f490558be02d68, type: 3}
