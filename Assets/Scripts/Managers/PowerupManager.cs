@@ -61,7 +61,7 @@ public class PowerupManager : Singleton<PowerupManager>
         Powerup BeltCapacityPowerup = Powerups.FirstOrDefault(P => P.type == PowerupType.BELTCAPACITY);
         if(BeltCapacityPowerup.QuantityOwned <= 0)
         {
-            LionAds.TryShowRewarded("placement", () => BeltCapacityPowerup.QuantityOwned += 1);
+            AnalyticsManager.TryShowRewardedAd("placement", () => BeltCapacityPowerup.QuantityOwned += 1);
             return true;
         }
 
