@@ -23,7 +23,7 @@ public class Spawner : Item, IClickable
     public float ScaleMultiplier = 1f;
     public float ScaleAnimationDuration = 2f;
 
-    public ItemType Type {get; private set;}
+    public ItemType Type { get; private set; }
     private int SpawnCount;
     private int _LeftToSpawn;
     private bool IsMysterious = false;
@@ -39,13 +39,13 @@ public class Spawner : Item, IClickable
     }
 
     public bool CanTakeSecondaryActionInput = true;
-    public event Action OnSecondaryActionClick; 
+    public event Action OnSecondaryActionClick;
     public Color ConnectionColor => Utilities.GetColorByItemType(Type);
     private bool IsClicked = false;
     private Material OriginalMat;
     private bool HasConnection;
     private bool HasShotAll = false;
-    
+
     public bool HasCompleted { get; private set; } = false;
     public int Layer => Renderer.gameObject.layer;
 
@@ -65,7 +65,7 @@ public class Spawner : Item, IClickable
     public override void Init(ItemData data, VisualRows Row, Action<Item> OnItemUsed)
     {
         base.Init(data, Row, OnItemUsed);
-        
+
         HasCompleted = false;
         IsClicked = false;
         HasShotAll = false;
@@ -149,25 +149,56 @@ public class Spawner : Item, IClickable
         }
     }
 
+    private List<Spawner> GetAllConnectedSpawners()
+    {
+        var result = new List<Spawner>();
+        var visited = new HashSet<Spawner>();
+        var queue = new Queue<Spawner>();
+
+        queue.Enqueue(this);
+        visited.Add(this);
+
+        while (queue.Count > 0)
+        {
+            var current = queue.Dequeue();
+
+            foreach (var id in current.ConnectedSpawnerIds)
+            {
+                if (!ReferenceManager.Instance.IdToSpawner.TryGetValue(id, out var neighbor) || neighbor == null)
+                    continue;
+
+                if (!visited.Add(neighbor))
+                    continue;
+
+                queue.Enqueue(neighbor);
+
+                if (neighbor != this)
+                    result.Add(neighbor);
+            }
+        }
+
+        return result;
+    }
+
     public void OnClick()
     {
-        if(PowerupManager.Instance.IsTakingSpawnerInputForExchangePowerup || TutorialManager.Instance.IsTakingSpawnerInputForTutorial)
+        if (PowerupManager.Instance.IsTakingSpawnerInputForExchangePowerup || TutorialManager.Instance.IsTakingSpawnerInputForTutorial)
         {
-            if(CanTakeSecondaryActionInput)
+            if (CanTakeSecondaryActionInput)
             {
                 transform.DOScale(transform.localScale * ScaleMultiplier, ScaleAnimationDuration).SetLoops(2, LoopType.Yoyo);
-                
+
                 PowerupManager.Instance.AddSpawnerToExchange(this);
-                OnSecondaryActionClick?.Invoke();    
+                OnSecondaryActionClick?.Invoke();
             }
-            
+
             return;
         }
 
         if (Row.FrontItem != this || IsClicked)
         {
             Debug.Log("ROw front is : " + Row.FrontItem, Row.FrontItem.gameObject);
-            Debug.Log("Cannot click spawner",gameObject);
+            Debug.Log("Cannot click spawner", gameObject);
             return;
         }
 
@@ -177,11 +208,7 @@ public class Spawner : Item, IClickable
 
         if (HasConnection)
         {
-            foreach (Vector2Int id in ConnectedSpawnerIds)
-            {
-                if (ReferenceManager.Instance.IdToSpawner.TryGetValue(id, out Spawner connectedSpawner))
-                    ConnectedSpawners.Add(connectedSpawner);
-            }
+            ConnectedSpawners = GetAllConnectedSpawners();
         }
 
         IsClicked = true;
@@ -254,10 +281,10 @@ public class Spawner : Item, IClickable
 
     public override void OnMoveForward()
     {
-        if(Row.FrontItem == this)
+        if (Row.FrontItem == this)
             CountLabel.color = new Color(CountLabel.color.r, CountLabel.color.g, CountLabel.color.b, 1f);
 
-        if(!IsMysterious) return;
+        if (!IsMysterious) return;
 
         RevealEffect.Play();
         IsMysterious = false;
