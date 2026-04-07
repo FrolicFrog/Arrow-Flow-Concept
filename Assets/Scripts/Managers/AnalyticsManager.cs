@@ -42,7 +42,10 @@ namespace Managers
 
         public static void LevelFailed(int LevelNumber)
         {
-            Dictionary<string, object> failData = new() { { "mission_progress", 0 } };
+            Dictionary<string, object> failData = new()
+            {
+                { "gameplay_data", new Dictionary<string, object> { { "mission_progress", 0 } } }
+            };
 
             LionAnalytics.MissionFailed
             (
@@ -72,11 +75,19 @@ namespace Managers
         {
             Dictionary<string, object> adData = new Dictionary<string, object>
             {
-                { "mission_type", "main" },
-                { "mission_name", $"main_{LevelNumber}" },
-                { "mission_id", LevelNumber },
-                { "mission_attempt", DEFAULT_ATTEMPT },
-                { "mission_progress", 0 }
+                { "mission_data", new Dictionary<string, object>
+                    {
+                        { "mission_type", "main" },
+                        { "mission_name", $"main_{LevelNumber}" },
+                        { "mission_id", LevelNumber },
+                        { "mission_attempt", DEFAULT_ATTEMPT }
+                    }
+                },
+                { "gameplay_data", new Dictionary<string, object>
+                    {
+                        { "mission_progress", 0 }
+                    }
+                }
             };
 
             LionAnalytics.RewardVideoShow(
@@ -91,11 +102,19 @@ namespace Managers
         {
             Dictionary<string, object> adData = new()
             {
-                { "mission_type", "main" },
-                { "mission_name", $"main_{LevelManager.Instance.CurrentLevelNumber}" },
-                { "mission_id", LevelManager.Instance.CurrentLevelNumber },
-                { "mission_attempt", 1 }, 
-                { "mission_progress", 0 }
+                { "mission_data", new Dictionary<string, object>
+                    {
+                        { "mission_type", "main" },
+                        { "mission_name", $"main_{LevelManager.Instance.CurrentLevelNumber}" },
+                        { "mission_id", LevelManager.Instance.CurrentLevelNumber },
+                        { "mission_attempt", 1 }
+                    }
+                },
+                { "gameplay_data", new Dictionary<string, object>
+                    {
+                        { "mission_progress", 0 }
+                    }
+                }
             };
 
             return LionAds.TryShowRewarded(placement, OnRewarded, null, null, adData);
