@@ -95,6 +95,8 @@ namespace ArrowFlow.Types
         private void ShowUnlocked()
         {
             LockedLabel.text = "";
+            PowerupGraphic.sprite = EnabledGraphic;
+
             UpdateQuantityLabel();
         }
 
@@ -102,7 +104,6 @@ namespace ArrowFlow.Types
         {
             if(QuantityOwned > 0)
             {
-                PowerupGraphic.sprite = EnabledGraphic;
                 QuantityBackgroundImage.sprite = DefaultQuantityBackgroundImg;
                 QuantityBackgroundImage.color = DefeaultQuantityBgColor;
             }
