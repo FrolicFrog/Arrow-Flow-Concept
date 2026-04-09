@@ -52,6 +52,7 @@ public class Item : MonoBehaviour
         BreathingTween.Kill();
         
         Sequence sequence = DOTween.Sequence();
+        sequence.JoinCallback(() => AudioManager.Instance.Play(AudioManager.Instance.SpawnerDespawnSpinSound));
         sequence.Join(transform.DOMoveY(transform.position.y + Elevation, ElevationAnimDur));
         sequence.Join(transform.DORotate(new Vector3(0, 360, 0), ElevationAnimDur, RotateMode.FastBeyond360).SetRelative());
         
@@ -68,6 +69,8 @@ public class Item : MonoBehaviour
             GameObject effect = Instantiate(DespawnEffect.gameObject, transform.position, Quaternion.identity);
             effect.transform.localScale = Vector3.one * DespawnEffectScale;
         });
+
+        sequence.InsertCallback(ElevationAnimDur * 0.6f, () => AudioManager.Instance.Play(AudioManager.Instance.SpawnerDespawnSound));
         sequence.Insert(ElevationAnimDur * 0.6f, transform.DOScale(Vector3.zero, ElevationAnimDur * 0.4f).SetEase(Ease.InBack));
         sequence.InsertCallback(ElevationAnimDur, () => Destroy(gameObject));
         sequence.Play();
