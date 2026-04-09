@@ -61,6 +61,7 @@ MonoBehaviour:
   MaxBreathingAnimDur: 2
   VisualRowIndex: -1
   IsAtFrontBool: 0
+  Id: {x: 0, y: 0}
   IsBeingDestroy: 0
   RevealEffect: {fileID: 7988194420220030219}
   FingerAnimation: {fileID: 6117909583775393375}
@@ -73,7 +74,7 @@ MonoBehaviour:
   RotationSpeed: 20
   ScaleMultiplier: 0.6
   ScaleAnimationDuration: 0.08
-  CanTakeInputForExchangePowerup: 1
+  CanTakeSecondaryActionInput: 1
 --- !u!65 &635128123950392673
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -332,16 +333,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5098749868307733024}
-  m_LocalRotation: {x: 0.70710576, y: -0, z: -0, w: 0.7071079}
-  m_LocalPosition: {x: 0, y: 0, z: -0.006381}
-  m_LocalScale: {x: 0.17753474, y: 0.17753474, z: 0.17753474}
-  m_ConstrainProportionsScale: 0
+  m_LocalRotation: {x: 0.2880291, y: -0, z: -0, w: 0.95762163}
+  m_LocalPosition: {x: 0, y: 0, z: -0.50129}
+  m_LocalScale: {x: 0.16217498, y: 0.16217498, z: 0.16217498}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1364890228483710338}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 33.48, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.0021389, y: 1.39}
+  m_AnchoredPosition: {x: -0.03, y: 1.8029}
   m_SizeDelta: {x: 9.9946, y: 12.2261}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &5321530212218065097
@@ -364,7 +365,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2583947881128249416, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
+  - {fileID: -2583947881128249416, guid: 2fd6c77e9d623fb4da22cfa0e4da9ba1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -408,8 +409,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 99
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
-  m_sharedMaterial: {fileID: -2583947881128249416, guid: 8ae280a078aa14c4f960879f1e82cba3, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 2fd6c77e9d623fb4da22cfa0e4da9ba1, type: 2}
+  m_sharedMaterial: {fileID: -2583947881128249416, guid: 2fd6c77e9d623fb4da22cfa0e4da9ba1, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

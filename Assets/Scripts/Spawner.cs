@@ -182,6 +182,7 @@ public class Spawner : Item, IClickable
 
     public void OnClick()
     {
+        AudioManager.Instance.Play(AudioManager.Instance.TapSound);
         if (PowerupManager.Instance.IsTakingSpawnerInputForExchangePowerup || TutorialManager.Instance.IsTakingSpawnerInputForTutorial)
         {
             if (CanTakeSecondaryActionInput)
