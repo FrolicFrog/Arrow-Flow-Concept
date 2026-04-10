@@ -7,7 +7,7 @@ using UnityEngine.Splines;
 public class ArrowSocket : MonoBehaviour
 {
     [Header("References")]
-    public float MaxDot = 0.91f;
+    public float MinDot = 0.90f;
 
     public Spawnable ArrowPrefab;
     public SplineAnimate SplineAnimator;
@@ -40,6 +40,8 @@ public class ArrowSocket : MonoBehaviour
     public float OriginalDuration;
     public float IncreasedSpeedDuration;
     public float SlowMotionSpeedDuration = 50f;
+    private float dot;
+    private bool isFacingCrowdSide;
 
     public static ArrowSocket CreateArrowSocket(ArrowSocket Prefab, SplineContainer Container, float Offset, int layerIdx)
     {
@@ -83,6 +85,7 @@ public class ArrowSocket : MonoBehaviour
 
     private void Update()
     {
+        isFacingCrowdSide = IsFacingCrowd();
         if (IsReady && IsFacingCrowd())
         {
             List<CrowdElement> FrontRow = CrowdManager.Instance.CurFront;
@@ -124,8 +127,8 @@ public class ArrowSocket : MonoBehaviour
     {
         Vector3 directionToTarget = (GridManager.Instance.Origin.position - transform.position).normalized;
         Vector3 forward = -transform.up;
-        float dot = Vector3.Dot(forward, directionToTarget);
-        return dot > MaxDot;
+        dot = Vector3.Dot(forward, directionToTarget);
+        return dot > MinDot;
     }
 
     public void Ready(ItemType Type)
