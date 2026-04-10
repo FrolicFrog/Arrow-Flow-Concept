@@ -41,7 +41,6 @@ public class ArrowSocket : MonoBehaviour
     public float IncreasedSpeedDuration;
     public float SlowMotionSpeedDuration = 50f;
     private float dot;
-    private bool isFacingCrowdSide;
 
     public static ArrowSocket CreateArrowSocket(ArrowSocket Prefab, SplineContainer Container, float Offset, int layerIdx)
     {
@@ -85,7 +84,6 @@ public class ArrowSocket : MonoBehaviour
 
     private void Update()
     {
-        isFacingCrowdSide = IsFacingCrowd();
         if (IsReady && IsFacingCrowd())
         {
             List<CrowdElement> FrontRow = CrowdManager.Instance.CurFront;
