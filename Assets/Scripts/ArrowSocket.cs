@@ -8,7 +8,7 @@ public class ArrowSocket : MonoBehaviour
 {
     [Header("References")]
     public float MinDot = 0.90f;
-
+ 
     public Spawnable ArrowPrefab;
     public SplineAnimate SplineAnimator;
     public MeshRenderer ArrowRenderer;

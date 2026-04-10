@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class CrowdManager : Singleton<CrowdManager>
 {
-    [TextArea(3, 5)]
-    public string DebugText;
+    [TextArea(3, 5)] public string DebugText;
     private readonly Dictionary<Vector2Int, CrowdElement> CrowdElements = new();
     public Dictionary<Vector2Int, CrowdElement> CrowdElementsDict => CrowdElements;
 
@@ -20,19 +19,12 @@ public class CrowdManager : Singleton<CrowdManager>
     private List<CrowdElement> GetFrontRow()
     {
         List<CrowdElement> frontRow = new();
-
         var columns = CrowdElements.Values.GroupBy(e => e.GridPos.x).OrderBy(g => g.Key);
 
         foreach (var column in columns)
         {
-            var frontEle = column.Where(e => !(e is Person p && p.AlreadyTarget && p is not Giant))
-                .OrderByDescending(e => e.GridPos.y)
-                .FirstOrDefault();
-
-            if (frontEle != null)
-            {
-                frontRow.Add(frontEle);
-            }
+            var frontEle = column.OrderByDescending(e => e.GridPos.y).FirstOrDefault();
+            if (frontEle != null) frontRow.Add(frontEle);
         }
 
         return frontRow.OrderByDescending(e => e.OriginalGridPos.y).ToList();
@@ -47,7 +39,6 @@ public class CrowdManager : Singleton<CrowdManager>
         OnCrowdPersonKilled?.Invoke(Element);
         AdjustCrowd(Element);
     }
-
 
     private void AdjustCrowd(CrowdElement element)
     {
@@ -73,6 +64,8 @@ public class CrowdManager : Singleton<CrowdManager>
 
                     if (crowdElement is Person person)
                     {
+                        person.IsWalking = true;
+                        person.transform.DOKill();
                         person.transform.DOLocalMove(targetPos, 0.5f)
                         .OnStart(() => person.IsWalking = true)
                         .OnComplete(() => person.IsWalking = false);
