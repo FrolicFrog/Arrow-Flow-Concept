@@ -111,7 +111,7 @@ public class Person : CrowdElement
         deathSequence.AppendCallback(() => DamageEffect.Play());
         deathSequence.Join(transform.DOMoveY(transform.position.y + YAnimOffset, 0.5f).SetLoops(2, LoopType.Yoyo));
         deathSequence.InsertCallback(0.25f, () => SwitchMaterial(ReferenceManager.Instance.DeadPersonMaterial));
-        deathSequence.Join(transform.DOScaleY(0, 0.3f).SetDelay(1f))
+        deathSequence.Join(transform.DOScale(0, 0.3f).SetDelay(1f))
             .OnComplete(() => Destroy(gameObject));
     }
 
