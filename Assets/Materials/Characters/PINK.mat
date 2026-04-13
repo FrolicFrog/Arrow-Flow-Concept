@@ -12,16 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _ALPHACLIP_OFF
-  - _CASTHAIRSHADOWMASK_OFF
-  - _ENABLEMATCAP_OFF
-  - _ENABLESTENCIL_OFF
-  - _INVERSECLIPMASK_OFF
-  - _RECEIVEHAIRSHADOWMASK_OFF
-  - _RIMFLIP_OFF
-  - _SPECULARTYPE_OFF
-  - _USESMOOTHNORMAL_OFF
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -577,7 +568,7 @@ Material:
     - _AngelRingMaskColor: {r: 0, g: 1, b: 0, a: 1}
     - _AngelRing_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColor: {r: 1, g: 0.390566, b: 0.73360044, a: 1}
+    - _BaseColor: {r: 0.99607843, g: 0.3882353, b: 0.7647059, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 0.39056596, b: 0.73360044, a: 1}
@@ -602,8 +593,8 @@ Material:
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimLightMaskColor: {r: 1, g: 0, b: 1, a: 1}
     - _SecondShadeMaskColor: {r: 0, g: 0, b: 1, a: 1}
-    - _Shadow1Color: {r: 0.86415094, g: 0.20707008, b: 0.819405, a: 0.5}
-    - _Shadow2Color: {r: 0.4867924, g: 0, b: 0.35701695, a: 0}
+    - _Shadow1Color: {r: 0.7433963, g: 0, b: 0.0042097922, a: 0.5}
+    - _Shadow2Color: {r: 0.5849056, g: 0.08210639, b: 0, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
