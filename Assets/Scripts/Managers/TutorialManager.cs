@@ -94,19 +94,14 @@ public class TutorialManager : Singleton<TutorialManager>
 
             UIManager.Instance.ShowHintBox(FirstLvlSecondHintText);
             UIManager.Instance.TutorialFirstScreen.gameObject.SetActive(false);
-
-            DOVirtual.DelayedCall(1f, () =>
-            {
-                UIManager.Instance.DismissHintBox();
-                
-                if(!Spawner2.Clicked) Spawner2.SetFingerAnimationVisible(true);
-            });
+            Spawner2.SetFingerAnimationVisible(true);
 
             void DisableFingerAndAction()
             {
                 Spawner2.OnSecondaryActionClick -= DisableFingerAndAction;
                 IsTakingSpawnerInputForTutorial = false;
                 Spawner2.SetFingerAnimationVisible(false);
+                UIManager.Instance.DismissHintBox();
                 Spawner2.OnClick();
             }
 
@@ -127,18 +122,14 @@ public class TutorialManager : Singleton<TutorialManager>
 
             UIManager.Instance.ShowHintBox(FirstLvlSecondHintText);
             UIManager.Instance.TutorialFirstScreen.gameObject.SetActive(false);
-
-            DOVirtual.DelayedCall(1f, () =>
-            {
-                UIManager.Instance.DismissHintBox();
-                Spawner1.SetFingerAnimationVisible(true);
-            });
+            Spawner1.SetFingerAnimationVisible(true);
 
             void DisableFingerAndAction()
             {
                 Spawner1.OnSecondaryActionClick -= DisableFingerAndAction;
                 IsTakingSpawnerInputForTutorial = false;
                 Spawner1.SetFingerAnimationVisible(false);
+                UIManager.Instance.DismissHintBox();
                 Spawner1.OnClick();
             }
 
