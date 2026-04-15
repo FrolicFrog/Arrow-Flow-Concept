@@ -19,6 +19,7 @@ public class UIManager : Singleton<UIManager>
     [Header("REFERENCES")]
     public TextMeshProUGUI LevelLabel;
     public Image DangerVignette;
+    public Image TutorialFirstScreen;
 
     protected override void Awake()
     {

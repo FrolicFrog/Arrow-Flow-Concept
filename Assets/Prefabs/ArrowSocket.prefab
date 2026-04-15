@@ -70,7 +70,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b03152c8d56dc7b428abce2067b55c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxDot: 0.91
+  MinDot: 0.88
   ArrowPrefab: {fileID: 5158241363279224397, guid: b8c1f277dbc52c44eb8eff9a55a08202, type: 3}
   SplineAnimator: {fileID: 5916513404427842393}
   ArrowRenderer: {fileID: 4003724122334115231}
