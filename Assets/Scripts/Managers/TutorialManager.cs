@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using ArrowFlow.Types;
+using DG.Tweening;
 using UnityEngine;
 
 public class TutorialManager : Singleton<TutorialManager>
@@ -12,6 +13,7 @@ public class TutorialManager : Singleton<TutorialManager>
     [Header("TUTORIALS")]
     [TextArea(3, 10)]
     public string FirstLvlHintText = "Tap shooter to place arrows into the conveyer.";
+    public string FirstLvlSecondHintText = "Wait for all arrows to be spawned";
     public bool IsTakingSpawnerInputForTutorial { get; private set; } = false;
     public void Initialize()
     {
@@ -20,7 +22,7 @@ public class TutorialManager : Singleton<TutorialManager>
         {
             BeginningTutorial();
         }
-        else if(LevelNum == 14 && !PlayerPrefs.HasKey("CompletedTutorialLvl14"))
+        else if (LevelNum == 14 && !PlayerPrefs.HasKey("CompletedTutorialLvl14"))
         {
             ConnectedShootersTutorial();
         }
@@ -31,9 +33,9 @@ public class TutorialManager : Singleton<TutorialManager>
         PlayerPrefs.SetInt("CompletedTutorialLvl14", 1);
         PostProcessingManager.Instance.AnimateDimmedExposure();
         var Spawners = ReferenceManager.Instance.IdToSpawner.Values;
-        
-        Spawner PinkSpawner = Spawners.FirstOrDefault(S => S.Id == new Vector2Int(0,0));
-        Spawner CyanSpawner = Spawners.FirstOrDefault(S => S.Id == new Vector2Int(1,0));
+
+        Spawner PinkSpawner = Spawners.FirstOrDefault(S => S.Id == new Vector2Int(0, 0));
+        Spawner CyanSpawner = Spawners.FirstOrDefault(S => S.Id == new Vector2Int(1, 0));
 
         if (PinkSpawner == null || CyanSpawner == null) return;
 
@@ -67,45 +69,78 @@ public class TutorialManager : Singleton<TutorialManager>
     private void BeginningTutorial()
     {
         PlayerPrefs.SetInt("CompletedTutorialLvl1", 1);
-        PostProcessingManager.Instance.AnimateDimmedExposure();
+        UIManager.Instance.TutorialFirstScreen.gameObject.SetActive(true);
         var Spawners = ReferenceManager.Instance.IdToSpawner.Values;
-        
-        Spawner YellowSpawner = Spawners.FirstOrDefault(S => S.Id == new Vector2Int(0,0));
-        Spawner GreenSpawner = Spawners.FirstOrDefault(S => S.Id == new Vector2Int(1,0));
 
-        if (YellowSpawner == null || GreenSpawner == null) return;
+        Spawner Spawner1 = Spawners.FirstOrDefault(S => S.Id == new Vector2Int(0, 0));
+        Spawner Spawner2 = Spawners.FirstOrDefault(S => S.Id == new Vector2Int(1, 0));
+        if (Spawner1 == null || Spawner2 == null) return;
 
         IsTakingSpawnerInputForTutorial = true;
-        Utilities.AssignLayerRecursively(YellowSpawner.transform, NoPostProcessLayerIdx);
-        Utilities.AssignLayerRecursively(GreenSpawner.transform, NoPostProcessLayerIdx);
-        YellowSpawner.SetFingerAnimationVisible(true);
-        UIManager.Instance.ShowHintBox(FirstLvlHintText);
-        YellowSpawner.CanTakeSecondaryActionInput = true;
-        GreenSpawner.CanTakeSecondaryActionInput = true;
 
-        GreenSpawner.OnSecondaryActionClick += () =>
+        Spawner1.SetFingerAnimationVisible(true);
+        UIManager.Instance.ShowHintBox(FirstLvlHintText);
+
+        Spawner1.CanTakeSecondaryActionInput = true;
+        Spawner2.CanTakeSecondaryActionInput = true;
+
+        void SecondaryActionSpawner1()
         {
-            GreenSpawner.CanTakeSecondaryActionInput = false;
-            YellowSpawner.CanTakeSecondaryActionInput = false;
-            UIManager.Instance.DismissHintBox();
-            PostProcessingManager.Instance.AnimateNormalExposure();
-            YellowSpawner.SetFingerAnimationVisible(false);
-            Utilities.AssignLayerRecursively(YellowSpawner.transform, 0);
-            Utilities.AssignLayerRecursively(GreenSpawner.transform, 0);
+            Spawner1.OnSecondaryActionClick -= SecondaryActionSpawner1;
+            Spawner2.OnSecondaryActionClick -= SecondaryActionSpawner2;
+
+            Spawner1.SetFingerAnimationVisible(false);
+            Spawner1.CanTakeSecondaryActionInput = false;
+
+            UIManager.Instance.ShowHintBox(FirstLvlSecondHintText);
+            UIManager.Instance.TutorialFirstScreen.gameObject.SetActive(false);
+            Spawner2.SetFingerAnimationVisible(true);
+
+            void DisableFingerAndAction()
+            {
+                Spawner2.OnSecondaryActionClick -= DisableFingerAndAction;
+                IsTakingSpawnerInputForTutorial = false;
+                Spawner2.SetFingerAnimationVisible(false);
+                UIManager.Instance.DismissHintBox();
+                Spawner2.OnClick();
+            }
+
+            Spawner2.OnSecondaryActionClick += DisableFingerAndAction;
+
             IsTakingSpawnerInputForTutorial = false;
-            GreenSpawner.OnClick();
-        };
-        YellowSpawner.OnSecondaryActionClick += () =>
+            Spawner1.OnClick();
+            IsTakingSpawnerInputForTutorial = true;
+        }
+
+        void SecondaryActionSpawner2()
         {
-            GreenSpawner.CanTakeSecondaryActionInput = false;
-            YellowSpawner.CanTakeSecondaryActionInput = false;
-            UIManager.Instance.DismissHintBox();
-            PostProcessingManager.Instance.AnimateNormalExposure();
-            YellowSpawner.SetFingerAnimationVisible(false);
-            Utilities.AssignLayerRecursively(YellowSpawner.transform, 0);
-            Utilities.AssignLayerRecursively(GreenSpawner.transform, 0);
+            Spawner2.OnSecondaryActionClick -= SecondaryActionSpawner2;
+            Spawner1.OnSecondaryActionClick -= SecondaryActionSpawner1;
+
+            Spawner2.SetFingerAnimationVisible(false);
+            Spawner2.CanTakeSecondaryActionInput = false;
+
+            UIManager.Instance.ShowHintBox(FirstLvlSecondHintText);
+            UIManager.Instance.TutorialFirstScreen.gameObject.SetActive(false);
+            Spawner1.SetFingerAnimationVisible(true);
+
+            void DisableFingerAndAction()
+            {
+                Spawner1.OnSecondaryActionClick -= DisableFingerAndAction;
+                IsTakingSpawnerInputForTutorial = false;
+                Spawner1.SetFingerAnimationVisible(false);
+                UIManager.Instance.DismissHintBox();
+                Spawner1.OnClick();
+            }
+
+            Spawner1.OnSecondaryActionClick += DisableFingerAndAction;
+
             IsTakingSpawnerInputForTutorial = false;
-            YellowSpawner.OnClick();
-        };
+            Spawner2.OnClick();
+            IsTakingSpawnerInputForTutorial = true;
+        }
+
+        Spawner1.OnSecondaryActionClick += SecondaryActionSpawner1;
+        Spawner2.OnSecondaryActionClick += SecondaryActionSpawner2;
     }
 }

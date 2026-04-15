@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ff4c2f76ea0734494da7214b6649f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestLevelToLoad: 100
+  TestLevelToLoad: 1
   SpawnItemPrefab: {fileID: 2632661987628473247, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
   LockItemPrefab: {fileID: 5290314347958245746, guid: cdb3dda65d7507a4693f6ee923f5ac40, type: 3}
   CrowdElementPrefab: {fileID: 6206104431016008360, guid: 18874d00b0ccff34fbce27473fa1c37c, type: 3}
@@ -1051,6 +1051,7 @@ MonoBehaviour:
     Dialog: {fileID: 156462841}
   LevelLabel: {fileID: 852330107}
   DangerVignette: {fileID: 1729966406}
+  TutorialFirstScreen: {fileID: 1467611573}
 --- !u!1 &215807153
 GameObject:
   m_ObjectHideFlags: 0
@@ -18419,7 +18420,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 17.08728, y: 11}
+  m_AnchoredPosition: {x: 17.08728, y: -557}
   m_SizeDelta: {x: -170.8738, y: -284.7895}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &936143887
@@ -29059,6 +29060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NoPostProcessLayerIdx: 3
   FirstLvlHintText: Tap shooter to place arrows into the conveyer.
+  FirstLvlSecondHintText: Wait for arrows to shoot
 --- !u!1 &1101558376
 GameObject:
   m_ObjectHideFlags: 0
@@ -29920,6 +29922,81 @@ Transform:
   - {fileID: 661973499}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1467611571
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1467611572}
+  - component: {fileID: 1467611574}
+  - component: {fileID: 1467611573}
+  m_Layer: 5
+  m_Name: TutorialFirstScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1467611572
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467611571}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2016492931}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1467611573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467611571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.8509804}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: db6fdac6751825d46a2bef0898030f40, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1467611574
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1467611571}
+  m_CullTransparentMesh: 1
 --- !u!1 &1481450797
 GameObject:
   m_ObjectHideFlags: 0
@@ -30674,7 +30751,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PostProcessVolume: {fileID: 1749257174}
-  DimmedExposure: -6
+  DimmedExposure: -3
   NormalExposure: 0
   Duration: 0.5
   MaxVignetteIntensity: 0.4
@@ -32237,6 +32314,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1467611572}
   - {fileID: 948787100}
   m_Father: {fileID: 344618830}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

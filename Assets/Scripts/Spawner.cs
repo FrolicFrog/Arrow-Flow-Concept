@@ -42,6 +42,7 @@ public class Spawner : Item, IClickable
     public event Action OnSecondaryActionClick;
     public Color ConnectionColor => Utilities.GetColorByItemType(Type);
     private bool IsClicked = false;
+    public bool Clicked => IsClicked;
     private Material OriginalMat;
     private bool HasConnection;
     private bool HasShotAll = false;
