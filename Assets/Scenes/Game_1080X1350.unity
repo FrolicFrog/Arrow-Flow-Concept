@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ff4c2f76ea0734494da7214b6649f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestLevelToLoad: 90
+  TestLevelToLoad: 68
   SpawnItemPrefab: {fileID: 2632661987628473247, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
   LockItemPrefab: {fileID: 5290314347958245746, guid: cdb3dda65d7507a4693f6ee923f5ac40, type: 3}
   CrowdElementPrefab: {fileID: 6206104431016008360, guid: 18874d00b0ccff34fbce27473fa1c37c, type: 3}
@@ -680,7 +680,7 @@ GameObject:
   - component: {fileID: 145146827}
   - component: {fileID: 145146829}
   - component: {fileID: 145146828}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Border
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16764,7 +16764,7 @@ GameObject:
   - component: {fileID: 540599052}
   - component: {fileID: 540599051}
   - component: {fileID: 540599050}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17266,7 +17266,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 641265148}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17888,7 +17888,7 @@ GameObject:
   - component: {fileID: 749653792}
   - component: {fileID: 749653794}
   - component: {fileID: 749653793}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18218,7 +18218,7 @@ Grid:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 878260561}
   m_Enabled: 1
-  m_CellSize: {x: 0.9, y: 0.95, z: 1}
+  m_CellSize: {x: 0.8, y: 0.85, z: 1}
   m_CellGap: {x: 0, y: 0, z: 0}
   m_CellLayout: 1
   m_CellSwizzle: 1
@@ -19091,7 +19091,7 @@ GameObject:
   - component: {fileID: 986735377}
   - component: {fileID: 986735379}
   - component: {fileID: 986735378}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28791,7 +28791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1010849697}
   - component: {fileID: 1010849696}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Spline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29167,10 +29167,6 @@ PrefabInstance:
     - target: {fileID: 4828097815593588741, guid: c9496bf5bd726594ca6174a1472e6cbb, type: 3}
       propertyPath: m_Name
       value: FingerAnimation
-      objectReference: {fileID: 0}
-    - target: {fileID: 4828097815593588741, guid: c9496bf5bd726594ca6174a1472e6cbb, type: 3}
-      propertyPath: m_Layer
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4828097815593588741, guid: c9496bf5bd726594ca6174a1472e6cbb, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -30827,7 +30823,7 @@ MonoBehaviour:
     FingerAnimation: {fileID: 1101558376}
     HintLabel: This multiplier will duplicate your arrows.
   - type: 2
-    UnlocksAt: 90
+    UnlocksAt: 35
     EnabledGraphic: {fileID: 21300000, guid: 10d8f0e8dfd180640976ae3b534fceec, type: 3}
     PowerupGraphic: {fileID: 321783386}
     ActionBtn: {fileID: 321783385}
@@ -31791,7 +31787,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 15.1
+  orthographic size: 22.8
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -31816,7 +31812,7 @@ Transform:
   m_GameObject: {fileID: 1971253731}
   serializedVersion: 2
   m_LocalRotation: {x: 0.42261827, y: -0, z: -0, w: 0.9063079}
-  m_LocalPosition: {x: 0, y: -5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -31833,7 +31829,7 @@ GameObject:
   - component: {fileID: 1996456859}
   - component: {fileID: 1996456861}
   - component: {fileID: 1996456860}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Label
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32221,7 +32217,7 @@ GameObject:
   - component: {fileID: 2105620784}
   - component: {fileID: 2105620783}
   - component: {fileID: 2105620782}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: FingerAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42334,7 +42330,7 @@ GameObject:
   - component: {fileID: 543450651728174985}
   - component: {fileID: 919132147804407092}
   - component: {fileID: 919132147804407093}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Belt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42478,7 +42474,7 @@ GameObject:
   - component: {fileID: 666369313674959939}
   - component: {fileID: 3418485909031556015}
   - component: {fileID: 976723959701112836}
-  m_Layer: 3
+  m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
