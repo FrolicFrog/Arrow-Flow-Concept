@@ -27,7 +27,6 @@ public class TutorialManager : Singleton<TutorialManager>
             ConnectedShootersTutorial();
         }
     }
-
     private void ConnectedShootersTutorial()
     {
         PlayerPrefs.SetInt("CompletedTutorialLvl14", 1);
@@ -94,13 +93,14 @@ public class TutorialManager : Singleton<TutorialManager>
 
             UIManager.Instance.ShowHintBox(FirstLvlSecondHintText);
             UIManager.Instance.TutorialFirstScreen.gameObject.SetActive(false);
-            Spawner2.SetFingerAnimationVisible(true);
+            DOVirtual.DelayedCall(1f, () => Spawner2.SetFingerAnimationVisible(true));
 
             void DisableFingerAndAction()
             {
                 Spawner2.OnSecondaryActionClick -= DisableFingerAndAction;
                 IsTakingSpawnerInputForTutorial = false;
                 Spawner2.SetFingerAnimationVisible(false);
+                Spawner2.IgnoreHandVisibilityRequests = true;
                 UIManager.Instance.DismissHintBox();
                 Spawner2.OnClick();
             }
@@ -123,12 +123,14 @@ public class TutorialManager : Singleton<TutorialManager>
             UIManager.Instance.ShowHintBox(FirstLvlSecondHintText);
             UIManager.Instance.TutorialFirstScreen.gameObject.SetActive(false);
             Spawner1.SetFingerAnimationVisible(true);
+            DOVirtual.DelayedCall(1f, () => Spawner1.SetFingerAnimationVisible(true));
 
             void DisableFingerAndAction()
             {
                 Spawner1.OnSecondaryActionClick -= DisableFingerAndAction;
                 IsTakingSpawnerInputForTutorial = false;
                 Spawner1.SetFingerAnimationVisible(false);
+                Spawner1.IgnoreHandVisibilityRequests = true;
                 UIManager.Instance.DismissHintBox();
                 Spawner1.OnClick();
             }
