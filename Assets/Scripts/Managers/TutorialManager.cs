@@ -27,7 +27,6 @@ public class TutorialManager : Singleton<TutorialManager>
             ConnectedShootersTutorial();
         }
     }
-
     private void ConnectedShootersTutorial()
     {
         PlayerPrefs.SetInt("CompletedTutorialLvl14", 1);
