@@ -46,6 +46,7 @@ public class Spawner : Item, IClickable
     private Material OriginalMat;
     private bool HasConnection;
     private bool HasShotAll = false;
+    public bool IgnoreHandVisibilityRequests = false;
 
     public bool HasCompleted { get; private set; } = false;
     public int Layer => Renderer.gameObject.layer;
@@ -60,6 +61,7 @@ public class Spawner : Item, IClickable
 
     public void SetFingerAnimationVisible(bool visible)
     {
+        if(visible && IgnoreHandVisibilityRequests) return;
         FingerAnimation.SetActive(visible);
     }
 
