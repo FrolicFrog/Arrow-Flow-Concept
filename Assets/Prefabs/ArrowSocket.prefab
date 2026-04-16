@@ -78,7 +78,7 @@ MonoBehaviour:
   IsOccupied: 0
   IsReady: 0
   OriginalDuration: 5.5
-  IncreasedSpeedDuration: 3.5
+  IncreasedSpeedDuration: 2
   SlowMotionSpeedDuration: 250
 --- !u!1 &3211323340556637258
 GameObject:
