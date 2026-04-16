@@ -18,6 +18,7 @@ public class EventManager : Singleton<EventManager>
         LevelManager.Instance.OnItemUsed += (_) => UpdateBeltSpeed();
         BeltManager.Instance.OnSocketOccupied += (_) => UpdateBeltSpeed();
         BeltManager.Instance.OnSocketOccupied += FirstHalfFillWarning;
+        BeltManager.Instance.OnSocketOccupied += (_) => AudioManager.Instance.Play(AudioManager.Instance.SocketOccupiedSound);
     }
 
     private void FirstHalfFillWarning(ArrowSocket socket)

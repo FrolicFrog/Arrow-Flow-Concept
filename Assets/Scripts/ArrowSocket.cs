@@ -98,6 +98,7 @@ public class ArrowSocket : MonoBehaviour
                         Spawnable Arrow = Instantiate(ArrowPrefab, transform.position, Quaternion.identity);
                         Arrow.Init(CurType, person.transform, () =>
                         {
+                            AudioManager.Instance.Play(AudioManager.Instance.ArrowHitSound);
                             person.Damage();
                             Destroy(Arrow.gameObject);
 
