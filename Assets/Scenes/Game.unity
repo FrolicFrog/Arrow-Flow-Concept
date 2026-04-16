@@ -29059,7 +29059,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NoPostProcessLayerIdx: 3
-  FirstLvlHintText: Tap shooter to place arrows into the conveyer.
+  FirstLvlHintText: Tap shooter to place arrows into the conveyer
   FirstLvlSecondHintText: Wait for arrows to shoot
 --- !u!1 &1101558376
 GameObject:

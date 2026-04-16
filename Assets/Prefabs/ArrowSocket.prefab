@@ -77,7 +77,7 @@ MonoBehaviour:
   ArrowObject: {fileID: 3211323340556637258}
   IsOccupied: 0
   IsReady: 0
-  OriginalDuration: 7.2
+  OriginalDuration: 6.5
   IncreasedSpeedDuration: 4
   SlowMotionSpeedDuration: 250
 --- !u!1 &3211323340556637258
