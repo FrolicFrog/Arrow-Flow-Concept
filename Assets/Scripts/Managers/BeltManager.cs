@@ -30,6 +30,7 @@ public class BeltManager : Singleton<BeltManager>
 
 
     public event Action<ArrowSocket> OnSocketOccupied;
+    public event Action<ArrowSocket> OnSocketEmptied;
     private readonly List<ArrowSocket> Sockets = new();
     private Tween DangerLabelAnim = null;
     public bool OverridingColor { get; set; }
@@ -129,10 +130,11 @@ public class BeltManager : Singleton<BeltManager>
         arrowSocket.IsReady = false;
         arrowSocket.IsOccupied = false;
         arrowSocket.ArrowObject.SetActive(false);
-
+        SocketEmptied(arrowSocket);
         CurOccupied--;
         UpdateProgressbar();
     }
+
 
     private Vector3 originalScale;
 
@@ -175,6 +177,11 @@ public class BeltManager : Singleton<BeltManager>
     public void SocketOccupied(ArrowSocket socket)
     {
         OnSocketOccupied?.Invoke(socket);
+    }
+    
+    private void SocketEmptied(ArrowSocket socket)
+    {
+        OnSocketEmptied?.Invoke(socket);
     }
 
     public void UpdateSpeed(bool useIncreasedSpeed)

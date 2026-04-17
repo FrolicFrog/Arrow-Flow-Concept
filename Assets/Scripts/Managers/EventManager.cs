@@ -17,6 +17,7 @@ public class EventManager : Singleton<EventManager>
         CrowdManager.Instance.OnCrowdPersonKilled += (_) => CheckForLvlCompletion();
         LevelManager.Instance.OnItemUsed += (_) => UpdateBeltSpeed();
         BeltManager.Instance.OnSocketOccupied += (_) => UpdateBeltSpeed();
+        BeltManager.Instance.OnSocketEmptied += (_) => UpdateBeltSpeed();
         BeltManager.Instance.OnSocketOccupied += FirstHalfFillWarning;
         BeltManager.Instance.OnSocketOccupied += (_) => AudioManager.Instance.Play(AudioManager.Instance.SocketOccupiedSound);
     }
