@@ -255,27 +255,9 @@ public class PowerupManager : Singleton<PowerupManager>
 
     private void UseMultiplierPowerup(bool showTutorial, string message)
     {
-        if (showTutorial)
-        {
-            SetTutorialShown(PowerupType.MULTIPLIER);
-            Utilities.AssignLayerRecursively(Portal.Instance.transform, TutorialManager.Instance.NoPostProcessLayerIdx);
-            PostProcessingManager.Instance.AnimateDimmedExposure();
-            GameManager.Instance.GlobalInputEnabled = false;
-            UIManager.Instance.ShowHintBox(message);
-            Portal.Instance.OpenPortal(Portal.Instance.PortalDuration + 3f);
-            DOVirtual.DelayedCall(3f, () =>
-            {
-                UIManager.Instance.DismissHintBox();
-                Utilities.AssignLayerRecursively(Portal.Instance.transform, 0);
-                GameManager.Instance.GlobalInputEnabled = true;
-                PostProcessingManager.Instance.AnimateNormalExposure();
-                EnableAllPowerups();
-            });
-        }
-        else
-        {
-            Portal.Instance.OpenPortal();
-        }
+        PostProcessingManager.Instance.AnimateNormalExposure();
+        GameManager.Instance.GlobalInputEnabled = true;
+        Portal.Instance.OpenPortal();
     }
 
     private void UseBeltCapacityPowerup(bool ShowTutorial = false, string message = null)
