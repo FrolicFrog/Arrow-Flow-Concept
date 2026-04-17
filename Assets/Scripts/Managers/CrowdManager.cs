@@ -66,7 +66,7 @@ public class CrowdManager : Singleton<CrowdManager>
                     {
                         person.IsWalking = true;
                         person.transform.DOKill();
-                        person.transform.DOLocalMove(targetPos, 0.5f)
+                        person.transform.DOLocalMove(targetPos, ReferenceManager.Instance.ForwardComingDuration)
                         .OnStart(() => person.IsWalking = true)
                         .OnComplete(() => person.IsWalking = false);
                     }

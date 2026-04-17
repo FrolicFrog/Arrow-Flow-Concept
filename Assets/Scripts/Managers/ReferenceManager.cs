@@ -26,6 +26,9 @@ public class ReferenceManager : Singleton<ReferenceManager>
     public float KeyedOutlineWidth = 56f;
     private Vector2 currentOffset = Vector2.zero;
 
+    [Header("CROWD SETTINGS")]
+    public float ForwardComingDuration = 0.5f;
+
     public Dictionary<Vector2Int, Lock> KeyIdToLockedItem = new();
     public Dictionary<Vector2Int, Spawner> IdToSpawner = new();
 

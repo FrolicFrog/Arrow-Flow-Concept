@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ff4c2f76ea0734494da7214b6649f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestLevelToLoad: 1
+  TestLevelToLoad: 18
   SpawnItemPrefab: {fileID: 2632661987628473247, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
   LockItemPrefab: {fileID: 5290314347958245746, guid: cdb3dda65d7507a4693f6ee923f5ac40, type: 3}
   CrowdElementPrefab: {fileID: 6206104431016008360, guid: 18874d00b0ccff34fbce27473fa1c37c, type: 3}
@@ -17116,7 +17116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b93cb4def87a0a49b33e996a1792782, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PortalDuration: 15
+  PortalDuration: 25
   PortalZPos:
     From: 0
     To: 0
@@ -32424,7 +32424,7 @@ MonoBehaviour:
       Red: {fileID: 2100000, guid: 9c7bc45c4d789b545b179a5dae41758d, type: 2}
       Green: {fileID: 2100000, guid: 761e79481b0affc44934c87fe39f0a66, type: 2}
       Yellow: {fileID: 2100000, guid: 30d534a533917dc498264f372a3312bb, type: 2}
-      Blue: {fileID: 2100000, guid: 1ec4390e1c905f841b5d91bc19a2ae90, type: 2}
+      Blue: {fileID: 2100000, guid: 83d471d5e1d9f834b905c21d8509c001, type: 2}
       Pink: {fileID: 2100000, guid: 6d85a2e71f8447543876ca276d0a5960, type: 2}
       Cyan: {fileID: 2100000, guid: bdfac558144e32e47945d1f7b4268a94, type: 2}
       Brown: {fileID: 2100000, guid: 59dd945d327cf0c4c9952aab8b186481, type: 2}
@@ -32442,6 +32442,7 @@ MonoBehaviour:
   ScrollSpeed: 0.1
   KeyedOutlineColor: {r: 0, g: 0, b: 0, a: 1}
   KeyedOutlineWidth: 350
+  ForwardComingDuration: 0.25
   ActiveArrows: []
 --- !u!1 &2105620780
 GameObject:
