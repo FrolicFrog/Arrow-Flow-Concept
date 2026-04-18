@@ -456,7 +456,7 @@ Material:
     - _OutlineOverridden: 0
     - _OutlineVisible: 1
     - _OutlineWidth: 0.15
-    - _Outline_Width: 85
+    - _Outline_Width: 350
     - _PPDLodThreshold: 5
     - _PPDMaxSamples: 15
     - _PPDMinSamples: 5

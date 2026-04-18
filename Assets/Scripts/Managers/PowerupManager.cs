@@ -222,7 +222,7 @@ public class PowerupManager : Singleton<PowerupManager>
 
         ToExchange.Add(s);
         s.CountLabel.color = Color.cyan;
-        s.Renderer.material.SetColor("_Outline_Color", Color.cyan);
+        s.Renderer.material.SetColor("_OutlineColor", Color.cyan);
 
         if (ToExchange.Count == 2)
         {
@@ -271,10 +271,10 @@ public class PowerupManager : Singleton<PowerupManager>
         seq.Join(spawner2.transform.DOLocalMove(pos1, 0.4f).SetEase(Ease.InOutBack));
 
         spawner1.CountLabel.color = new Color(Color.white.r, Color.white.g, Color.white.b, spawner1.IsAtFront() ? 1f : 0.5f);
-        spawner1.Renderer.material.SetColor("_Outline_Color", Color.black);
+        spawner1.Renderer.material.SetColor("_OutlineColor", Color.black);
 
         spawner2.CountLabel.color = new Color(Color.white.r, Color.white.g, Color.white.b, spawner2.IsAtFront() ? 1f : 0.5f);
-        spawner2.Renderer.material.SetColor("_Outline_Color", Color.black);
+        spawner2.Renderer.material.SetColor("_OutlineColor", Color.black);
 
         return seq;
     }
