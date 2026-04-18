@@ -90,7 +90,6 @@ public class PowerupManager : Singleton<PowerupManager>
         if (showTutorial)
         {
             SetTutorialShown(PowerupType.EXCHANGE);
-            UIManager.Instance.ShowHintBox(message);
             if (LevelManager.Instance.Rows.Length < 2)
             {
                 Debug.LogError("Need at least two columns to make the tutorial work");
@@ -99,6 +98,20 @@ public class PowerupManager : Singleton<PowerupManager>
 
             VisualRows Row1 = LevelManager.Instance.Rows[0];
             VisualRows Row2 = LevelManager.Instance.Rows[1];
+
+            for(int i = 0; i < LevelManager.Instance.Rows.Length; i++)
+            {
+                if(i == 0 || i == 1) continue;
+                VisualRows VRs = LevelManager.Instance.Rows[i];
+                List<Item> Items = VRs.ToList();
+
+                foreach(Item I in Items)
+                {
+                    if(I is not Spawner s) continue;
+                    s.CanTakeSecondaryActionInput = false;
+                }
+            }
+
 
             Spawner S1 = null;
             List<Item> ItemList1 = Row1.ToList();
@@ -139,24 +152,25 @@ public class PowerupManager : Singleton<PowerupManager>
     {
         s1.SetFingerAnimationVisible(true);
 
-        System.Action s1Handler = null;
-        s1Handler = () =>
+        void s1Handler()
         {
             s1.OnSecondaryActionClick -= s1Handler;
+
 
             s1.SetFingerAnimationVisible(false);
             s2.SetFingerAnimationVisible(true);
             s2.CanTakeSecondaryActionInput = true;
+            s1.CanTakeSecondaryActionInput = false;
 
             void s2Handler()
             {
                 s2.OnSecondaryActionClick -= s2Handler;
                 s2.SetFingerAnimationVisible(false);
 
-                Sequence Seq = ExchangeSpawners(ToExchange[0], ToExchange[1]);
+
+                Sequence Seq = ExchangeSpawners(s1, s2);
                 IsTakingSpawnerInputForExchangePowerup = false;
                 ToExchange = null;
-                UIManager.Instance.DismissHintBox();
                 PostProcessingManager.Instance.AnimateNormalExposure();
                 GameManager.Instance.GlobalInputEnabled = true;
 
@@ -164,6 +178,19 @@ public class PowerupManager : Singleton<PowerupManager>
                 {
                     if (V == null) continue;
                     Utilities.AssignLayerRecursively(V.transform, 0);
+                }
+
+                for(int i = 0; i < LevelManager.Instance.Rows.Length; i++)
+                {
+                    if(i == 0 || i == 1) continue;
+                    VisualRows VRs = LevelManager.Instance.Rows[i];
+                    List<Item> Items = VRs.ToList();
+                    
+                    foreach(Item I in Items)
+                    {
+                        if(I is not Spawner s) continue;
+                        s.CanTakeSecondaryActionInput = true;
+                    }
                 }
 
                 Seq.OnComplete(() =>
@@ -174,7 +201,7 @@ public class PowerupManager : Singleton<PowerupManager>
             }
 
             s2.OnSecondaryActionClick += s2Handler;
-        };
+        }
 
         s1.OnSecondaryActionClick += s1Handler;
     }
@@ -202,7 +229,6 @@ public class PowerupManager : Singleton<PowerupManager>
             Sequence Seq = ExchangeSpawners(ToExchange[0], ToExchange[1]);
             IsTakingSpawnerInputForExchangePowerup = false;
             ToExchange = null;
-            UIManager.Instance.DismissHintBox();
             PostProcessingManager.Instance.AnimateNormalExposure();
             GameManager.Instance.GlobalInputEnabled = true;
 
