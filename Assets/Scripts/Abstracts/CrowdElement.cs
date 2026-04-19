@@ -25,19 +25,30 @@ public class CrowdElement : MonoBehaviour
 
     public virtual void Init(CrowdElementData crowdElement)
     {
-        Material Mat = ReferenceManager.Instance.PersonMaterials.GetMaterial(crowdElement.Type);
+        Material mat = ReferenceManager.Instance.PersonMaterials.GetMaterial(crowdElement.Type);
 
-        Array.ForEach(Renderers, r => r.material = Mat);
+        foreach (var r in Renderers)
+        {
+            r.sharedMaterial = mat;
+        }
 
         Type = crowdElement.Type;
         IsKeyed = crowdElement.IsKeyed;
 
         if (IsKeyed)
-            Array.ForEach(Renderers, r =>
+        {
+            var block = new MaterialPropertyBlock();
+
+            foreach (var r in Renderers)
             {
-                r.material.SetColor("_Outline_Color", ReferenceManager.Instance.KeyedOutlineColor);
-                r.material.SetFloat("_Outline_Width", ReferenceManager.Instance.KeyedOutlineWidth);
-            });
+                r.GetPropertyBlock(block);
+
+                block.SetColor("_OutlineColor", ReferenceManager.Instance.KeyedOutlineColor);
+                block.SetFloat("_OutlineWidth", ReferenceManager.Instance.KeyedOutlineWidth);
+
+                r.SetPropertyBlock(block);
+            }
+        }
     }
 
     private void OnDrawGizmos()
