@@ -109,7 +109,7 @@ public class PowerupManager : Singleton<PowerupManager>
             }
 
             foreach(var spawner in Spawner.AllSpawners)
-                spawner.Interactable = spawner.Equals(S1);
+                spawner.IsInteractable = spawner.Equals(S1);
 
             S2.CanTakeSecondaryActionInput = false;
             SetupFlowActionListeners(S1, S2);
@@ -118,7 +118,7 @@ public class PowerupManager : Singleton<PowerupManager>
         {
             foreach(var spawner in Spawner.AllSpawners)
             {
-                spawner.Interactable = true;
+                spawner.IsInteractable = true;
                 spawner.CanTakeSecondaryActionInput = true;
                 spawner.CanAddSpawnerForExchange = true;
             }
@@ -158,7 +158,7 @@ public class PowerupManager : Singleton<PowerupManager>
             s1.CanTakeSecondaryActionInput = false;
 
             foreach(var spawner in Spawner.AllSpawners)
-                spawner.Interactable = spawner.Equals(s2);
+                spawner.IsInteractable = spawner.Equals(s2);
 
             void s2Handler()
             {
@@ -181,7 +181,7 @@ public class PowerupManager : Singleton<PowerupManager>
                 }
 
                 foreach(var spawner in Spawner.AllSpawners)
-                    spawner.Interactable = true;
+                    spawner.IsInteractable = true;
 
                 for (int i = 0; i < LevelManager.Instance.Rows.Length; i++)
                 {

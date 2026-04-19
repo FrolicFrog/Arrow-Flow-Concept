@@ -54,7 +54,8 @@ public class Spawner : Item, IClickable
 
     private List<Vector2Int> ConnectedSpawnerIds = new();
     private Item ThisItem => this as Item;
-    public bool Interactable = false;
+    public bool IsInteractable = true;
+
     public static List<Spawner> AllSpawners = new();
 
     private void OnEnable()
@@ -189,7 +190,7 @@ public class Spawner : Item, IClickable
 
     public void OnClick()
     {
-        if(!Interactable) return;
+        if(!IsInteractable) return;
         AudioManager.Instance.Play(AudioManager.Instance.TapSound);
         
         if (PowerupManager.Instance.IsTakingSpawnerInputForExchangePowerup || TutorialManager.Instance.IsTakingSpawnerInputForTutorial)
@@ -200,6 +201,8 @@ public class Spawner : Item, IClickable
                 if(CanAddSpawnerForExchange) PowerupManager.Instance.AddSpawnerToExchange(this);
                 OnSecondaryActionClick?.Invoke();
             }
+
+            Debug.Log("ON CLICK BUTTON CLICKED");
 
             return;
         }
