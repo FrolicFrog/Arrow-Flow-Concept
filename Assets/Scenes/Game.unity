@@ -166,7 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70ff4c2f76ea0734494da7214b6649f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestLevelToLoad: 5
+  TestLevelToLoad: 11
   DebugTxt: 
   SpawnItemPrefab: {fileID: 2632661987628473247, guid: 370ca8e716e7b0a44a7d19fc3f641be1, type: 3}
   LockItemPrefab: {fileID: 5290314347958245746, guid: cdb3dda65d7507a4693f6ee923f5ac40, type: 3}
@@ -30516,7 +30516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d8569eeed98d004899cf497ca9a2936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestMode: 1
+  TestMode: 0
   ForceTestLevel: -1
   TargetFPS: 60
   MaxLvl: 57
@@ -30899,7 +30899,7 @@ MonoBehaviour:
     DefaultQuantityBackgroundImg: {fileID: -2413806693520163455, guid: d193c2cbe9784804e80b5bf02b00bbb5, type: 3}
     AdIconImg: {fileID: 21300000, guid: c9235289d4c01be478f490558be02d68, type: 3}
     type: 0
-    UnlocksAt: 18
+    UnlocksAt: 13
     EnabledGraphic: {fileID: 21300000, guid: 80457d56042eb14409f1c455ce28f7e9, type: 3}
     PowerupGraphic: {fileID: 148170630}
     ActionBtn: {fileID: 148170629}
@@ -30914,7 +30914,7 @@ MonoBehaviour:
     DefaultQuantityBackgroundImg: {fileID: -2413806693520163455, guid: d193c2cbe9784804e80b5bf02b00bbb5, type: 3}
     AdIconImg: {fileID: 21300000, guid: c9235289d4c01be478f490558be02d68, type: 3}
     type: 2
-    UnlocksAt: 35
+    UnlocksAt: 17
     EnabledGraphic: {fileID: 21300000, guid: 10d8f0e8dfd180640976ae3b534fceec, type: 3}
     PowerupGraphic: {fileID: 321783386}
     ActionBtn: {fileID: 321783385}
