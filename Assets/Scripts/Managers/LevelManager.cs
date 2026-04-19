@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 public class LevelManager : Singleton<LevelManager>
 {
     [HideInInspector] public int TestLevelToLoad = 1;
+    [TextArea(4,9)] public string DebugTxt;
+
 
     [Header("REFERENCES")]
     [SerializeField] private Spawner SpawnItemPrefab;
@@ -62,6 +64,14 @@ public class LevelManager : Singleton<LevelManager>
         BeltManager.Instance.Initialize();
         UIManager.Instance.Initialize();
         GameManager.Instance.Initialize();
+    }
+
+    private void Update()
+    {
+        DebugTxt = "";
+
+        foreach(VisualRows R in RowsTransform)
+            DebugTxt += R.ToString() + "\n";
     }
 
     private void SpawnCrowdElements()

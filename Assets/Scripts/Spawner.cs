@@ -47,16 +47,20 @@ public class Spawner : Item, IClickable
     private bool HasConnection;
     private bool HasShotAll = false;
     public bool IgnoreHandVisibilityRequests = false;
+    public bool CanAddSpawnerForExchange = true;
 
     public bool HasCompleted { get; private set; } = false;
     public int Layer => Renderer.gameObject.layer;
 
     private List<Vector2Int> ConnectedSpawnerIds = new();
     private Item ThisItem => this as Item;
+    public bool Interactable = false;
+    public static List<Spawner> AllSpawners = new();
 
     private void OnEnable()
     {
         GameManager.Instance.OnGameStarted += CreateVisualConnections;
+        AllSpawners.Add(this);
     }
 
     public void SetFingerAnimationVisible(bool visible)
@@ -185,14 +189,15 @@ public class Spawner : Item, IClickable
 
     public void OnClick()
     {
+        if(!Interactable) return;
         AudioManager.Instance.Play(AudioManager.Instance.TapSound);
+        
         if (PowerupManager.Instance.IsTakingSpawnerInputForExchangePowerup || TutorialManager.Instance.IsTakingSpawnerInputForTutorial)
         {
             if (CanTakeSecondaryActionInput)
             {
                 transform.DOScale(transform.localScale * ScaleMultiplier, ScaleAnimationDuration).SetLoops(2, LoopType.Yoyo);
-
-                PowerupManager.Instance.AddSpawnerToExchange(this);
+                if(CanAddSpawnerForExchange) PowerupManager.Instance.AddSpawnerToExchange(this);
                 OnSecondaryActionClick?.Invoke();
             }
 

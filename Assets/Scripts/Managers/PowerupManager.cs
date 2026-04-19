@@ -22,11 +22,11 @@ public class PowerupManager : Singleton<PowerupManager>
 
     public void UsePowerup(PowerupType type, bool ShowTutorial = false, string Message = null)
     {
-        if(TryShowAdIfNotAvailable(type)) return;
+        if (TryShowAdIfNotAvailable(type)) return;
 
         if (type == PowerupType.BELTCAPACITY)
         {
-            if(BeltManager.Instance.TotalSockets < 100)
+            if (BeltManager.Instance.TotalSockets < 100)
             {
                 UseBeltCapacityPowerup(ShowTutorial && !TutorialAlreadyShown(type), Message);
                 AnalyticsManager.PowerupUsed(LevelManager.Instance.CurrentLevelNumber, type.ToString());
@@ -59,7 +59,7 @@ public class PowerupManager : Singleton<PowerupManager>
     private bool TryShowAdIfNotAvailable(PowerupType type)
     {
         Powerup BeltCapacityPowerup = Powerups.FirstOrDefault(P => P.type == PowerupType.BELTCAPACITY);
-        if(BeltCapacityPowerup.QuantityOwned <= 0)
+        if (BeltCapacityPowerup.QuantityOwned <= 0)
         {
             AnalyticsManager.TryShowRewardedAd("placement", () => BeltCapacityPowerup.QuantityOwned += 1);
             return true;
@@ -99,74 +99,74 @@ public class PowerupManager : Singleton<PowerupManager>
             VisualRows Row1 = LevelManager.Instance.Rows[0];
             VisualRows Row2 = LevelManager.Instance.Rows[1];
 
-            for(int i = 0; i < LevelManager.Instance.Rows.Length; i++)
-            {
-                if(i == 0 || i == 1) continue;
-                VisualRows VRs = LevelManager.Instance.Rows[i];
-                List<Item> Items = VRs.ToList();
-
-                foreach(Item I in Items)
-                {
-                    if(I is not Spawner s) continue;
-                    s.CanTakeSecondaryActionInput = false;
-                }
-            }
-
-
-            Spawner S1 = null;
-            List<Item> ItemList1 = Row1.ToList();
-            for (int i = 0; i < ItemList1.Count; i++)
-            {
-                var spawner = ItemList1[i] as Spawner;
-                if (spawner == null) continue;
-
-                spawner.CanTakeSecondaryActionInput = i == 0;
-                if (i == 0)
-                    S1 = spawner;
-            }
-
-            Spawner S2 = null;
-            List<Item> ItemList2 = Row2.ToList();
-            for (int i = 0; i < ItemList2.Count; i++)
-            {
-                var spawner = ItemList2[i] as Spawner;
-                if (spawner == null) continue;
-
-                spawner.CanTakeSecondaryActionInput = i == 1;
-                if (i == 1)
-                    S2 = spawner;
-            }
-
+            Spawner S1 = EnableIndex(Row1.ToList(), 0);
+            Spawner S2 = EnableIndex(Row2.ToList(), 1);
+            
             if (S1 == null || S2 == null)
             {
                 Debug.LogError("Invalid tutorial spawners");
                 return;
             }
-            
+
+            foreach(var spawner in Spawner.AllSpawners)
+                spawner.Interactable = spawner.Equals(S1);
+
             S2.CanTakeSecondaryActionInput = false;
             SetupFlowActionListeners(S1, S2);
         }
+        else
+        {
+            foreach(var spawner in Spawner.AllSpawners)
+            {
+                spawner.Interactable = true;
+                spawner.CanTakeSecondaryActionInput = true;
+                spawner.CanAddSpawnerForExchange = true;
+            }
+        }
+    }
+
+    private Spawner EnableIndex(List<Item> items, int idx)
+    {
+        Spawner S = null;
+        for (int i = 0; i < items.Count; i++)
+        {
+            var spawner = items[i] as Spawner;
+            if (spawner == null) continue;
+
+            spawner.CanTakeSecondaryActionInput = i == 0;
+            if (i == idx) S = spawner;
+        }
+
+        return S;
     }
 
     private void SetupFlowActionListeners(Spawner s1, Spawner s2)
     {
         s1.SetFingerAnimationVisible(true);
+        s1.CanAddSpawnerForExchange = false;
+        s2.CanAddSpawnerForExchange = false;
 
         void s1Handler()
         {
             s1.OnSecondaryActionClick -= s1Handler;
-
+            s1.CountLabel.color = Color.cyan;
+            s1.Renderer.material.SetColor("_OutlineColor", Color.cyan);
 
             s1.SetFingerAnimationVisible(false);
             s2.SetFingerAnimationVisible(true);
             s2.CanTakeSecondaryActionInput = true;
             s1.CanTakeSecondaryActionInput = false;
 
+            foreach(var spawner in Spawner.AllSpawners)
+                spawner.Interactable = spawner.Equals(s2);
+
             void s2Handler()
             {
                 s2.OnSecondaryActionClick -= s2Handler;
                 s2.SetFingerAnimationVisible(false);
 
+                s1.CountLabel.color = Color.black;
+                s1.Renderer.material.SetColor("_OutlineColor", Color.black);
 
                 Sequence Seq = ExchangeSpawners(s1, s2);
                 IsTakingSpawnerInputForExchangePowerup = false;
@@ -180,15 +180,18 @@ public class PowerupManager : Singleton<PowerupManager>
                     Utilities.AssignLayerRecursively(V.transform, 0);
                 }
 
-                for(int i = 0; i < LevelManager.Instance.Rows.Length; i++)
+                foreach(var spawner in Spawner.AllSpawners)
+                    spawner.Interactable = true;
+
+                for (int i = 0; i < LevelManager.Instance.Rows.Length; i++)
                 {
-                    if(i == 0 || i == 1) continue;
+                    if (i == 0 || i == 1) continue;
                     VisualRows VRs = LevelManager.Instance.Rows[i];
                     List<Item> Items = VRs.ToList();
-                    
-                    foreach(Item I in Items)
+
+                    foreach (Item I in Items)
                     {
-                        if(I is not Spawner s) continue;
+                        if (I is not Spawner s) continue;
                         s.CanTakeSecondaryActionInput = true;
                     }
                 }
@@ -245,6 +248,7 @@ public class PowerupManager : Singleton<PowerupManager>
             });
         }
     }
+
     private Sequence ExchangeSpawners(Spawner spawner1, Spawner spawner2)
     {
         Sequence seq = DOTween.Sequence();
@@ -260,6 +264,9 @@ public class PowerupManager : Singleton<PowerupManager>
 
         spawner1.Row = Row2;
         spawner2.Row = Row1;
+
+        spawner1.VisualRowIndex = Idx2;
+        spawner2.VisualRowIndex = Idx1;
 
         Vector3 pos1 = spawner1.transform.localPosition;
         Vector3 pos2 = spawner2.transform.localPosition;
@@ -285,7 +292,6 @@ public class PowerupManager : Singleton<PowerupManager>
         GameManager.Instance.GlobalInputEnabled = true;
         Portal.Instance.OpenPortal();
     }
-
     private void UseBeltCapacityPowerup(bool ShowTutorial = false, string message = null)
     {
         if (ShowTutorial)

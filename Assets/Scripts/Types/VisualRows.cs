@@ -108,5 +108,19 @@ namespace ArrowFlowGame.Types
 
             return stack;
         }
+
+        public override string ToString()
+        {
+            string result = "";
+            foreach (Item item in _itemsInRows)
+            {
+                if(item == null || item is not Spawner s) continue;
+                
+                result += s.Type.ToString() + " ";
+            }
+                
+
+            return result;
+        }
     }
 }
