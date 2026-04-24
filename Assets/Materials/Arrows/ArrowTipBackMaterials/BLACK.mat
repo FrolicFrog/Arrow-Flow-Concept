@@ -420,7 +420,7 @@ Material:
     - _MatCap: 0
     - _MatCapUVScale: 0
     - _MaterialID: 1
-    - _Metallic: 0
+    - _Metallic: 1
     - _Mode: 0
     - _Nearest_Distance: 0
     - _NormalMapSpace: 0
@@ -473,22 +473,22 @@ Material:
     - _Set_SystemShadowsToBase: 1
     - _ShadeColor_Step: 0.702
     - _Shadow1Feather: 0.529
-    - _Shadow1Step: 0.617
+    - _Shadow1Step: 0.581
     - _Shadow2Feather: 0.233
     - _Shadow2Step: 0.488
     - _ShadowType: 0
-    - _Smoothness: 0.459
+    - _Smoothness: 1
     - _SmoothnessRemapMax: 1
     - _SmoothnessRemapMin: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularAAScreenSpaceVariance: 0.1
     - _SpecularAAThreshold: 0.2
-    - _SpecularFeather: 0
+    - _SpecularFeather: 1
     - _SpecularHighlights: 1
     - _SpecularOcclusionMode: 1
     - _SpecularShift: 0
     - _SpecularShiftIntensity: 1
-    - _SpecularStep: 0.5
+    - _SpecularStep: 0.655
     - _SpecularType: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
