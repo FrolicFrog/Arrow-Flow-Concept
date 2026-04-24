@@ -1,7 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <dependencies>
   <androidPackages>
-    <androidPackage spec="com.adjust.sdk:adjust-android-google-lvl:5.+@aar" />
+    <androidPackage spec="com.adjust.sdk:adjust-android-google-lvl:5.5.0+@aar" />
   </androidPackages>
   <iosPods>
     <iosPod name="Adjust/AdjustGoogleOdm" version=">=0.0.0" minTargetSdk="12.0"/>

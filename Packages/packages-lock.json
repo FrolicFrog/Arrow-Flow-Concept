@@ -175,20 +175,6 @@
       "dependencies": {},
       "url": "https://unity.packages.applovin.com"
     },
-    "com.applovin.mediation.adapters.pubmatic.android": {
-      "version": "4120000.0.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://unity.packages.applovin.com"
-    },
-    "com.applovin.mediation.adapters.pubmatic.ios": {
-      "version": "4120000.0.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://unity.packages.applovin.com"
-    },
     "com.applovin.mediation.adapters.smaato.android": {
       "version": "22070203.0.0",
       "depth": 0,
