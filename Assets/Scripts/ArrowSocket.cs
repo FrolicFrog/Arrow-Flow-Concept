@@ -92,9 +92,9 @@ public class ArrowSocket : MonoBehaviour
                 if (elem == null) continue;
                 if (elem is Person person)
                 {
-                    if (person.Type == CurType && (!person.AlreadyTarget || person is Giant) && !person.IsWalking)
+                    if (person.Type == CurType && person.TargetedCount < person.RequiredHits && !person.IsWalking)
                     {
-                        person.AlreadyTarget = true;
+                        person.TargetedCount++;
 
                         Spawnable Arrow = Instantiate(ArrowPrefab, transform.position, Quaternion.identity);
                         Arrow.Init(CurType, person.transform, () =>
@@ -109,7 +109,7 @@ public class ArrowSocket : MonoBehaviour
                             }
                             else
                             {
-                                person.AlreadyTarget = false;
+                                person.TargetedCount--;
                             }
                         }, UnityEngine.Random.Range(0, 10) <= 6);
 

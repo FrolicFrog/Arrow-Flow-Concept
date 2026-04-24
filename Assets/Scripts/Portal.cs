@@ -82,9 +82,9 @@ public class Portal : Singleton<Portal>
                 if (elem == null) continue;
                 if (elem is Person person)
                 {
-                    if(person.Type == arrow.Type && (!person.AlreadyTarget || person is Giant) && !person.IsWalking)
+                    if(person.Type == arrow.Type && person.TargetedCount < person.RequiredHits && !person.IsWalking)
                     {
-                        person.AlreadyTarget = true;
+                        person.TargetedCount++;
 
                         Arrow ClonedArrow = Instantiate(arrow, arrow.transform.position, arrow.transform.rotation);
                         ClonedArrow.ClonedBy = arrow;
@@ -100,7 +100,7 @@ public class Portal : Singleton<Portal>
                             }
                             else
                             {
-                                person.AlreadyTarget = false;
+                                person.TargetedCount--;
                             }
                         }, UnityEngine.Random.Range(0,10) <= 6);
 

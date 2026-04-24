@@ -11,6 +11,7 @@ public class LevelEditor : EditorWindow
     private bool IsItemsSectionExpanded = false;
     private bool IsLevelSectionExpanded = false;
     private bool IsCrowdSectionExpaneded = false;
+    private bool IsStatsSectionExpanded = false;
 
     private LevelData CurLvlData => Resources.Load<LevelData>("Levels/" + CurLvlNum);
     private int CurLvlNum = 1;
@@ -145,6 +146,7 @@ public class LevelEditor : EditorWindow
         LevelSettings();
         ItemsSettings();
         CrowdSettings();
+        LevelStats();
         Actions();
         Shortcuts();
         EditorGUILayout.EndScrollView();
@@ -269,6 +271,91 @@ public class LevelEditor : EditorWindow
             }
 
             GUILayout.FlexibleSpace();
+            GUILayout.EndHorizontal();
+        }
+
+        GUILayout.EndVertical();
+    }
+
+    private void LevelStats()
+    {
+        GUILayout.BeginVertical(boxStyle);
+        DropDownHeader(ref IsStatsSectionExpanded, "Level Statistics");
+
+        if (!IsStatsSectionExpanded)
+        {
+            GUILayout.EndVertical();
+            return;
+        }
+
+        HorizontalLineAndSpace();
+
+        Dictionary<ItemType, int> requiredArrows = new Dictionary<ItemType, int>();
+        Dictionary<ItemType, int> availableArrows = new Dictionary<ItemType, int>();
+
+        if (_CrowdSpawnData != null)
+        {
+            for (int row = 0; row < _CrowdSpawnData.Height; row++)
+            {
+                for (int col = 0; col < _CrowdSpawnData.Width; col++)
+                {
+                    CrowdElementData element = _CrowdSpawnData[row, col];
+                    if (element != null && element.Type != ItemType.NONE)
+                    {
+                        if (!requiredArrows.ContainsKey(element.Type)) requiredArrows[element.Type] = 0;
+                        requiredArrows[element.Type] += element.RequiredHits;
+                    }
+                }
+            }
+        }
+
+        if (_ItemSpawnData != null)
+        {
+            for (int r = 0; r < _ItemSpawnData.RowsCount; r++)
+            {
+                ItemsRow rowData = _ItemSpawnData[r];
+                for (int c = 0; c < rowData.Count; c++)
+                {
+                    if (rowData[c] is SpawnItemData spawnItem && spawnItem.Type != ItemType.NONE)
+                    {
+                        if (!availableArrows.ContainsKey(spawnItem.Type)) availableArrows[spawnItem.Type] = 0;
+                        availableArrows[spawnItem.Type] += spawnItem.SpawnCount;
+                    }
+                }
+            }
+        }
+
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Arrow Type", EditorStyles.boldLabel, GUILayout.Width(120));
+        GUILayout.Label("Required", EditorStyles.boldLabel, GUILayout.Width(80));
+        GUILayout.Label("Available", EditorStyles.boldLabel, GUILayout.Width(80));
+        GUILayout.Label("Balance", EditorStyles.boldLabel, GUILayout.Width(80));
+        GUILayout.EndHorizontal();
+
+        HashSet<ItemType> allTypes = new HashSet<ItemType>(requiredArrows.Keys);
+        allTypes.UnionWith(availableArrows.Keys);
+
+        foreach (ItemType type in allTypes)
+        {
+            int req = requiredArrows.ContainsKey(type) ? requiredArrows[type] : 0;
+            int avail = availableArrows.ContainsKey(type) ? availableArrows[type] : 0;
+            int diff = avail - req;
+
+            GUILayout.BeginHorizontal();
+            
+            Color oldColor = GUI.color;
+            if (Utilities.TryGetColor(type, out Color curColor)) GUI.color = curColor;
+            GUILayout.Label(type.ToString(), EditorStyles.boldLabel, GUILayout.Width(120));
+            GUI.color = oldColor;
+
+            GUILayout.Label(req.ToString(), GUILayout.Width(80));
+            GUILayout.Label(avail.ToString(), GUILayout.Width(80));
+            
+            Color balanceColor = diff < 0 ? Color.red : (diff == 0 ? Color.green : Color.yellow);
+            GUI.color = balanceColor;
+            GUILayout.Label(diff > 0 ? $"+{diff}" : diff.ToString(), EditorStyles.boldLabel, GUILayout.Width(80));
+            GUI.color = oldColor;
+
             GUILayout.EndHorizontal();
         }
 

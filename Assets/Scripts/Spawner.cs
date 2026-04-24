@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 using ArrowFlowGame.Types;
 using DG.Tweening;
@@ -202,17 +203,10 @@ public class Spawner : Item, IClickable
                 OnSecondaryActionClick?.Invoke();
             }
 
-            Debug.Log("ON CLICK BUTTON CLICKED");
-
             return;
         }
 
-        if (Row.FrontItem != this || IsClicked)
-        {
-            Debug.Log("ROw front is : " + Row.FrontItem, Row.FrontItem.gameObject);
-            Debug.Log("Cannot click spawner", gameObject);
-            return;
-        }
+        if (Row.FrontItem != this || IsClicked) return;
 
         HapticsManager.MediumHaptic();
         Quaternion OrgRotation = transform.rotation;
@@ -229,31 +223,39 @@ public class Spawner : Item, IClickable
         .DOScale(transform.localScale * ScaleMultiplier, ScaleAnimationDuration)
         .SetLoops(2, LoopType.Yoyo);
 
-        Sequence seq = DOTween.Sequence();
+        StartCoroutine(SpawnRoutine(ConnectedSpawners, OrgRotation));
+    }
 
-        for (int i = 0; i < SpawnCount; i++)
+    private IEnumerator SpawnRoutine(List<Spawner> ConnectedSpawners, Quaternion OrgRotation)
+    {
+        while (LeftToSpawn > 0)
         {
-            seq.AppendCallback(SpawnItem);
-
-            if (i < SpawnCount - 1)
-                seq.AppendInterval(SpawnDelay);
+            if (BeltManager.TryGetSocket(transform.position, out ArrowSocket Socket))
+            {
+                SpawnItem(Socket);
+                if (LeftToSpawn > 0)
+                {
+                    yield return new WaitForSeconds(SpawnDelay);
+                }
+            }
+            else
+            {
+                yield return null;
+            }
         }
 
-        seq.onComplete += () =>
-        {
-            transform.rotation = OrgRotation;
-            HasShotAll = true;
+        transform.rotation = OrgRotation;
+        HasShotAll = true;
 
-            if (!HasConnection || ConnectedSpawners.Count == 0)
-            {
-                OnComplete();
-            }
-            else if (ConnectedSpawners.TrueForAll(S => S.IsAtFront() && S.HasShotAll))
-            {
-                ConnectedSpawners.ForEach(S => S.OnComplete());
-                OnComplete();
-            }
-        };
+        if (!HasConnection || ConnectedSpawners.Count == 0)
+        {
+            OnComplete();
+        }
+        else if (ConnectedSpawners.TrueForAll(S => S.IsAtFront() && S.HasShotAll))
+        {
+            ConnectedSpawners.ForEach(S => S.OnComplete());
+            OnComplete();
+        }
     }
 
     protected override void OnComplete()
@@ -263,14 +265,8 @@ public class Spawner : Item, IClickable
         base.OnComplete();
     }
 
-    private void SpawnItem()
+    private void SpawnItem(ArrowSocket Socket)
     {
-        if (!BeltManager.TryGetSocket(transform.position, out ArrowSocket Socket))
-        {
-            // EventManager.GameOver();
-            return;
-        }
-
         Socket.Occupied();
         Quaternion LookRot = Quaternion.LookRotation(Socket.transform.position - transform.position);
         Quaternion TargetRot = Quaternion.Euler(transform.rotation.x, LookRot.eulerAngles.y, transform.rotation.z);

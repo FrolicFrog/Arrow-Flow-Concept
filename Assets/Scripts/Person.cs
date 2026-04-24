@@ -31,7 +31,7 @@ public class Person : CrowdElement
         }
     }
 
-    public bool AlreadyTarget { get; set; }
+    public int TargetedCount { get; set; } = 0;
     public int RequiredHits = 1;
     
     private bool IsInFrontRow => CrowdManager.Instance.CurFront.Contains(this);
