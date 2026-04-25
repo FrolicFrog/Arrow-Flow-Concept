@@ -30,14 +30,14 @@ public class Lock : Item
         {
             Destroy(gameObject);
             
-            if (index == 0)
-            {
-                Row.MoveToNext();
-            }
-            else if (index > 0)
-            {
+            // if (index == 0)
+            // {
+                // Row.MoveToNext();
+            // }
+            // else if (index > 0)
+            // {
                 Row.ShiftItemsForward(index);
-            }
+            // }
         }));
     }
 }

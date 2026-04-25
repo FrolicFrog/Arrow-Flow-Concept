@@ -16,6 +16,7 @@ public class LevelManager : Singleton<LevelManager>
     [SerializeField] private Lock LockItemPrefab;
     [SerializeField] private CrowdElement CrowdElementPrefab;
     [SerializeField] private CrowdElement GiantPersonPrefab;
+    [SerializeField] private Transform ItemBasePrefab;
 
     [Header("SETTINGS")]
     [Space(10)]
@@ -139,6 +140,7 @@ public class LevelManager : Singleton<LevelManager>
                 if(data is SpawnItemData SpawnerData)
                 {
                     Spawner SpawnerClone = Instantiate(SpawnItemPrefab, GridPos.position + offset, Quaternion.identity, RowParent);
+                    Transform Base = Instantiate(ItemBasePrefab, GridPos.position + offset, Quaternion.identity, RowParent);
                     SpawnerClone.Init(Items[j], RowsTransform[i], OnItemUsed);
                     RowsTransform[i].Add(SpawnerClone);
                     ReferenceManager.Instance.RegisterSpawner(SpawnerClone, SpawnerData);

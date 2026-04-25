@@ -58,10 +58,7 @@ public class Item : MonoBehaviour
         
         sequence.InsertCallback(ElevationAnimDur * 0.6f, () => 
         {
-            if (index == 0)
-                Row.MoveToNext();
-            else if (index > 0)
-                Row.ShiftItemsForward(index);
+            Row.ShiftItemsForward(index);
         });
         
         sequence.InsertCallback(ElevationAnimDur * 0.8f, () => 

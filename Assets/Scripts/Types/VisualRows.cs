@@ -23,27 +23,7 @@ namespace ArrowFlowGame.Types
             _gridSpacing = GridSpacing;
             MAX_MOVEMENTS = MaxMovement;
         }
-
-        public void MoveToNext()
-        {
-            if(_completedMovements >= MAX_MOVEMENTS) return;
-
-            if(rowsTransform == null)
-            {
-                Debug.LogWarning("No Rows Transform Available to Animate");
-                return;
-            }
-
-            _completedMovements++;
-            rowsTransform.DOMoveZ(rowsTransform.transform.position.z + _gridSpacing.y, 0.5f)
-            .OnComplete(() => {
-                // Saftey check added in case the row is empty when the tween finishes
-                if (_itemsInRows.Count > 0 && _itemsInRows[0] != null)
-                    _itemsInRows[0].OnMoveForward();
-            });
-        }
-
-        // Target and remove specific item (fixes the MissingReferenceException)
+        
         public void Remove(Item item)
         {
             if (_itemsInRows.Contains(item))
@@ -53,7 +33,6 @@ namespace ArrowFlowGame.Types
             }
         }
 
-        // Shifts only the items starting from the gap, leaving items in front of the gap untouched
         public void ShiftItemsForward(int startIndex)
         {
             for (int i = startIndex; i < _itemsInRows.Count; i++)
@@ -61,17 +40,35 @@ namespace ArrowFlowGame.Types
                 Item item = _itemsInRows[i];
                 if (item != null)
                 {
-                    Item currentItem = item; // Capture for lambda
-                    currentItem.transform.DOMoveZ(currentItem.transform.position.z + _gridSpacing.y, 0.5f)
-                        .OnComplete(() => 
-                        {
-                            if (_itemsInRows.Count > 0 && _itemsInRows[0] == currentItem)
-                            {
-                                currentItem.OnMoveForward();
-                            }
-                        });
+                    Item currentItem = item;
+                    var Path = ParabolicPath(currentItem.transform.position, currentItem.transform.position + Vector3.forward * _gridSpacing.y, 6f, 10);
+                    
+                    currentItem.transform.DOPath(Path, 0.5f)
+                    .SetEase(Ease.InOutSine)
+                    .SetDelay(0.1f * (i - startIndex))
+                    .OnComplete(() => 
+                    {
+                        if (_itemsInRows.Count > 0 && _itemsInRows[0] == currentItem)
+                            currentItem.OnMoveForward();
+                    });
                 }
             }
+        }
+
+        private Vector3[] ParabolicPath(Vector3 start, Vector3 end, float height, int pointCount)
+        {
+            Vector3[] path = new Vector3[pointCount];
+
+            for (int i = 0; i < pointCount; i++)
+            {
+                float t = (float)i / (pointCount - 1);
+                Vector3 point = Vector3.Lerp(start, end, t);
+                point.y += Mathf.Sin(t * Mathf.PI) * height;
+
+                path[i] = point;
+            }
+
+            return path;
         }
 
         public int IndexOf(Item item)

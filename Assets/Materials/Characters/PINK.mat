@@ -12,16 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _ALPHACLIP_OFF
-  - _CASTHAIRSHADOWMASK_OFF
-  - _ENABLEMATCAP_OFF
-  - _ENABLESTENCIL_OFF
-  - _INVERSECLIPMASK_OFF
-  - _RECEIVEHAIRSHADOWMASK_OFF
-  - _RIMFLIP_OFF
-  - _SPECULARTYPE_OFF
-  - _USESMOOTHNORMAL_OFF
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
@@ -385,7 +376,7 @@ Material:
     - _HighColor_Power: 0.5
     - _HighlightOverridden: 0
     - _HighlightVisible: 1
-    - _InShadowMapStrength: 1
+    - _InShadowMapStrength: 0
     - _InvTilingScale: 1
     - _InverseClipMask: 0
     - _Inverse_Clipping: 0
@@ -459,7 +450,7 @@ Material:
     - _RenderQueue: 2000
     - _RimBlendLdotV: 0
     - _RimBlendShadow: 0
-    - _RimFeather: 0.5
+    - _RimFeather: 0
     - _RimFlip: 0
     - _RimLight: 0
     - _RimLightOverridden: 0
@@ -467,13 +458,13 @@ Material:
     - _RimLight_FeatherOff: 0
     - _RimLight_InsideMask: 0.0001
     - _RimLight_Power: 0.1
-    - _RimStep: 0.5
+    - _RimStep: 0
     - _Rotate_EmissiveUV: 0
     - _Rotate_MatCapUV: 0
     - _Rotate_NormalMapForMatCapUV: 0
     - _SPRDefaultUnlitColorMask: 15
     - _SRPDefaultUnlitColMode: 1
-    - _SSAOStrength: 0
+    - _SSAOStrength: 1
     - _SSRefractionProjectionModel: 0
     - _Scroll_EmissiveU: 0
     - _Scroll_EmissiveV: 0
@@ -482,7 +473,7 @@ Material:
     - _Set_SystemShadowsToBase: 1
     - _ShadeColor_Step: 0.702
     - _Shadow1Feather: 0.529
-    - _Shadow1Step: 0.617
+    - _Shadow1Step: 0.644
     - _Shadow2Feather: 0.233
     - _Shadow2Step: 0.488
     - _ShadowType: 0
@@ -577,7 +568,7 @@ Material:
     - _AngelRingMaskColor: {r: 0, g: 1, b: 0, a: 1}
     - _AngelRing_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColor: {r: 0.99607843, g: 0.3882353, b: 0.7647059, a: 1}
+    - _BaseColor: {r: 1, g: 0, b: 0.6196079, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 0.39056596, b: 0.73360044, a: 1}
@@ -602,8 +593,8 @@ Material:
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimLightMaskColor: {r: 1, g: 0, b: 1, a: 1}
     - _SecondShadeMaskColor: {r: 0, g: 0, b: 1, a: 1}
-    - _Shadow1Color: {r: 0.7433963, g: 0, b: 0.0042097922, a: 0.5}
-    - _Shadow2Color: {r: 0.5849056, g: 0.08210639, b: 0, a: 0}
+    - _Shadow1Color: {r: 0.5698112, g: 0, b: 0.46040753, a: 0.5}
+    - _Shadow2Color: {r: 0.36887395, g: 0, b: 0.3886792, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _ThicknessRemap: {r: 0, g: 1, b: 0, a: 0}
