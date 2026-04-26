@@ -568,7 +568,7 @@ Material:
     - _AngelRingMaskColor: {r: 0, g: 1, b: 0, a: 1}
     - _AngelRing_Color: {r: 1, g: 1, b: 1, a: 1}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseColor: {r: 1, g: 0, b: 0.6196079, a: 1}
+    - _BaseColor: {r: 0.990566, g: 0.4438857, b: 0.83339524, a: 1}
     - _BaseColorMap_MipInfo: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColorMaskColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 0.39056596, b: 0.73360044, a: 1}
